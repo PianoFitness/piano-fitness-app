@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://qnn08ykran7h"]
+[gd_scene load_steps=3 format=3 uid="uid://qnn08ykran7h"]
 
 [ext_resource type="Script" path="res://scenes/metronome.gd" id="1_m4k2l"]
+[ext_resource type="Texture2D" uid="uid://dfe64iy37i1al" path="res://assets/images/metronome.svg" id="2_y7314"]
 
 [node name="Metronome" type="Control"]
 layout_mode = 3
@@ -30,6 +31,19 @@ theme_override_constants/margin_bottom = 16
 [node name="VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBox/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBox/CenterContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_y7314")
+stretch_mode = 4
 
 [node name="TopRow" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBox"]
 layout_mode = 2

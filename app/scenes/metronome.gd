@@ -22,8 +22,8 @@ const COLORS = {
 
 const DEFAULT_SETTINGS = {
 	"bpm": 120.0,
-	"volume_db": -6.0,
-	"sound": "digital"
+	"volume_db": - 6.0,
+	"sound": "wood"
 }
 
 var sound_players: Dictionary = {}
