@@ -5,35 +5,70 @@ signal beat_played(beat_number: int)
 const MIN_BPM = 40
 const MAX_BPM = 208
 const SECONDS_PER_MINUTE = 60.0
+const BEATS_PER_BAR = 4
 
-var bpm: float = 120.0
-var is_playing: bool = false
-var current_beat: int = 0
-var time_since_last_beat: float = 0.0
-var beat_interval: float
-var volume_db: float = -6.0
-var current_sound: String = "digital"
+const SOUNDS = {
+	"bell": preload("res://assets/sound/bell.wav"),
+	"click": preload("res://assets/sound/click.wav"),
+	"digital": preload("res://assets/sound/digital.wav"),
+	"wood": preload("res://assets/sound/wood.wav")
+}
+
+const COLORS = {
+	"accent": Color(0.4, 0.7, 1.0),
+	"normal": Color(0.3, 0.5, 0.8),
+	"inactive": Color(0.2, 0.2, 0.2)
+}
+
+const DEFAULT_SETTINGS = {
+	"bpm": 120.0,
+	"volume_db": -6.0,
+	"sound": "digital"
+}
 
 var sound_players: Dictionary = {}
+var is_playing: bool = false
+var current_beat: int = -1
+var time_since_last_beat: float = 0.0
+var beat_interval: float
+var bpm: float = DEFAULT_SETTINGS.bpm
+var volume_db: float = DEFAULT_SETTINGS.volume_db
+var current_sound: String = DEFAULT_SETTINGS.sound
+
+@onready var ui = {
+	"play_button": %PlayButton,
+	"sound_option": %SoundOption,
+	"tempo_slider": %TempoSlider,
+	"tempo_label": %TempoLabel,
+	"volume_slider": %VolumeSlider,
+	"beat_indicator": %BeatIndicator
+}
 
 func _ready():
-	update_beat_interval()
 	setup_sound_players()
-	connect_signals()
+	setup_ui()
+	update_beat_interval()
 
 func setup_sound_players():
-	var players_node = $AudioPlayers
-	for child in players_node.get_children():
-		var sound_name = child.name.to_lower().replace("player", "")
-		sound_players[sound_name] = child
+	for sound_name in SOUNDS:
+		var player = AudioStreamPlayer.new()
+		player.stream = SOUNDS[sound_name]
+		player.bus = "Metronome"
+		$AudioPlayers.add_child(player)
+		sound_players[sound_name] = player
 
-func connect_signals():
-	var ui_root = $MarginContainer/VBox
+func setup_ui():
+	ui.play_button.pressed.connect(_on_play_button_pressed)
+	ui.sound_option.item_selected.connect(_on_sound_selected)
+	ui.tempo_slider.value_changed.connect(_on_tempo_changed)
+	ui.volume_slider.value_changed.connect(_on_volume_changed)
 	
-	ui_root.get_node("TopRow/PlayButton").pressed.connect(_on_play_button_pressed)
-	ui_root.get_node("TopRow/SoundOption").item_selected.connect(_on_sound_selected)
-	ui_root.get_node("TempoContainer/TempoSlider").value_changed.connect(_on_tempo_changed)
-	ui_root.get_node("VolumeContainer/VolumeSlider").value_changed.connect(_on_volume_changed)
+	for sound_name in SOUNDS.keys():
+		ui.sound_option.add_item(sound_name.capitalize())
+	
+	ui.sound_option.selected = SOUNDS.keys().find(DEFAULT_SETTINGS.sound)
+	ui.tempo_slider.value = DEFAULT_SETTINGS.bpm
+	ui.volume_slider.value = DEFAULT_SETTINGS.volume_db
 
 func _process(delta):
 	if is_playing:
@@ -46,32 +81,31 @@ func update_beat_interval():
 	beat_interval = SECONDS_PER_MINUTE / bpm
 
 func play_beat():
-	current_beat = (current_beat + 1) % 4
+	current_beat = (current_beat + 1) % BEATS_PER_BAR
 	var player = sound_players[current_sound]
 	player.volume_db = volume_db
 	player.play()
-	emit_signal("beat_played", current_beat)
 	
-	var indicator = $MarginContainer/VBox/TopRow/BeatIndicator
-	indicator.color = Color(0.4, 0.7, 1.0) if current_beat == 0 else Color(0.3, 0.5, 0.8)
-	create_tween().tween_property(indicator, "color", Color(0.2, 0.2, 0.2), 0.1)
+	ui.beat_indicator.color = COLORS.accent if current_beat == 0 else COLORS.normal
+	create_tween().tween_property(ui.beat_indicator, "color", COLORS.inactive, 0.1)
+	
+	emit_signal("beat_played", current_beat)
 
 func _on_play_button_pressed():
 	if is_playing:
 		stop()
-		$MarginContainer/VBox/TopRow/PlayButton.text = "Play"
+		ui.play_button.text = "Play"
 	else:
 		start()
-		$MarginContainer/VBox/TopRow/PlayButton.text = "Stop"
+		ui.play_button.text = "Stop"
 
 func _on_sound_selected(idx: int):
-	var sounds = ["bell", "click", "digital", "wood"]
-	current_sound = sounds[idx]
+	current_sound = SOUNDS.keys()[idx]
 
 func _on_tempo_changed(value: float):
 	bpm = value
 	update_beat_interval()
-	$MarginContainer/VBox/TempoContainer/TempoLabel.text = str(int(value))
+	ui.tempo_label.text = str(int(value))
 
 func _on_volume_changed(value: float):
 	volume_db = value

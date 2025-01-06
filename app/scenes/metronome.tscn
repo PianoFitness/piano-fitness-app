@@ -1,100 +1,94 @@
-[gd_scene load_steps=6 format=3 uid="uid://qnn08ykran7h"]
+[gd_scene load_steps=2 format=3 uid="uid://qnn08ykran7h"]
 
 [ext_resource type="Script" path="res://scenes/metronome.gd" id="1_m4k2l"]
-[ext_resource type="AudioStream" uid="uid://crqqgnqeton06" path="res://assets/sound/wood.wav" id="2_0o34l"]
-[ext_resource type="AudioStream" uid="uid://7imd0reh7i2h" path="res://assets/sound/click.wav" id="2_8uprq"]
-[ext_resource type="AudioStream" uid="uid://p5vc1at61fw6" path="res://assets/sound/bell.wav" id="3_eh2d5"]
-[ext_resource type="AudioStream" uid="uid://ch513gii8byda" path="res://assets/sound/digital.wav" id="4_yj8u2"]
 
 [node name="Metronome" type="PanelContainer"]
-anchors_preset = 2
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -140.0
-offset_right = 200.0
-offset_bottom = -40.0
+offset_left = -400.0
+offset_top = -250.0
+grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_m4k2l")
 
 [node name="AudioPlayers" type="Node" parent="."]
 
-[node name="BellPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("3_eh2d5")
-bus = &"Metronome"
-
-[node name="ClickPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("2_8uprq")
-bus = &"Metronome"
-
-[node name="DigitalPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("4_yj8u2")
-bus = &"Metronome"
-
-[node name="WoodPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("2_0o34l")
-bus = &"Metronome"
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="VBox" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 16
 
 [node name="TopRow" type="HBoxContainer" parent="MarginContainer/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBox/TopRow"]
-custom_minimum_size = Vector2(60, 0)
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Play"
 
 [node name="BeatIndicator" type="ColorRect" parent="MarginContainer/VBox/TopRow"]
-custom_minimum_size = Vector2(16, 16)
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="SoundOption" type="OptionButton" parent="MarginContainer/VBox/TopRow"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-item_count = 4
-popup/item_0/text = "Bell"
-popup/item_0/id = 1
-popup/item_1/text = "Click"
-popup/item_2/text = "Digital"
-popup/item_2/id = 3
-popup/item_3/text = "Wood"
-popup/item_3/id = 2
+theme_override_font_sizes/font_size = 20
 
-[node name="TempoContainer" type="HBoxContainer" parent="MarginContainer/VBox"]
+[node name="TempoControls" type="VBoxContainer" parent="MarginContainer/VBox"]
 layout_mode = 2
 
-[node name="TempoSlider" type="HSlider" parent="MarginContainer/VBox/TempoContainer"]
+[node name="TempoButtons" type="HBoxContainer" parent="MarginContainer/VBox/TempoControls"]
+layout_mode = 2
+alignment = 1
+
+[node name="TempoLabel" type="Label" parent="MarginContainer/VBox/TempoControls/TempoButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "120"
+horizontal_alignment = 1
+
+[node name="TempoSlider" type="HSlider" parent="MarginContainer/VBox/TempoControls"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/grabber_offset = 0
 min_value = 40.0
 max_value = 208.0
 value = 120.0
 
-[node name="TempoLabel" type="Label" parent="MarginContainer/VBox/TempoContainer"]
-layout_mode = 2
-text = "120"
-
 [node name="VolumeContainer" type="HBoxContainer" parent="MarginContainer/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="VolumeIcon" type="TextureRect" parent="MarginContainer/VBox/VolumeContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 2
 
 [node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBox/VolumeContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 min_value = -40.0
 max_value = 0.0
 value = -6.0
-
-[node name="VolumeIcon" type="TextureRect" parent="MarginContainer/VBox/VolumeContainer"]
-layout_mode = 2
-expand_mode = 2
