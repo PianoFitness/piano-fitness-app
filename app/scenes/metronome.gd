@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Control
 
 signal beat_played(beat_number: int)
 
