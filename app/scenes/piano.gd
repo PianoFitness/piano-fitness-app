@@ -33,6 +33,8 @@ var black_keys = {}
 var active_notes = {}
 var viewport_size: Vector2
 
+@onready var note_display = $NoteDisplay
+
 func _ready():
 	viewport_size = get_viewport_rect().size
 	position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
@@ -97,3 +99,6 @@ func highlight_key(note, is_active):
 	var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
 	if key:
 		key.color = (ACTIVE_WHITE_KEY_COLOR if note in white_keys else ACTIVE_BLACK_KEY_COLOR) if is_active else (INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR)
+		
+		# Delegate note display update to NoteDisplay node
+		note_display.update_note_state(note, is_active)

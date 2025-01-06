@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://deocrbvduwvbf"]
+[gd_scene load_steps=3 format=3 uid="uid://deocrbvduwvbf"]
 
 [ext_resource type="Script" path="res://scenes/piano.gd" id="1_16djv"]
+[ext_resource type="Script" path="res://scenes/note_display.gd" id="2_4lvi2"]
 
 [node name="Piano" type="Node2D"]
 script = ExtResource("1_16djv")
+
+[node name="NoteDisplay" type="RichTextLabel" parent="."]
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 400.0
+script = ExtResource("2_4lvi2")
