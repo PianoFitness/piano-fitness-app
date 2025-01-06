@@ -1,43 +1,40 @@
-extends Node2D
+extends Control
 
 # Piano physical layout constants
-const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys
+const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11]
 const BLACK_KEY_POSITIONS = [
-	{"offset": 0.9, "note": 1}, # C#/Db
-	{"offset": 2.0, "note": 3}, # D#/Eb
-	{"offset": 3.8, "note": 6}, # F#/Gb
-	{"offset": 4.95, "note": 8}, # G#/Ab
-	{"offset": 6.1, "note": 10} # A#/Bb
+	{"offset": 0.9, "note": 1},
+	{"offset": 2.0, "note": 3},
+	{"offset": 3.8, "note": 6},
+	{"offset": 4.95, "note": 8},
+	{"offset": 6.1, "note": 10}
 ]
 
-# Piano dimensional ratios
-const WHITE_KEY_HEIGHT_RATIO = 0.3 # Height of white keys relative to viewport
-const BLACK_KEY_WIDTH_RATIO = 0.7 # Width of black keys relative to white keys
-const BLACK_KEY_HEIGHT_RATIO = 0.65 # Height of black keys relative to white keys
+const WHITE_KEY_HEIGHT_RATIO = 0.3
+const BLACK_KEY_WIDTH_RATIO = 0.7
+const BLACK_KEY_HEIGHT_RATIO = 0.65
 
-# Piano musical constants
-const KEYS_PER_OCTAVE = 12 # Semitones per octave
-const WHITE_KEYS_PER_OCTAVE = 7 # White keys per octave
-const STARTING_MIDI_NOTE = 24 # Starting MIDI note (C1)
-const OCTAVE_COUNT = 7 # Number of octaves to display
+const KEYS_PER_OCTAVE = 12
+const WHITE_KEYS_PER_OCTAVE = 7
+const STARTING_MIDI_NOTE = 24
+const OCTAVE_COUNT = 7
 
-# Visual feedback colors
 const ACTIVE_WHITE_KEY_COLOR = Color(0.8, 0.8, 1.0)
 const ACTIVE_BLACK_KEY_COLOR = Color(0.3, 0.3, 0.5)
 const INACTIVE_WHITE_KEY_COLOR = Color.WHITE
 const INACTIVE_BLACK_KEY_COLOR = Color.BLACK
 
-# Instance variables
 var white_keys = {}
 var black_keys = {}
 var active_notes = {}
 var viewport_size: Vector2
 
 @onready var note_display = $NoteDisplay
+@onready var piano_keys = $PianoKeys
 
 func _ready():
 	viewport_size = get_viewport_rect().size
-	position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
+	piano_keys.position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
 	create_piano_keys()
 	OS.open_midi_inputs()
 	
@@ -74,7 +71,7 @@ func create_piano_keys():
 			border.default_color = INACTIVE_BLACK_KEY_COLOR
 			white_key.add_child(border)
 			
-			add_child(white_key)
+			piano_keys.add_child(white_key)
 			white_keys[base_note + WHITE_KEY_OFFSETS[i]] = white_key
 		
 		# Black keys
@@ -86,7 +83,7 @@ func create_piano_keys():
 				0
 			)
 			black_key.color = INACTIVE_BLACK_KEY_COLOR
-			add_child(black_key)
+			piano_keys.add_child(black_key)
 			black_keys[base_note + data.note] = black_key
 
 func handle_midi_event(event: InputEventMIDI):
@@ -99,6 +96,4 @@ func highlight_key(note, is_active):
 	var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
 	if key:
 		key.color = (ACTIVE_WHITE_KEY_COLOR if note in white_keys else ACTIVE_BLACK_KEY_COLOR) if is_active else (INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR)
-		
-		# Delegate note display update to NoteDisplay node
 		note_display.update_note_state(note, is_active)
