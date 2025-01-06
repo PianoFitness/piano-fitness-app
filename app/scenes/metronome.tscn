@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://qnn08ykran7h"]
+
+[ext_resource type="Script" path="res://scenes/metronome.gd" id="1_m4k2l"]
+[ext_resource type="Texture2D" uid="uid://dfe64iy37i1al" path="res://assets/images/metronome.svg" id="2_y7314"]
+
+[node name="Metronome" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -400.0
+offset_bottom = 250.0
+grow_horizontal = 0
+script = ExtResource("1_m4k2l")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBox/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBox/CenterContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_y7314")
+stretch_mode = 4
+
+[node name="TopRow" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayButton" type="Button" parent="PanelContainer/MarginContainer/VBox/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Play"
+
+[node name="BeatIndicator" type="ColorRect" parent="PanelContainer/MarginContainer/VBox/TopRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 6
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="SoundOption" type="OptionButton" parent="PanelContainer/MarginContainer/VBox/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+
+[node name="TempoControls" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="TempoButtons" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBox/TempoControls"]
+layout_mode = 2
+alignment = 1
+
+[node name="TempoLabel" type="Label" parent="PanelContainer/MarginContainer/VBox/TempoControls/TempoButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "120"
+horizontal_alignment = 1
+
+[node name="TempoSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBox/TempoControls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/grabber_offset = 0
+min_value = 40.0
+max_value = 208.0
+value = 120.0
+
+[node name="VolumeContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="VolumeIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBox/VolumeContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 2
+
+[node name="VolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBox/VolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = -40.0
+max_value = 0.0
+value = -6.0
+
+[node name="AudioPlayers" type="Node" parent="."]

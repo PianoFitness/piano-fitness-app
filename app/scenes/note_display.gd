@@ -51,4 +51,4 @@ func update_note_state(note: int, is_active: bool) -> void:
 	else:
 		# Create display text using sorted note names
 		var display_names = active_notes.map(func(info): return info.display_name)
-		text = "[b]Playing:[/b] " + " [color=gray]•[/color] ".join(display_names)
+		text = "Playing: " + " [color=gray]•[/color] ".join(display_names)

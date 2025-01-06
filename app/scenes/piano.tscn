@@ -1,13 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://deocrbvduwvbf"]
+[gd_scene load_steps=4 format=3 uid="uid://deocrbvduwvbf"]
 
 [ext_resource type="Script" path="res://scenes/piano.gd" id="1_16djv"]
 [ext_resource type="Script" path="res://scenes/note_display.gd" id="2_4lvi2"]
+[ext_resource type="PackedScene" uid="uid://qnn08ykran7h" path="res://scenes/metronome.tscn" id="3_m4k2l"]
 
-[node name="Piano" type="Node2D"]
+[node name="Piano" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_16djv")
 
 [node name="NoteDisplay" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_left = 10.0
-offset_top = -50.0
-offset_right = 400.0
+offset_top = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
 script = ExtResource("2_4lvi2")
+
+[node name="PianoKeys" type="Node2D" parent="."]
+position = Vector2(0, 100)
+
+[node name="CanvasLayer#Metronome" parent="." instance=ExtResource("3_m4k2l")]
+layout_mode = 1
