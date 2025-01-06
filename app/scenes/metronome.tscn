@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://qnn08ykran7h"]
+[gd_scene load_steps=6 format=3 uid="uid://qnn08ykran7h"]
 
 [ext_resource type="Script" path="res://scenes/metronome.gd" id="1_m4k2l"]
 [ext_resource type="AudioStream" uid="uid://crqqgnqeton06" path="res://assets/sound/wood.wav" id="2_0o34l"]
+[ext_resource type="AudioStream" uid="uid://7imd0reh7i2h" path="res://assets/sound/click.wav" id="2_8uprq"]
+[ext_resource type="AudioStream" uid="uid://p5vc1at61fw6" path="res://assets/sound/bell.wav" id="3_eh2d5"]
+[ext_resource type="AudioStream" uid="uid://ch513gii8byda" path="res://assets/sound/digital.wav" id="4_yj8u2"]
 
 [node name="Metronome" type="PanelContainer"]
 anchors_preset = 2
@@ -15,19 +18,19 @@ script = ExtResource("1_m4k2l")
 
 [node name="AudioPlayers" type="Node" parent="."]
 
-[node name="ClickPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("2_0o34l")
-bus = &"Metronome"
-
 [node name="BellPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("2_0o34l")
+stream = ExtResource("3_eh2d5")
 bus = &"Metronome"
 
-[node name="WoodPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("2_0o34l")
+[node name="ClickPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("2_8uprq")
 bus = &"Metronome"
 
 [node name="DigitalPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("4_yj8u2")
+bus = &"Metronome"
+
+[node name="WoodPlayer" type="AudioStreamPlayer" parent="AudioPlayers"]
 stream = ExtResource("2_0o34l")
 bus = &"Metronome"
 
@@ -60,13 +63,13 @@ color = Color(0.2, 0.2, 0.2, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 item_count = 4
-popup/item_0/text = "Click"
-popup/item_1/text = "Bell"
-popup/item_1/id = 1
-popup/item_2/text = "Wood"
-popup/item_2/id = 2
-popup/item_3/text = "Digital"
-popup/item_3/id = 3
+popup/item_0/text = "Bell"
+popup/item_0/id = 1
+popup/item_1/text = "Click"
+popup/item_2/text = "Digital"
+popup/item_2/id = 3
+popup/item_3/text = "Wood"
+popup/item_3/id = 2
 
 [node name="TempoContainer" type="HBoxContainer" parent="MarginContainer/VBox"]
 layout_mode = 2

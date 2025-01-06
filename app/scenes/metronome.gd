@@ -12,7 +12,7 @@ var current_beat: int = 0
 var time_since_last_beat: float = 0.0
 var beat_interval: float
 var volume_db: float = -6.0
-var current_sound: String = "click"
+var current_sound: String = "digital"
 
 var sound_players: Dictionary = {}
 
@@ -65,7 +65,7 @@ func _on_play_button_pressed():
 		$MarginContainer/VBox/TopRow/PlayButton.text = "Stop"
 
 func _on_sound_selected(idx: int):
-	var sounds = ["click", "bell", "wood", "digital"]
+	var sounds = ["bell", "click", "digital", "wood"]
 	current_sound = sounds[idx]
 
 func _on_tempo_changed(value: float):
