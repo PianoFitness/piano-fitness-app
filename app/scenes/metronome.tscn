@@ -56,13 +56,6 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="MinusButton" type="Button" parent="PanelContainer/MarginContainer/VBox/TempoControls/TempoButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "-"
-
 [node name="TempoLabel" type="Label" parent="PanelContainer/MarginContainer/VBox/TempoControls/TempoButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 0)
@@ -70,13 +63,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "120"
 horizontal_alignment = 1
-
-[node name="PlusButton" type="Button" parent="PanelContainer/MarginContainer/VBox/TempoControls/TempoButtons"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "+"
 
 [node name="TempoSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBox/TempoControls"]
 unique_name_in_owner = true
