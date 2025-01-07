@@ -121,10 +121,27 @@ func create_piano_keys():
 			black_keys[base_note + data.note] = black_key
 
 func handle_midi_event(event: InputEventMIDI):
-	if event.message == MIDI_MESSAGE_NOTE_ON:
-		highlight_key(event.pitch, event.velocity > 0)
-	elif event.message == MIDI_MESSAGE_NOTE_OFF:
-		highlight_key(event.pitch, false)
+	if event.message == MIDI_MESSAGE_NOTE_ON and event.velocity > 0:
+		var note = event.pitch
+		var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
+		if key:
+			# Show the student's input
+			key.color = STUDENT_COLOR
+			
+			# Validate and advance if correct
+			if sequence_manager and sequence_manager.validate_input(note):
+				sequence_manager.advance_sequence()
+			
+	elif event.message == MIDI_MESSAGE_NOTE_OFF or (event.message == MIDI_MESSAGE_NOTE_ON and event.velocity == 0):
+		var note = event.pitch
+		var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
+		if key:
+			# Check if this is the current lesson note
+			var current_note = get_current_lesson_note()
+			if current_note and note_name_to_midi(current_note) == note:
+				key.color = LESSON_COLOR
+			else:
+				key.color = INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
 
 func highlight_key(note, is_active):
 	var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
@@ -192,6 +209,7 @@ func create_c_major_scale() -> PracticeSequence:
 	sequence.exercise_type = "scale"
 	
 	# Right hand ascending C Major scale with correct fingering
+	# Format: [note_name, finger_number]
 	var scale_notes = [
 		["C4", 1],  # Thumb
 		["D4", 2],  # Index
@@ -203,8 +221,12 @@ func create_c_major_scale() -> PracticeSequence:
 		["C5", 5]   # Pinky
 	]
 	
+	# Create a new sequence with the correct progression
 	for note_data in scale_notes:
-		sequence.add_position([PianoNote.new(note_data[0], "R", note_data[1])])
+		var note = PianoNote.new(note_data[0], "R", note_data[1])
+		sequence.add_position([note])
+	
+	return sequence
 	
 	return sequence
 

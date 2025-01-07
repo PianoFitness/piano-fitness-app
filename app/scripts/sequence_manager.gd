@@ -24,15 +24,24 @@ func set_sequence(sequence: PracticeSequence):
 	highlight_current_note()
 
 func advance_sequence():
+	if not current_sequence:
+		return
+		
 	unhighlight_current_note()
+	
+	# Only advance if we haven't reached the end
 	if current_position < current_sequence.sequence.size() - 1:
 		current_position += 1
-		emit_signal("sequence_updated", current_position)
+		print("Advanced to position: ", current_position)
+		var current_notes = current_sequence.sequence[current_position]
+		print("Next note: ", current_notes[0].pitch, " Finger: ", current_notes[0].finger)
+		
 		update_display()
 		highlight_current_note()
 	else:
+		# Reset for new iteration
+		print("Sequence completed, resetting")
 		emit_signal("sequence_completed")
-		# Reset for repetition
 		current_position = 0
 		update_display()
 		highlight_current_note()
@@ -40,14 +49,16 @@ func advance_sequence():
 func validate_input(midi_note: int) -> bool:
 	if not current_sequence or current_position >= current_sequence.sequence.size():
 		return false
-		
+	
 	var current_notes = current_sequence.sequence[current_position]
 	for expected_note in current_notes:
 		var expected_midi = piano_node.note_name_to_midi(expected_note.pitch)
 		if expected_midi == midi_note:
-			emit_signal("note_validated", true)
+			print("Validating note: ", piano_node.midi_to_note_name(midi_note))
+			print("Current position: ", current_position)
 			return true
 	return false
+
 
 func update_display():
 	finger_display.clear_indicators()
@@ -69,4 +80,7 @@ func unhighlight_current_note():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			piano_node.highlight_lesson_note(note.pitch)
+			var midi_note = piano_node.note_name_to_midi(note.pitch)
+			var key = piano_node.white_keys.get(midi_note) if midi_note in piano_node.white_keys else piano_node.black_keys.get(midi_note)
+			if key:
+				key.color = piano_node.INACTIVE_WHITE_KEY_COLOR if midi_note in piano_node.white_keys else piano_node.INACTIVE_BLACK_KEY_COLOR
