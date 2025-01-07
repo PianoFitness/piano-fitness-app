@@ -77,8 +77,6 @@ func setup_fingering_system():
 		return
 	
 	sequence_manager.initialize(self, finger_display)
-	sequence_manager.note_validated.connect(_on_note_validated)
-	sequence_manager.sequence_completed.connect(_on_sequence_completed)
 	
 	var c_major = create_c_major_chord_inversions()
 	sequence_manager.set_sequence(c_major)
@@ -227,12 +225,6 @@ func midi_to_note_name(midi_note: int) -> String:
 	var octave = (midi_note - STARTING_MIDI_NOTE) / KEYS_PER_OCTAVE
 	var note_index = (midi_note - STARTING_MIDI_NOTE) % KEYS_PER_OCTAVE
 	return NOTE_NAMES[note_index] + str(octave)
-
-func _on_note_validated(success: bool):
-	pass
-
-func _on_sequence_completed():
-	print("Sequence completed successfully!")
 
 # Exercise creation methods
 func create_c_major_scale() -> PracticeSequence:
