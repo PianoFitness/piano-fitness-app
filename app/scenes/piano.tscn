@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://deocrbvduwvbf"]
+[gd_scene load_steps=6 format=3 uid="uid://deocrbvduwvbf"]
 
-[ext_resource type="Script" path="res://scenes/piano.gd" id="1_16djv"]
-[ext_resource type="Script" path="res://scenes/note_display.gd" id="2_4lvi2"]
+[ext_resource type="Script" path="res://scripts/piano.gd" id="1_16djv"]
+[ext_resource type="Script" path="res://scripts/note_display.gd" id="2_4lvi2"]
 [ext_resource type="PackedScene" uid="uid://qnn08ykran7h" path="res://scenes/metronome.tscn" id="3_m4k2l"]
+[ext_resource type="Script" path="res://scripts/finger_display.gd" id="4_k3m9p"]
+[ext_resource type="Script" path="res://scripts/sequence_manager.gd" id="5_r2n4b"]
 
 [node name="Piano" type="Control"]
 layout_mode = 3
@@ -25,6 +27,13 @@ script = ExtResource("2_4lvi2")
 
 [node name="PianoKeys" type="Node2D" parent="."]
 position = Vector2(0, 100)
+
+[node name="FingerDisplay" type="Node2D" parent="PianoKeys"]
+position = Vector2(0, -100)
+script = ExtResource("4_k3m9p")
+
+[node name="SequenceManager" type="Node" parent="."]
+script = ExtResource("5_r2n4b")
 
 [node name="CanvasLayer#Metronome" parent="." instance=ExtResource("3_m4k2l")]
 layout_mode = 1
