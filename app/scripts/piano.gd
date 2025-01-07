@@ -29,12 +29,18 @@ const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0)  # Light blue for played note
 # Note name conversion constants
 const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
+# Chord collection constants
+const CHORD_COLLECTION_WINDOW: float = 0.1  # 100ms window to collect chord notes
+
+# State variables
 var white_keys = {}
 var black_keys = {}
 var active_notes = {}
 var viewport_size: Vector2
+var current_chord_notes: Array[int] = []
+var chord_collection_timer: float = 0.0
 
-# New instance variables for fingering system
+# Node references
 var sequence_manager: SequenceManager
 var finger_display: FingerDisplay
 
@@ -48,29 +54,35 @@ func _ready():
 	setup_fingering_system()
 	OS.open_midi_inputs()
 
+
+func _process(delta: float):
+	if chord_collection_timer > 0:
+		chord_collection_timer -= delta
+		if chord_collection_timer <= 0:
+			# Time window expired, validate the collected chord
+			if sequence_manager and current_chord_notes.size() > 0:
+				if sequence_manager.validate_input(current_chord_notes):
+					sequence_manager.advance_sequence()
+			current_chord_notes.clear()
+
 func setup_fingering_system():
-	# Get FingerDisplay node using correct path
 	finger_display = $PianoKeys/FingerDisplay
 	if not finger_display:
 		push_error("FingerDisplay node not found in scene (should be at PianoKeys/FingerDisplay)")
 		return
 	
-	# Get SequenceManager node
 	sequence_manager = $SequenceManager
 	if not sequence_manager:
 		push_error("SequenceManager node not found in scene")
 		return
 	
-	# Initialize SequenceManager with references
 	sequence_manager.initialize(self, finger_display)
-	
-	# Connect signals
 	sequence_manager.note_validated.connect(_on_note_validated)
 	sequence_manager.sequence_completed.connect(_on_sequence_completed)
 	
-	# Load initial exercise (for testing)
 	var c_major = create_c_major_chord_inversions()
 	sequence_manager.set_sequence(c_major)
+
 	
 func _input(event):
 	if event is InputEventMIDI:
@@ -125,12 +137,17 @@ func handle_midi_event(event: InputEventMIDI):
 		var note = event.pitch
 		var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
 		if key:
-			# Show the student's input
 			key.color = STUDENT_COLOR
+			# Add note to current chord and start/refresh collection timer
+			if not current_chord_notes.has(note):
+				current_chord_notes.append(note)
+			chord_collection_timer = CHORD_COLLECTION_WINDOW
 			
-			# Validate and advance if correct
-			if sequence_manager and sequence_manager.validate_input(note):
-				sequence_manager.advance_sequence()
+	elif event.message == MIDI_MESSAGE_NOTE_OFF or (event.message == MIDI_MESSAGE_NOTE_ON and event.velocity == 0):
+		var note = event.pitch
+		var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
+		if key:
+			reset_key_color(key, note)
 			
 	elif event.message == MIDI_MESSAGE_NOTE_OFF or (event.message == MIDI_MESSAGE_NOTE_ON and event.velocity == 0):
 		var note = event.pitch
@@ -142,6 +159,21 @@ func handle_midi_event(event: InputEventMIDI):
 				key.color = LESSON_COLOR
 			else:
 				key.color = INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
+
+func reset_key_color(key: ColorRect, note: int):
+	var current_notes = get_current_lesson_notes()
+	if current_notes.has(note):
+		key.color = LESSON_COLOR
+	else:
+		key.color = INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
+
+func get_current_lesson_notes() -> Array[int]:
+	var notes: Array[int] = []
+	if sequence_manager and sequence_manager.current_sequence:
+		var current_chord = sequence_manager.current_sequence.sequence[sequence_manager.current_position]
+		for note in current_chord:
+			notes.append(note_name_to_midi(note.pitch))
+	return notes
 
 func highlight_key(note, is_active):
 	var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
@@ -197,8 +229,7 @@ func midi_to_note_name(midi_note: int) -> String:
 	return NOTE_NAMES[note_index] + str(octave)
 
 func _on_note_validated(success: bool):
-	if success:
-		sequence_manager.advance_sequence()
+	pass
 
 func _on_sequence_completed():
 	print("Sequence completed successfully!")
