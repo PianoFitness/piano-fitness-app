@@ -61,8 +61,6 @@ func validate_input(midi_note: int) -> bool:
 
 
 func update_display():
-	finger_display.clear_indicators()
-	
 	# Only show current position
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]

@@ -69,7 +69,7 @@ func setup_fingering_system():
 	sequence_manager.sequence_completed.connect(_on_sequence_completed)
 	
 	# Load initial exercise (for testing)
-	var c_major = create_c_major_scale()
+	var c_major = create_c_major_chord()
 	sequence_manager.set_sequence(c_major)
 	
 func _input(event):
