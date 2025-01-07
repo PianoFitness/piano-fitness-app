@@ -69,7 +69,7 @@ func setup_fingering_system():
 	sequence_manager.sequence_completed.connect(_on_sequence_completed)
 	
 	# Load initial exercise (for testing)
-	var c_major = create_c_major_chord()
+	var c_major = create_c_major_chord_inversions()
 	sequence_manager.set_sequence(c_major)
 	
 func _input(event):
@@ -230,24 +230,36 @@ func create_c_major_scale() -> PracticeSequence:
 	
 	return sequence
 
-func create_c_major_chord() -> PracticeSequence:
+func create_c_major_chord_inversions() -> PracticeSequence:
 	var sequence = PracticeSequence.new()
-	sequence.exercise_type = "chord"
+	sequence.exercise_type = "chord_inversions"
 	
-	# Create a single position with multiple notes for the chord
+	# Root position: C4(1) - E4(3) - G4(5)
 	sequence.add_position([
-		PianoNote.new("C4", "R", 1),
-		PianoNote.new("E4", "R", 3),
-		PianoNote.new("G4", "R", 5)
+		PianoNote.new("C4", "R", 1),  # Root - thumb
+		PianoNote.new("E4", "R", 3),  # Third - middle finger
+		PianoNote.new("G4", "R", 5)   # Fifth - pinky
+	])
+	
+	# First inversion: E4(1) - G4(2) - C5(5)
+	sequence.add_position([
+		PianoNote.new("E4", "R", 1),  # Third - thumb
+		PianoNote.new("G4", "R", 2),  # Fifth - index finger
+		PianoNote.new("C5", "R", 5)   # Root - pinky
+	])
+	
+	# Second inversion: G4(1) - C5(3) - E5(5)
+	sequence.add_position([
+		PianoNote.new("G4", "R", 1),  # Fifth - thumb
+		PianoNote.new("C5", "R", 3),  # Root - middle finger
+		PianoNote.new("E5", "R", 5)   # Third - pinky
+	])
+	
+	# Root position octave up: C5(1) - E5(3) - G5(5)
+	sequence.add_position([
+		PianoNote.new("C5", "R", 1),  # Root - thumb
+		PianoNote.new("E5", "R", 3),  # Third - middle finger
+		PianoNote.new("G5", "R", 5)   # Fifth - pinky
 	])
 	
 	return sequence
-
-func set_exercise(exercise_type: String):
-	match exercise_type:
-		"c_major_scale":
-			sequence_manager.set_sequence(create_c_major_scale())
-		"c_major_chord":
-			sequence_manager.set_sequence(create_c_major_chord())
-		_:
-			push_error("Unknown exercise type: " + exercise_type)
