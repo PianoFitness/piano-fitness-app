@@ -7,6 +7,22 @@ const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)
 const BACKGROUND_COLOR = Color(0.1, 0.1, 0.1, 1.0)
 const BACKGROUND_HEIGHT = 40
 
+# Adjustment dictionary for x-position offsets (in pixels)
+const KEY_ADJUSTMENTS = {
+	"C": -2,   # Slight left adjustment for C
+	"D": -3,   # More left adjustment for D
+	"E": -2,   # Slight left adjustment for E
+	"F": -2,   # Slight left adjustment for F
+	"G": -3,   # More left adjustment for G
+	"A": -3,   # More left adjustment for A
+	"B": -2,   # Slight left adjustment for B
+	"C#": -4,  # Black keys need larger adjustments
+	"D#": -4,
+	"F#": -4,
+	"G#": -4,
+	"A#": -4
+}
+
 var current_indicators: Array = []
 var background_rect: ColorRect
 var font: Font
@@ -18,12 +34,11 @@ func _ready():
 func setup_background():
 	background_rect = ColorRect.new()
 	background_rect.color = BACKGROUND_COLOR
+	background_rect.z_index = -1  # Ensure background is drawn behind indicators
 	add_child(background_rect)
 	
-	# Ensure background is drawn behind indicators
-	background_rect.z_index = -1
-	
-	call_deferred("update_background_size")
+	# Initialize the background size
+	update_background_size()
 
 func _process(_delta):
 	update_background_size()
@@ -32,7 +47,6 @@ func update_background_size():
 	if background_rect:
 		var viewport_size = get_viewport_rect().size
 		background_rect.size = Vector2(viewport_size.x, BACKGROUND_HEIGHT)
-		# Position the background at the bottom of the display area
 		background_rect.position = Vector2(0, -BACKGROUND_HEIGHT)
 
 func clear_indicators():
@@ -55,8 +69,12 @@ func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = f
 	add_child(label)
 	label.size = label.get_minimum_size()
 	
-	# Calculate centered position with precise offset
-	var x_pos = key_rect.position.x + (key_rect.size.x / 2) - (label.size.x / 2)
+	# Get note name without octave for adjustment lookup
+	var note_name = note.pitch.left(len(note.pitch) - 1)
+	var x_adjustment = KEY_ADJUSTMENTS.get(note_name, 0)
+	
+	# Calculate centered position with precise offset and adjustment
+	var x_pos = key_rect.position.x + (key_rect.size.x / 2) - (label.size.x / 2) + x_adjustment
 	var y_pos = -BACKGROUND_HEIGHT/2 - label.size.y/2
 	
 	label.position = Vector2(x_pos, y_pos)
