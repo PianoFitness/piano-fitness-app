@@ -133,9 +133,7 @@ func highlight_key(note, is_active):
 			key.color = STUDENT_COLOR
 			# Check if this matches the current lesson note
 			if sequence_manager and sequence_manager.validate_input(
-				midi_to_note_name(note),
-				"R",  # Assuming right hand for now
-				1     # We'll need to implement finger detection
+				note,
 			):
 				sequence_manager.advance_sequence()
 		else:
