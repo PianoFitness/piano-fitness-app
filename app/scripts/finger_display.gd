@@ -3,7 +3,7 @@ extends Node2D
 
 const LEFT_HAND_COLOR = Color(0.8, 0.8, 0.8, 1.0)
 const RIGHT_HAND_COLOR = Color(0.8, 0.8, 0.8, 1.0)
-const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)  # Green for current note
+const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)
 const BACKGROUND_COLOR = Color(0.1, 0.1, 0.1, 1.0)
 const BACKGROUND_HEIGHT = 40
 
@@ -19,6 +19,10 @@ func setup_background():
 	background_rect = ColorRect.new()
 	background_rect.color = BACKGROUND_COLOR
 	add_child(background_rect)
+	
+	# Ensure background is drawn behind indicators
+	background_rect.z_index = -1
+	
 	call_deferred("update_background_size")
 
 func _process(_delta):
@@ -28,8 +32,8 @@ func update_background_size():
 	if background_rect:
 		var viewport_size = get_viewport_rect().size
 		background_rect.size = Vector2(viewport_size.x, BACKGROUND_HEIGHT)
-		# Position directly above piano keys
-		background_rect.position = Vector2(0, 0)
+		# Position the background at the bottom of the display area
+		background_rect.position = Vector2(0, -BACKGROUND_HEIGHT)
 
 func clear_indicators():
 	for indicator in current_indicators:
@@ -43,14 +47,17 @@ func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = f
 	label.add_theme_font_override("font", font)
 	label.add_theme_font_size_override("font_size", 24)
 	
-	# Use lesson color for current note, regular color for others
+	# Set color based on current state
 	var color = LESSON_COLOR if is_current else (RIGHT_HAND_COLOR if note.hand == "R" else LEFT_HAND_COLOR)
 	label.add_theme_color_override("font_color", color)
 	
-	# Position calculation relative to key
-	var x_pos = key_rect.position.x + (key_rect.size.x - label.size.x) / 2
-	var y_pos = BACKGROUND_HEIGHT/2 - label.size.y/2  # Center in background bar
+	# Force the label to calculate its true size
+	add_child(label)
+	label.size = label.get_minimum_size()
+	
+	# Calculate centered position with precise offset
+	var x_pos = key_rect.position.x + (key_rect.size.x / 2) - (label.size.x / 2)
+	var y_pos = -BACKGROUND_HEIGHT/2 - label.size.y/2
 	
 	label.position = Vector2(x_pos, y_pos)
-	add_child(label)
 	current_indicators.append(label)

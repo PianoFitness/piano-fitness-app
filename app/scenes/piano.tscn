@@ -29,7 +29,6 @@ script = ExtResource("2_4lvi2")
 position = Vector2(0, 100)
 
 [node name="FingerDisplay" type="Node2D" parent="PianoKeys"]
-position = Vector2(0, -100)
 script = ExtResource("4_k3m9p")
 
 [node name="SequenceManager" type="Node" parent="."]
