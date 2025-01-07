@@ -7,7 +7,6 @@ const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)
 const BACKGROUND_COLOR = Color(0.1, 0.1, 0.1, 1.0)
 const BACKGROUND_HEIGHT = 40
 
-# Adjustment dictionary for x-position offsets (in pixels)
 const KEY_ADJUSTMENTS = {
 	"C": -2,   # Slight left adjustment
 	"D": -3,   
@@ -24,6 +23,7 @@ const KEY_ADJUSTMENTS = {
 }
 
 var background_rect: ColorRect
+var finger_labels: Array[Label] = []
 
 func _ready():
 	setup_background()
@@ -35,7 +35,7 @@ func setup_background():
 	add_child(background_rect)
 	update_background_size()
 
-func _process(_delta):
+func _process(delta):
 	update_background_size()
 
 func update_background_size():
@@ -43,6 +43,11 @@ func update_background_size():
 		var viewport_size = get_viewport_rect().size
 		background_rect.size = Vector2(viewport_size.x, BACKGROUND_HEIGHT)
 		background_rect.position = Vector2(0, -BACKGROUND_HEIGHT)
+
+func clear_indicators():
+	for label in finger_labels:
+		label.queue_free()
+	finger_labels.clear()
 
 func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = false):
 	var label = Label.new()
@@ -53,6 +58,7 @@ func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = f
 	label.add_theme_color_override("font_color", color)
 	
 	add_child(label)
+	finger_labels.append(label)
 	label.size = label.get_minimum_size()
 	
 	var note_name = note.pitch.left(len(note.pitch) - 1)
