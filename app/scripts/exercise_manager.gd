@@ -1,5 +1,8 @@
 extends Control
 
+# Signals
+signal clear_highlighted_keys
+
 # Node references
 @onready var exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
 @onready var key_dropdown = $HBoxContainer/KeyDropdown
@@ -26,6 +29,8 @@ func _on_key_selected(index):
 	_update_exercise()
 
 func _update_exercise():
+	emit_signal("clear_highlighted_keys")
+	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
 	var key = key_dropdown.get_item_text(key_dropdown.selected)
 	

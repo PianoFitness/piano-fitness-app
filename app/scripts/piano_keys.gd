@@ -114,6 +114,9 @@ func _ready():
 	var sequence_manager = get_parent().get_node("SequenceManager")
 	sequence_manager.connect("highlight_note_by_name", _on_highlight_note_by_name)
 	sequence_manager.connect("unhighlight_note_by_name", _on_unhighlight_note_by_name)
+	
+	var exercise_manager = get_parent().get_node("ExerciseManager")
+	exercise_manager.connect("clear_highlighted_keys", _on_clear_highlighted_keys)
 
 func _on_highlight_note_by_name(note_name: String):
 	highlight_lesson_note_by_name(note_name)
@@ -123,3 +126,9 @@ func _on_unhighlight_note_by_name(note_name: String):
 	var key = get_key_by_midi(midi_note)
 	if key:
 		key.color = get_inactive_key_color(midi_note)
+
+func _on_clear_highlighted_keys():
+	for key in white_keys.values():
+		key.color = INACTIVE_WHITE_KEY_COLOR
+	for key in black_keys.values():
+		key.color = INACTIVE_BLACK_KEY_COLOR
