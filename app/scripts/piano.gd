@@ -56,14 +56,6 @@ func setup_fingering_system():
 		return
 	piano_keys = $PianoKeys
 	sequence_manager.initialize(piano_keys, finger_display)
-	
-	# Load initial exercise
-	var exercises = {
-		"c_major_scale": create_c_major_scale(),
-		"c_major_chord_inversions": create_c_major_chord_inversions(),
-		"c_major_arpeggios": create_c_major_arpeggios()
-	}
-	sequence_manager.set_sequence(exercises["c_major_arpeggios"])
 
 func _input(event):
 	if event is InputEventMIDI:
