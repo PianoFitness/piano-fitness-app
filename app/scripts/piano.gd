@@ -1,13 +1,13 @@
 extends Control
 
 # Piano physical layout constants - These define the visual arrangement of piano keys
-const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11]  # Semitone offsets for white keys
+const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys
 const BLACK_KEY_POSITIONS = [
-	{"offset": 0.9, "note": 1},   # C#
-	{"offset": 2.0, "note": 3},   # D#
-	{"offset": 3.8, "note": 6},   # F#
-	{"offset": 4.95, "note": 8},  # G#
-	{"offset": 6.1, "note": 10}   # A#
+	{"offset": 0.9, "note": 1}, # C#
+	{"offset": 2.0, "note": 3}, # D#
+	{"offset": 3.8, "note": 6}, # F#
+	{"offset": 4.95, "note": 8}, # G#
+	{"offset": 6.1, "note": 10} # A#
 ]
 
 # Visual size ratios for piano keys
@@ -18,7 +18,7 @@ const BLACK_KEY_HEIGHT_RATIO = 0.65
 # MIDI and musical constants
 const KEYS_PER_OCTAVE = 12
 const WHITE_KEYS_PER_OCTAVE = 7
-const STARTING_MIDI_NOTE = 24  # Starting at C1
+const STARTING_MIDI_NOTE = 24 # Starting at C1
 const OCTAVE_COUNT = 7
 
 # Color definitions for various key states
@@ -26,21 +26,21 @@ const ACTIVE_WHITE_KEY_COLOR = Color(0.8, 0.8, 1.0)
 const ACTIVE_BLACK_KEY_COLOR = Color(0.3, 0.3, 0.5)
 const INACTIVE_WHITE_KEY_COLOR = Color.WHITE
 const INACTIVE_BLACK_KEY_COLOR = Color.BLACK
-const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)    # Green for target notes
-const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0)   # Light blue for played notes
+const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0) # Green for target notes
+const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0) # Light blue for played notes
 
 # Musical notation constants
 const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 # Chord input handling constants
-const CHORD_COLLECTION_WINDOW: float = 0.1  # 100ms window to collect chord notes
+const CHORD_COLLECTION_WINDOW: float = 0.1 # 100ms window to collect chord notes
 
 # State variables
-var white_keys = {}              # Dictionary of white key nodes indexed by MIDI note
-var black_keys = {}              # Dictionary of black key nodes indexed by MIDI note
-var viewport_size: Vector2       # Current viewport dimensions
-var current_chord_notes: Array[int] = []  # Collects notes played within time window
-var chord_collection_timer: float = 0.0   # Timer for chord note collection
+var white_keys = {} # Dictionary of white key nodes indexed by MIDI note
+var black_keys = {} # Dictionary of black key nodes indexed by MIDI note
+var viewport_size: Vector2 # Current viewport dimensions
+var current_chord_notes: Array[int] = [] # Collects notes played within time window
+var chord_collection_timer: float = 0.0 # Timer for chord note collection
 
 # Node references
 var sequence_manager: SequenceManager
@@ -81,8 +81,12 @@ func setup_fingering_system():
 	sequence_manager.initialize(self, finger_display)
 	
 	# Load initial exercise
-	var c_major = create_c_major_chord_inversions()
-	sequence_manager.set_sequence(c_major)
+	var exercises = {
+		"c_major_scale": create_c_major_scale(),
+		"c_major_chord_inversions": create_c_major_chord_inversions(),
+		"c_major_arpeggios": create_c_major_arpeggios()
+	}
+	sequence_manager.set_sequence(exercises["c_major_arpeggios"])
 
 func _input(event):
 	if event is InputEventMIDI:
@@ -197,14 +201,14 @@ func create_c_major_scale() -> PracticeSequence:
 	
 	# Right hand ascending C Major scale with correct fingering
 	var scale_notes = [
-		["C4", 1],  # Thumb
-		["D4", 2],  # Index
-		["E4", 3],  # Middle
-		["F4", 1],  # Thumb (thumb under)
-		["G4", 2],  # Index
-		["A4", 3],  # Middle
-		["B4", 4],  # Ring
-		["C5", 5]   # Pinky
+		["C4", 1], # Thumb
+		["D4", 2], # Index
+		["E4", 3], # Middle
+		["F4", 1], # Thumb (thumb under)
+		["G4", 2], # Index
+		["A4", 3], # Middle
+		["B4", 4], # Ring
+		["C5", 5] # Pinky
 	]
 	
 	for note_data in scale_notes:
@@ -219,30 +223,48 @@ func create_c_major_chord_inversions() -> PracticeSequence:
 	
 	# Root position: C4(1) - E4(3) - G4(5)
 	sequence.add_position([
-		PianoNote.new("C4", "R", 1),  # Root - thumb
-		PianoNote.new("E4", "R", 3),  # Third - middle finger
-		PianoNote.new("G4", "R", 5)   # Fifth - pinky
+		PianoNote.new("C4", "R", 1), # Root - thumb
+		PianoNote.new("E4", "R", 3), # Third - middle finger
+		PianoNote.new("G4", "R", 5) # Fifth - pinky
 	])
 	
 	# First inversion: E4(1) - G4(2) - C5(5)
 	sequence.add_position([
-		PianoNote.new("E4", "R", 1),  # Third - thumb
-		PianoNote.new("G4", "R", 2),  # Fifth - index finger
-		PianoNote.new("C5", "R", 5)   # Root - pinky
+		PianoNote.new("E4", "R", 1), # Third - thumb
+		PianoNote.new("G4", "R", 2), # Fifth - index finger
+		PianoNote.new("C5", "R", 5) # Root - pinky
 	])
 	
 	# Second inversion: G4(1) - C5(3) - E5(5)
 	sequence.add_position([
-		PianoNote.new("G4", "R", 1),  # Fifth - thumb
-		PianoNote.new("C5", "R", 3),  # Root - middle finger
-		PianoNote.new("E5", "R", 5)   # Third - pinky
+		PianoNote.new("G4", "R", 1), # Fifth - thumb
+		PianoNote.new("C5", "R", 3), # Root - middle finger
+		PianoNote.new("E5", "R", 5) # Third - pinky
 	])
 	
 	# Root position octave up: C5(1) - E5(3) - G5(5)
 	sequence.add_position([
-		PianoNote.new("C5", "R", 1),  # Root - thumb
-		PianoNote.new("E5", "R", 3),  # Third - middle finger
-		PianoNote.new("G5", "R", 5)   # Fifth - pinky
+		PianoNote.new("C5", "R", 1), # Root - thumb
+		PianoNote.new("E5", "R", 3), # Third - middle finger
+		PianoNote.new("G5", "R", 5) # Fifth - pinky
 	])
+	
+	return sequence
+
+func create_c_major_arpeggios() -> PracticeSequence:
+	var sequence = PracticeSequence.new()
+	sequence.exercise_type = "arpeggio"
+	
+	# Right hand ascending C Major arpeggio in one octave
+	var arpeggio_notes = [
+		["C4", 1], # Thumb
+		["E4", 2], # Index
+		["G4", 3], # Middle
+		["C5", 5] # Pinky
+	]
+	
+	for note_data in arpeggio_notes:
+		var note = PianoNote.new(note_data[0], "R", note_data[1])
+		sequence.add_position([note])
 	
 	return sequence
