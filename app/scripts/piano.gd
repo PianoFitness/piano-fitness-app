@@ -52,7 +52,7 @@ var finger_display: FingerDisplay
 func _ready():
 	viewport_size = get_viewport_rect().size
 	piano_keys.position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
-	create_piano_keys()
+	piano_keys.create_piano_keys(viewport_size)
 	setup_fingering_system()
 	OS.open_midi_inputs()
 
@@ -94,7 +94,7 @@ func _input(event):
 
 func handle_midi_event(event: InputEventMIDI):
 	var note = event.pitch
-	var key = white_keys.get(note) if note in white_keys else black_keys.get(note)
+	var key = piano_keys.get_key_by_midi(note)
 	if not key:
 		return
 		
@@ -114,64 +114,13 @@ func reset_key_color(key: ColorRect, note: int):
 	if current_notes.has(note):
 		key.color = LESSON_COLOR
 	else:
-		key.color = INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
-
-func create_piano_keys():
-	var total_white_keys = WHITE_KEYS_PER_OCTAVE * OCTAVE_COUNT
-	var white_key_width = viewport_size.x / total_white_keys
-	var white_key_height = viewport_size.y * WHITE_KEY_HEIGHT_RATIO
-	var black_key_width = white_key_width * BLACK_KEY_WIDTH_RATIO
-	var black_key_height = white_key_height * BLACK_KEY_HEIGHT_RATIO
-	
-	for octave in range(OCTAVE_COUNT):
-		var base_note = octave * KEYS_PER_OCTAVE + STARTING_MIDI_NOTE
-		
-		# Create white keys for this octave
-		for i in range(WHITE_KEYS_PER_OCTAVE):
-			var white_key = ColorRect.new()
-			white_key.size = Vector2(white_key_width, white_key_height)
-			white_key.position.x = (octave * WHITE_KEYS_PER_OCTAVE + i) * white_key_width
-			white_key.color = INACTIVE_WHITE_KEY_COLOR
-			
-			var border = Line2D.new()
-			border.points = [
-				Vector2(0, 0),
-				Vector2(0, white_key_height),
-				Vector2(white_key_width, white_key_height),
-				Vector2(white_key_width, 0),
-				Vector2(0, 0)
-			]
-			border.width = 1
-			border.default_color = INACTIVE_BLACK_KEY_COLOR
-			white_key.add_child(border)
-			
-			piano_keys.add_child(white_key)
-			white_keys[base_note + WHITE_KEY_OFFSETS[i]] = white_key
-		
-		# Create black keys for this octave
-		for data in BLACK_KEY_POSITIONS:
-			var black_key = ColorRect.new()
-			black_key.size = Vector2(black_key_width, black_key_height)
-			black_key.position = Vector2(
-				(octave * WHITE_KEYS_PER_OCTAVE + data.offset) * white_key_width - black_key_width / 2,
-				0
-			)
-			black_key.color = INACTIVE_BLACK_KEY_COLOR
-			piano_keys.add_child(black_key)
-			black_keys[base_note + data.note] = black_key
+		key.color = piano_keys.get_inactive_key_color(note)
 
 func highlight_lesson_note(note_name: String):
-	var midi_note = note_name_to_midi(note_name)
-	var key = white_keys.get(midi_note) if midi_note in white_keys else black_keys.get(midi_note)
-	if key:
-		key.color = LESSON_COLOR
+	piano_keys.highlight_lesson_note_by_name(note_name)
 
 func get_key_rect(note_name: String) -> Rect2:
-	var midi_note = note_name_to_midi(note_name)
-	var key = white_keys.get(midi_note) if midi_note in white_keys else black_keys.get(midi_note)
-	if key:
-		return Rect2(key.global_position, key.size)
-	return Rect2()
+	return piano_keys.get_key_rect_by_name(note_name)
 
 func get_current_lesson_notes() -> Array[int]:
 	var notes: Array[int] = []
