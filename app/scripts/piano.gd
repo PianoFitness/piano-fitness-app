@@ -1,44 +1,21 @@
 extends Control
 
-# Piano physical layout constants - These define the visual arrangement of piano keys
-const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys
-const BLACK_KEY_POSITIONS = [
-	{"offset": 0.9, "note": 1}, # C#
-	{"offset": 2.0, "note": 3}, # D#
-	{"offset": 3.8, "note": 6}, # F#
-	{"offset": 4.95, "note": 8}, # G#
-	{"offset": 6.1, "note": 10} # A#
-]
-
-# Visual size ratios for piano keys
-const WHITE_KEY_HEIGHT_RATIO = 0.3
-const BLACK_KEY_WIDTH_RATIO = 0.7
-const BLACK_KEY_HEIGHT_RATIO = 0.65
-
-# MIDI and musical constants
+# Piano note constants
+const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+const STARTING_MIDI_NOTE = 24 # C1 in MIDI
 const KEYS_PER_OCTAVE = 12
-const WHITE_KEYS_PER_OCTAVE = 7
-const STARTING_MIDI_NOTE = 24 # Starting at C1
-const OCTAVE_COUNT = 7
 
 # Color definitions for various key states
-const ACTIVE_WHITE_KEY_COLOR = Color(0.8, 0.8, 1.0)
-const ACTIVE_BLACK_KEY_COLOR = Color(0.3, 0.3, 0.5)
-const INACTIVE_WHITE_KEY_COLOR = Color.WHITE
-const INACTIVE_BLACK_KEY_COLOR = Color.BLACK
 const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0) # Green for target notes
 const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0) # Light blue for played notes
-
-# Musical notation constants
-const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 # Chord input handling constants
 const CHORD_COLLECTION_WINDOW: float = 0.1 # 100ms window to collect chord notes
 
+# Constants for piano key dimensions
+const WHITE_KEY_HEIGHT_RATIO = 0.3 # Piano takes up 30% of the viewport height
+
 # State variables
-var white_keys = {} # Dictionary of white key nodes indexed by MIDI note
-var black_keys = {} # Dictionary of black key nodes indexed by MIDI note
-var viewport_size: Vector2 # Current viewport dimensions
 var current_chord_notes: Array[int] = [] # Collects notes played within time window
 var chord_collection_timer: float = 0.0 # Timer for chord note collection
 
@@ -50,7 +27,7 @@ var finger_display: FingerDisplay
 @onready var piano_keys = $PianoKeys
 
 func _ready():
-	viewport_size = get_viewport_rect().size
+	var viewport_size = get_viewport_rect().size
 	piano_keys.position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
 	piano_keys.create_piano_keys(viewport_size)
 	setup_fingering_system()
@@ -77,8 +54,8 @@ func setup_fingering_system():
 	if not sequence_manager:
 		push_error("SequenceManager node not found in scene")
 		return
-	
-	sequence_manager.initialize(self, finger_display)
+	piano_keys = $PianoKeys
+	sequence_manager.initialize(piano_keys, finger_display)
 	
 	# Load initial exercise
 	var exercises = {
@@ -115,12 +92,6 @@ func reset_key_color(key: ColorRect, note: int):
 		key.color = LESSON_COLOR
 	else:
 		key.color = piano_keys.get_inactive_key_color(note)
-
-func highlight_lesson_note(note_name: String):
-	piano_keys.highlight_lesson_note_by_name(note_name)
-
-func get_key_rect(note_name: String) -> Rect2:
-	return piano_keys.get_key_rect_by_name(note_name)
 
 func get_current_lesson_notes() -> Array[int]:
 	var notes: Array[int] = []

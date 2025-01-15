@@ -18,8 +18,8 @@ var finger_display: FingerDisplay       # Reference to finger number display
 var piano_node: Node                    # Reference to main piano node
 
 # Initialize manager with required node references
-func initialize(piano: Node, display: FingerDisplay):
-	piano_node = piano
+func initialize(piano_keys: Node, display: FingerDisplay):
+	piano_node = piano_keys
 	finger_display = display
 
 # Set a new sequence and reset state
@@ -119,7 +119,7 @@ func update_display():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			var key_rect = piano_node.get_key_rect(note.pitch)
+			var key_rect = piano_node.get_key_rect_by_name(note.pitch)
 			finger_display.add_finger_indicator(note, key_rect, true)
 
 # Highlight current chord notes
@@ -127,7 +127,7 @@ func highlight_current_note():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			piano_node.highlight_lesson_note(note.pitch)
+			piano_node.highlight_lesson_note_by_name(note.pitch)
 
 # Remove highlighting from current chord notes
 func unhighlight_current_note():
