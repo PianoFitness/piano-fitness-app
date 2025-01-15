@@ -109,3 +109,17 @@ func midi_to_note_name(midi_note: int) -> String:
 	var octave = (midi_note - STARTING_MIDI_NOTE) / KEYS_PER_OCTAVE
 	var note_index = (midi_note - STARTING_MIDI_NOTE) % KEYS_PER_OCTAVE
 	return NOTE_NAMES[note_index] + str(octave)
+
+func _ready():
+	var sequence_manager = get_parent().get_node("SequenceManager")
+	sequence_manager.connect("highlight_note_by_name", _on_highlight_note_by_name)
+	sequence_manager.connect("unhighlight_note_by_name", _on_unhighlight_note_by_name)
+
+func _on_highlight_note_by_name(note_name: String):
+	highlight_lesson_note_by_name(note_name)
+
+func _on_unhighlight_note_by_name(note_name: String):
+	var midi_note = note_name_to_midi(note_name)
+	var key = get_key_by_midi(midi_note)
+	if key:
+		key.color = get_inactive_key_color(midi_note)
