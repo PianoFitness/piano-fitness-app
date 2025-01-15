@@ -12,6 +12,7 @@ func _ready():
 	exercise_type_dropdown.connect("item_selected", _on_exercise_type_selected)
 	key_dropdown.connect("item_selected", _on_key_selected)
 	_initialize_dropdowns()
+	call_deferred("_update_exercise")
 
 func _initialize_dropdowns():
 	exercise_type_dropdown.clear()
@@ -33,7 +34,7 @@ func _update_exercise():
 	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
 	var key = key_dropdown.get_item_text(key_dropdown.selected)
-	
+	print(exercise_type, key)
 	var exercises = {
 		"Scales": "create_c_major_scale",
 		"Chords": "create_c_major_chord_inversions",
