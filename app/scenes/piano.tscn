@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://deocrbvduwvbf"]
+[gd_scene load_steps=8 format=3 uid="uid://deocrbvduwvbf"]
 
 [ext_resource type="Script" path="res://scripts/piano.gd" id="1_16djv"]
 [ext_resource type="Script" path="res://scripts/note_display.gd" id="2_4lvi2"]
+[ext_resource type="Script" path="res://scripts/piano_keys.gd" id="3_33fs1"]
 [ext_resource type="PackedScene" uid="uid://qnn08ykran7h" path="res://scenes/metronome.tscn" id="3_m4k2l"]
 [ext_resource type="Script" path="res://scripts/finger_display.gd" id="4_k3m9p"]
 [ext_resource type="Script" path="res://scripts/sequence_manager.gd" id="5_r2n4b"]
+[ext_resource type="Script" path="res://scripts/exercise_manager.gd" id="6_7h8j9"]
 
 [node name="Piano" type="Control"]
 layout_mode = 3
@@ -27,6 +29,7 @@ script = ExtResource("2_4lvi2")
 
 [node name="PianoKeys" type="Node2D" parent="."]
 position = Vector2(0, 100)
+script = ExtResource("3_33fs1")
 
 [node name="FingerDisplay" type="Node2D" parent="PianoKeys"]
 script = ExtResource("4_k3m9p")
@@ -34,5 +37,25 @@ script = ExtResource("4_k3m9p")
 [node name="SequenceManager" type="Node" parent="."]
 script = ExtResource("5_r2n4b")
 
-[node name="CanvasLayer#Metronome" parent="." instance=ExtResource("3_m4k2l")]
+[node name="Metronome" parent="." instance=ExtResource("3_m4k2l")]
 layout_mode = 1
+
+[node name="MidiManager" type="Node" parent="."]
+
+[node name="ExerciseManager" type="Control" parent="."]
+anchors_preset = 0
+anchor_left = 0.5
+anchor_right = 0.5
+script = ExtResource("6_7h8j9")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ExerciseManager"]
+layout_mode = 0
+anchor_right = 1.0
+
+[node name="ExerciseTypeDropdown" type="OptionButton" parent="ExerciseManager/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="KeyDropdown" type="OptionButton" parent="ExerciseManager/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20

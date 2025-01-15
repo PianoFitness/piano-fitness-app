@@ -23,33 +23,33 @@ Piano Fitness is a mobile application designed to help piano students develop te
 
 #### Exercise Types
 1. Scales
-   - Major scales
-   - Natural minor scales
-   - Harmonic minor scales
-   - Melodic minor scales
-   - Modes (Dorian, Phrygian, etc.)
-   
+  - Major scales
+  - Natural minor scales
+  - Harmonic minor scales
+  - Melodic minor scales
+  - Modes (Dorian, Phrygian, etc.)
+  - Up to three octaves
+
 2. Chords
-   - Major triads
-   - Minor triads
-   - Diminished triads
-   - Augmented triads
-   - Seventh chords
-   
-3. Chord Inversions
-   - First inversion
-   - Second inversion
-   - Third inversion (for seventh chords)
-   
-4. Arpeggios
-   - Major
-   - Minor
-   - Diminished
-   - Augmented
-   
-5. Chord Progressions
-   - Common progressions (I-IV-V-I, ii-V-I, etc.)
-   - Custom progression builder
+  - Diatonic triads in all positions
+    - Root position
+    - First inversion
+    - Second inversion
+  - Practice methods
+    - Block chords
+    - Broken chords
+
+3. Arpeggios
+  - Diatonic arpeggios in all keys
+  - Practice methods:
+    - One octave
+    - Two octaves
+    - Three octaves
+    - Ascending/descending patterns
+
+4. Chord Progressions
+  - Common progressions (I-IV-V-I, ii-V-I, etc.)
+  - Custom progression builder
 
 #### Exercise Configuration
 - Key selection (all major and minor keys)

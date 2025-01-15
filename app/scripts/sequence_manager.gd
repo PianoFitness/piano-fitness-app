@@ -5,21 +5,23 @@ extends Node
 signal sequence_updated(current_position: int)
 signal sequence_completed
 signal note_validated(success: bool)
+signal highlight_note_by_name(note_name: String)
+signal unhighlight_note_by_name(note_name: String)
 
 # Constants for visual feedback
-const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)  # Green for target notes
-const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0)  # Light blue for played notes
+const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0) # Green for target notes
+const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0) # Light blue for played notes
 
 # State tracking variables
-var current_sequence: PracticeSequence  # The current exercise sequence
-var current_position: int = 0           # Current position in the sequence
-var played_notes: Dictionary = {}       # Tracks which notes have been played in current chord
-var finger_display: FingerDisplay       # Reference to finger number display
-var piano_node: Node                    # Reference to main piano node
+var current_sequence: PracticeSequence # The current exercise sequence
+var current_position: int = 0 # Current position in the sequence
+var played_notes: Dictionary = {} # Tracks which notes have been played in current chord
+var finger_display: FingerDisplay # Reference to finger number display
+var piano_node: Node # Reference to main piano node
 
 # Initialize manager with required node references
-func initialize(piano: Node, display: FingerDisplay):
-	piano_node = piano
+func initialize(piano_keys: Node, display: FingerDisplay):
+	piano_node = piano_keys
 	finger_display = display
 
 # Set a new sequence and reset state
@@ -30,7 +32,7 @@ func set_sequence(sequence: PracticeSequence):
 		
 	current_sequence = sequence
 	current_position = 0
-	played_notes.clear()  # Reset played notes tracking
+	played_notes.clear() # Reset played notes tracking
 	
 	print("Setting new sequence: ", sequence.exercise_type)
 	update_display()
@@ -84,7 +86,7 @@ func advance_sequence():
 		return
 		
 	unhighlight_current_note()
-	played_notes.clear()  # Reset played notes for next chord
+	played_notes.clear() # Reset played notes for next chord
 	
 	if current_position < current_sequence.sequence.size() - 1:
 		current_position += 1
@@ -119,7 +121,7 @@ func update_display():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			var key_rect = piano_node.get_key_rect(note.pitch)
+			var key_rect = piano_node.get_key_rect_by_name(note.pitch)
 			finger_display.add_finger_indicator(note, key_rect, true)
 
 # Highlight current chord notes
@@ -127,17 +129,14 @@ func highlight_current_note():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			piano_node.highlight_lesson_note(note.pitch)
+			emit_signal("highlight_note_by_name", note.pitch)
 
 # Remove highlighting from current chord notes
 func unhighlight_current_note():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			var midi_note = piano_node.note_name_to_midi(note.pitch)
-			var key = piano_node.white_keys.get(midi_note) if midi_note in piano_node.white_keys else piano_node.black_keys.get(midi_note)
-			if key:
-				key.color = piano_node.INACTIVE_WHITE_KEY_COLOR if midi_note in piano_node.white_keys else piano_node.INACTIVE_BLACK_KEY_COLOR
+			emit_signal("unhighlight_note_by_name", note.pitch)
 
 # Get the current sequence position
 func get_current_position() -> int:
