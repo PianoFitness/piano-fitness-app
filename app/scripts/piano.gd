@@ -99,8 +99,11 @@ func handle_midi_event(event: InputEventMIDI):
 		if not current_chord_notes.has(note):
 			current_chord_notes.append(note)
 		chord_collection_timer = CHORD_COLLECTION_WINDOW
+		
+		note_display.update_note_state(note, true)
 	elif event.message == MIDI_MESSAGE_NOTE_OFF or (event.message == MIDI_MESSAGE_NOTE_ON and event.velocity == 0):
 		reset_key_color(key, note)
+		note_display.update_note_state(note, false)
 
 func reset_key_color(key: ColorRect, note: int):
 	var current_notes = get_current_lesson_notes()
