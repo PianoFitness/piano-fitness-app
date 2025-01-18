@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "Db", "Eb", "Gb", "Ab", "Bb"]
 
 # We'll store both the display name and the MIDI note number for proper sorting
 class NoteInfo:
@@ -25,8 +25,8 @@ func get_note_name(midi_note: int) -> String:
 	var note = (midi_note - 12) % 12
 	var note_name = NOTE_NAMES[note]
 	
-	# Add special formatting for accidentals (sharp notes)
-	if "#" in note_name:
+	# Add special formatting for accidentals (sharp and flat notes)
+	if "#" in note_name or "b" in note_name:
 		return "[color=cyan]%s[/color]%s" % [note_name, str(octave)]
 	return note_name + str(octave)
 

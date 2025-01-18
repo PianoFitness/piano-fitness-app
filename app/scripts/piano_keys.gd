@@ -11,8 +11,7 @@ const BLACK_KEY_POSITIONS = [
 ]
 
 # Musical notation constants
-const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-
+const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "Db", "Eb", "Gb", "Ab", "Bb"]
 
 # Visual size ratios for piano keys
 const WHITE_KEY_HEIGHT_RATIO = 0.3
@@ -102,6 +101,8 @@ func note_name_to_midi(note_name: String) -> int:
 	var octave = int(note_name.right(1))
 	var note_index = NOTE_NAMES.find(note)
 	if note_index != -1:
+		if note_index > 11: # Adjust for flat notes
+			note_index -= 12
 		return STARTING_MIDI_NOTE + (octave * KEYS_PER_OCTAVE) + note_index
 	return -1
 
