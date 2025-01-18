@@ -5,7 +5,7 @@ signal clear_highlighted_keys
 
 # Node references
 @onready var exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
-@onready var key_dropdown = $HBoxContainer/KeyDropdown
+@onready var music_key_dropdown = $HBoxContainer/KeyDropdown
 @onready var sequence_manager = get_parent().get_node("SequenceManager")
 
 # Load exercises
@@ -50,7 +50,7 @@ func create_exercise_map(key: String) -> ExerciseMap:
 
 func _ready():
 	exercise_type_dropdown.connect("item_selected", _on_exercise_type_selected)
-	key_dropdown.connect("item_selected", _on_key_selected)
+	music_key_dropdown.connect("item_selected", _on_key_selected)
 	_initialize_dropdowns()
 	call_deferred("_update_exercise")
 
@@ -63,10 +63,10 @@ func _initialize_dropdowns():
 	_update_key_dropdown()
 
 func _update_key_dropdown():
-	key_dropdown.clear()
-	var keys = ["C", "G", "D", "A", "E", "B", "F#", "C#", "F", "Bb", "Eb", "Ab"]
-	for key in keys:
-		key_dropdown.add_item(key)
+	music_key_dropdown.clear()
+	var music_keys = ["C", "G", "D", "A", "E", "B", "F#", "C#", "F", "Bb", "Eb", "Ab"]
+	for music_key in music_keys:
+		music_key_dropdown.add_item(music_key)
 
 func _on_exercise_type_selected(index):
 	_update_key_dropdown()
@@ -79,8 +79,8 @@ func _update_exercise():
 	emit_signal("clear_highlighted_keys")
 	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
-	var key = key_dropdown.get_item_text(key_dropdown.selected)
-	print(exercise_type, key)
+	var music_key = music_key_dropdown.get_item_text(music_key_dropdown.selected)
+	print(exercise_type, music_key)
 	var exercises = {
 		"Scales": "create_scale",
 		"Chords": "create_chord_inversions",
@@ -89,45 +89,45 @@ func _update_exercise():
 	
 	if exercises.has(exercise_type):
 		var exercise_method = exercises[exercise_type]
-		var exercise_sequence = self.call(exercise_method, key)
+		var exercise_sequence = self.call(exercise_method, music_key)
 		sequence_manager.set_sequence(exercise_sequence)
 
 # Exercise creation methods
-func create_scale(key: String) -> PracticeSequence:
-	var sequence = PracticeSequence.new()
-	sequence.exercise_type = "scale"
+func create_scale(music_key: String) -> PracticeSequence:
+	var practice_sequence = PracticeSequence.new()
+	practice_sequence.exercise_type = "scale"
 
-	var scale_notes = key_to_exercises[key].scales
+	var scale_notes = key_to_exercises[music_key].scales
 	
 	for note_data in scale_notes:
 		var note = PianoNote.new(note_data[0], "R", note_data[1])
-		sequence.add_position([note])
+		practice_sequence.add_position([note])
 	
-	return sequence
+	return practice_sequence
 
-func create_chord_inversions(key: String) -> PracticeSequence:
-	var sequence = PracticeSequence.new()
-	sequence.exercise_type = "chord_inversions"
+func create_chord_inversions(music_key: String) -> PracticeSequence:
+	var practice_sequence = PracticeSequence.new()
+	practice_sequence.exercise_type = "chord_inversions"
 	
-	var chord_notes = key_to_exercises[key].chords
+	var chord_notes = key_to_exercises[music_key].chords
 	
 	for chord in chord_notes:
-		var position: Array[PianoNote] = []
+		var chord_position: Array[PianoNote] = []
 		for note_data in chord:
 			var note = PianoNote.new(note_data[0], "R", note_data[1])
-			position.append(note)
-		sequence.add_position(position)
+			chord_position.append(note)
+		practice_sequence.add_position(chord_position)
 	
-	return sequence
+	return practice_sequence
 
-func create_arpeggios(key: String) -> PracticeSequence:
-	var sequence = PracticeSequence.new()
-	sequence.exercise_type = "arpeggio"
+func create_arpeggios(music_key: String) -> PracticeSequence:
+	var practice_sequence = PracticeSequence.new()
+	practice_sequence.exercise_type = "arpeggio"
 	
-	var arpeggio_notes = key_to_exercises[key].arpeggios
+	var arpeggio_notes = key_to_exercises[music_key].arpeggios
 	
 	for note_data in arpeggio_notes:
 		var note = PianoNote.new(note_data[0], "R", note_data[1])
-		sequence.add_position([note])
+		practice_sequence.add_position([note])
 	
-	return sequence
+	return practice_sequence
