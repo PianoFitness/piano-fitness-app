@@ -14,6 +14,10 @@ config/name="Piano Fitness App"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MusicalConstants="*res://scripts/autoload/musical_constants.gd"
+
 [display]
 
 window/size/viewport_width=1920
