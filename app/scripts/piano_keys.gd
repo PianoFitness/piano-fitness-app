@@ -10,32 +10,13 @@ const BLACK_KEY_POSITIONS = [
 	{"offset": 6.1, "note": 10} # A#
 ]
 
-# Musical notation constants
-const NOTE_TO_MIDI_OFFSET = {
-	"C": 0, "C#": 1, "Db": 1,
-	"D": 2, "D#": 3, "Eb": 3,
-	"E": 4, "Fb": 4, "E#": 5,
-	"F": 5, "F#": 6, "Gb": 6,
-	"G": 7, "G#": 8, "Ab": 8,
-	"A": 9, "A#": 10, "Bb": 10,
-	"B": 11, "Cb": 11, "B#": 0
-}
-
-const MIDI_TO_NOTE_PREFERRED = {
-	0: "C", 1: "C#", 2: "D", 3: "Eb",
-	4: "E", 5: "F", 6: "F#", 7: "G",
-	8: "Ab", 9: "A", 10: "Bb", 11: "B"
-}
-
 # Visual size ratios for piano keys
 const WHITE_KEY_HEIGHT_RATIO = 0.3
 const BLACK_KEY_WIDTH_RATIO = 0.7
 const BLACK_KEY_HEIGHT_RATIO = 0.65
 
 # MIDI and musical constants
-const KEYS_PER_OCTAVE = 12
 const WHITE_KEYS_PER_OCTAVE = 7
-const STARTING_MIDI_NOTE = 24 # Starting at C1
 const OCTAVE_COUNT = 7
 
 # Color definitions for various key states
@@ -55,7 +36,7 @@ func create_piano_keys(viewport_size: Vector2):
 	var black_key_height = white_key_height * BLACK_KEY_HEIGHT_RATIO
 	
 	for octave in range(OCTAVE_COUNT):
-		var base_note = octave * KEYS_PER_OCTAVE + STARTING_MIDI_NOTE
+		var base_note = octave * MusicalConstants.KEYS_PER_OCTAVE + MusicalConstants.STARTING_MIDI_NOTE
 		
 		# Create white keys for this octave
 		for i in range(WHITE_KEYS_PER_OCTAVE):
@@ -113,15 +94,15 @@ func get_key_rect_by_name(note_name: String) -> Rect2:
 func note_name_to_midi(note_name: String) -> int:
 	var note = note_name.left(len(note_name) - 1)
 	var octave = int(note_name.right(1))
-	if note in NOTE_TO_MIDI_OFFSET:
-		var note_offset = NOTE_TO_MIDI_OFFSET[note]
-		return STARTING_MIDI_NOTE + (octave * KEYS_PER_OCTAVE) + note_offset
+	if note in MusicalConstants.NOTE_TO_MIDI_OFFSET:
+		var note_offset = MusicalConstants.NOTE_TO_MIDI_OFFSET[note]
+		return MusicalConstants.STARTING_MIDI_NOTE + (octave * MusicalConstants.KEYS_PER_OCTAVE) + note_offset
 	return -1
 
 func midi_to_note_name(midi_note: int) -> String:
-	var octave = (midi_note - STARTING_MIDI_NOTE) / KEYS_PER_OCTAVE
-	var note_index = (midi_note - STARTING_MIDI_NOTE) % KEYS_PER_OCTAVE
-	return MIDI_TO_NOTE_PREFERRED[note_index] + str(octave)
+	var octave = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) / MusicalConstants.KEYS_PER_OCTAVE
+	var note_index = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) % MusicalConstants.KEYS_PER_OCTAVE
+	return MusicalConstants.MIDI_TO_NOTE_PREFERRED[note_index] + str(octave)
 
 func _ready():
 	var sequence_manager = get_parent().get_node("SequenceManager")

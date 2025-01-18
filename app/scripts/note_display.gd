@@ -1,7 +1,5 @@
 extends RichTextLabel
 
-const NOTE_NAMES = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
-
 # We'll store both the display name and the MIDI note number for proper sorting
 class NoteInfo:
 	var display_name: String
@@ -21,9 +19,9 @@ func _ready():
 	text = "No keys pressed"
 
 func get_note_name(midi_note: int) -> String:
-	var octave = (midi_note - 12) / 12
-	var note = (midi_note - 12) % 12
-	var note_name = NOTE_NAMES[note]
+	var octave = (midi_note - 12) / MusicalConstants.KEYS_PER_OCTAVE
+	var note = (midi_note - 12) % MusicalConstants.KEYS_PER_OCTAVE
+	var note_name = MusicalConstants.MIDI_TO_NOTE_PREFERRED[note]
 	
 	# Add special formatting for accidentals (sharp and flat notes)
 	if "#" in note_name or "b" in note_name:
