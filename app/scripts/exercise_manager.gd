@@ -8,6 +8,9 @@ signal clear_highlighted_keys
 @onready var key_dropdown = $HBoxContainer/KeyDropdown
 @onready var sequence_manager = get_parent().get_node("SequenceManager")
 
+# Load exercises
+@onready var scales = load("res://scripts/exercises/scales_major.gd").new()
+
 func _ready():
 	exercise_type_dropdown.connect("item_selected", _on_exercise_type_selected)
 	key_dropdown.connect("item_selected", _on_key_selected)
@@ -51,18 +54,8 @@ func _update_exercise():
 func create_c_major_scale() -> PracticeSequence:
 	var sequence = PracticeSequence.new()
 	sequence.exercise_type = "scale"
-	
-	# Right hand ascending C Major scale with correct fingering
-	var scale_notes = [
-		["C4", 1], # Thumb
-		["D4", 2], # Index
-		["E4", 3], # Middle
-		["F4", 1], # Thumb (thumb under)
-		["G4", 2], # Index
-		["A4", 3], # Middle
-		["B4", 4], # Ring
-		["C5", 5] # Pinky
-	]
+
+	var scale_notes = scales.c_major_rh_1oct
 	
 	for note_data in scale_notes:
 		var note = PianoNote.new(note_data[0], "R", note_data[1])
