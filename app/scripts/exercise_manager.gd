@@ -10,21 +10,42 @@ signal clear_highlighted_keys
 
 # Load exercises
 @onready var scales = load("res://scripts/exercises/scales_major.gd").new()
+@onready var chords = load("res://scripts/exercises/chords_major.gd").new()
+@onready var arpeggios = load("res://scripts/exercises/arpeggios_major.gd").new()
 
-# Key to scale mapping
-@onready var key_to_scale = {
-	"C": scales.c_major_rh_1oct,
-	"G": scales.g_major_rh_1oct,
-	"D": scales.d_major_rh_1oct,
-	"A": scales.a_major_rh_1oct,
-	"E": scales.e_major_rh_1oct,
-	"B": scales.b_major_rh_1oct,
-	"F#": scales.f_sharp_major_rh_1oct,
-	"C#": scales.c_sharp_major_rh_1oct,
-	"F": scales.f_major_rh_1oct,
-	"Bb": scales.b_flat_major_rh_1oct,
-	"Eb": scales.e_flat_major_rh_1oct,
-	"Ab": scales.a_flat_major_rh_1oct
+# Named entity for exercise map
+class ExerciseMap:
+	var scales: Array
+	var chords: Array
+	var arpeggios: Array
+	
+	func _init(_scales: Array, _chords: Array, _arpeggios: Array):
+		scales = _scales
+		chords = _chords
+		arpeggios = _arpeggios
+
+# Helper method to create exercise maps
+func create_exercise_map(key: String) -> ExerciseMap:
+	return ExerciseMap.new(
+		scales.get(key.to_snake_case() + "_major_rh_1oct"),
+		chords.get(key.to_snake_case() + "_major_rh_inversions"),
+		arpeggios.get(key.to_snake_case() + "_major_rh_arpeggios")
+	)
+
+# Key to exercise mapping
+@onready var key_to_exercises = {
+	"C": create_exercise_map("c"),
+	"G": create_exercise_map("g"),
+	"D": create_exercise_map("d"),
+	"A": create_exercise_map("a"),
+	"E": create_exercise_map("e"),
+	"B": create_exercise_map("b"),
+	"F#": create_exercise_map("f_sharp"),
+	"C#": create_exercise_map("c_sharp"),
+	"F": create_exercise_map("f"),
+	"Bb": create_exercise_map("b_flat"),
+	"Eb": create_exercise_map("e_flat"),
+	"Ab": create_exercise_map("a_flat")
 }
 
 func _ready():
@@ -43,12 +64,9 @@ func _initialize_dropdowns():
 
 func _update_key_dropdown():
 	key_dropdown.clear()
-	if exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected) == "Scales":
-		var keys = ["C", "G", "D", "A", "E", "B", "F#", "C#", "F", "Bb", "Eb", "Ab"]
-		for key in keys:
-			key_dropdown.add_item(key)
-	else:
-		key_dropdown.add_item("C")
+	var keys = ["C", "G", "D", "A", "E", "B", "F#", "C#", "F", "Bb", "Eb", "Ab"]
+	for key in keys:
+		key_dropdown.add_item(key)
 
 func _on_exercise_type_selected(index):
 	_update_key_dropdown()
@@ -65,8 +83,8 @@ func _update_exercise():
 	print(exercise_type, key)
 	var exercises = {
 		"Scales": "create_scale",
-		"Chords": "create_c_major_chord_inversions",
-		"Arpeggios": "create_c_major_arpeggios"
+		"Chords": "create_chord_inversions",
+		"Arpeggios": "create_arpeggios"
 	}
 	
 	if exercises.has(exercise_type):
@@ -79,7 +97,7 @@ func create_scale(key: String) -> PracticeSequence:
 	var sequence = PracticeSequence.new()
 	sequence.exercise_type = "scale"
 
-	var scale_notes = key_to_scale[key]
+	var scale_notes = key_to_exercises[key].scales
 	
 	for note_data in scale_notes:
 		var note = PianoNote.new(note_data[0], "R", note_data[1])
@@ -87,51 +105,26 @@ func create_scale(key: String) -> PracticeSequence:
 	
 	return sequence
 
-func create_c_major_chord_inversions() -> PracticeSequence:
+func create_chord_inversions(key: String) -> PracticeSequence:
 	var sequence = PracticeSequence.new()
 	sequence.exercise_type = "chord_inversions"
 	
-	# Root position: C4(1) - E4(3) - G4(5)
-	sequence.add_position([
-		PianoNote.new("C4", "R", 1), # Root - thumb
-		PianoNote.new("E4", "R", 3), # Third - middle finger
-		PianoNote.new("G4", "R", 5) # Fifth - pinky
-	])
+	var chord_notes = key_to_exercises[key].chords
 	
-	# First inversion: E4(1) - G4(2) - C5(5)
-	sequence.add_position([
-		PianoNote.new("E4", "R", 1), # Third - thumb
-		PianoNote.new("G4", "R", 2), # Fifth - index finger
-		PianoNote.new("C5", "R", 5) # Root - pinky
-	])
-	
-	# Second inversion: G4(1) - C5(3) - E5(5)
-	sequence.add_position([
-		PianoNote.new("G4", "R", 1), # Fifth - thumb
-		PianoNote.new("C5", "R", 3), # Root - middle finger
-		PianoNote.new("E5", "R", 5) # Third - pinky
-	])
-	
-	# Root position octave up: C5(1) - E5(3) - G5(5)
-	sequence.add_position([
-		PianoNote.new("C5", "R", 1), # Root - thumb
-		PianoNote.new("E5", "R", 3), # Third - middle finger
-		PianoNote.new("G5", "R", 5) # Fifth - pinky
-	])
+	for chord in chord_notes:
+		var position: Array[PianoNote] = []
+		for note_data in chord:
+			var note = PianoNote.new(note_data[0], "R", note_data[1])
+			position.append(note)
+		sequence.add_position(position)
 	
 	return sequence
 
-func create_c_major_arpeggios() -> PracticeSequence:
+func create_arpeggios(key: String) -> PracticeSequence:
 	var sequence = PracticeSequence.new()
 	sequence.exercise_type = "arpeggio"
 	
-	# Right hand ascending C Major arpeggio in one octave
-	var arpeggio_notes = [
-		["C4", 1], # Thumb
-		["E4", 2], # Index
-		["G4", 3], # Middle
-		["C5", 5] # Pinky
-	]
+	var arpeggio_notes = key_to_exercises[key].arpeggios
 	
 	for note_data in arpeggio_notes:
 		var note = PianoNote.new(note_data[0], "R", note_data[1])
