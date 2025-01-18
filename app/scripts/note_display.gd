@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "Db", "Eb", "Gb", "Ab", "Bb"]
+const NOTE_NAMES = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
 
 # We'll store both the display name and the MIDI note number for proper sorting
 class NoteInfo:

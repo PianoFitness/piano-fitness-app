@@ -11,7 +11,21 @@ const BLACK_KEY_POSITIONS = [
 ]
 
 # Musical notation constants
-const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "Db", "Eb", "Gb", "Ab", "Bb"]
+const NOTE_TO_MIDI_OFFSET = {
+	"C": 0, "C#": 1, "Db": 1,
+	"D": 2, "D#": 3, "Eb": 3,
+	"E": 4, "Fb": 4, "E#": 5,
+	"F": 5, "F#": 6, "Gb": 6,
+	"G": 7, "G#": 8, "Ab": 8,
+	"A": 9, "A#": 10, "Bb": 10,
+	"B": 11, "Cb": 11, "B#": 0
+}
+
+const MIDI_TO_NOTE_PREFERRED = {
+	0: "C", 1: "C#", 2: "D", 3: "Eb",
+	4: "E", 5: "F", 6: "F#", 7: "G",
+	8: "Ab", 9: "A", 10: "Bb", 11: "B"
+}
 
 # Visual size ratios for piano keys
 const WHITE_KEY_HEIGHT_RATIO = 0.3
@@ -99,17 +113,15 @@ func get_key_rect_by_name(note_name: String) -> Rect2:
 func note_name_to_midi(note_name: String) -> int:
 	var note = note_name.left(len(note_name) - 1)
 	var octave = int(note_name.right(1))
-	var note_index = NOTE_NAMES.find(note)
-	if note_index != -1:
-		if note_index > 11: # Adjust for flat notes
-			note_index -= 12
-		return STARTING_MIDI_NOTE + (octave * KEYS_PER_OCTAVE) + note_index
+	if note in NOTE_TO_MIDI_OFFSET:
+		var note_offset = NOTE_TO_MIDI_OFFSET[note]
+		return STARTING_MIDI_NOTE + (octave * KEYS_PER_OCTAVE) + note_offset
 	return -1
 
 func midi_to_note_name(midi_note: int) -> String:
 	var octave = (midi_note - STARTING_MIDI_NOTE) / KEYS_PER_OCTAVE
 	var note_index = (midi_note - STARTING_MIDI_NOTE) % KEYS_PER_OCTAVE
-	return NOTE_NAMES[note_index] + str(octave)
+	return MIDI_TO_NOTE_PREFERRED[note_index] + str(octave)
 
 func _ready():
 	var sequence_manager = get_parent().get_node("SequenceManager")
