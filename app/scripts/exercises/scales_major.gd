@@ -267,58 +267,58 @@ var a_flat_major_lh_1oct = [
 ]
 
 var exercises = {
-	"C": {
+	MusicalConstants.MusicKey.C: {
 		"right_hand": c_major_rh_1oct,
 		"left_hand": c_major_lh_1oct
 	},
-	"G": {
+	MusicalConstants.MusicKey.G: {
 		"right_hand": g_major_rh_1oct,
 		"left_hand": g_major_lh_1oct
 	},
-	"D": {
+	MusicalConstants.MusicKey.D: {
 		"right_hand": d_major_rh_1oct,
 		"left_hand": d_major_lh_1oct
 	},
-	"A": {
+	MusicalConstants.MusicKey.A: {
 		"right_hand": a_major_rh_1oct,
 		"left_hand": a_major_lh_1oct
 	},
-	"E": {
+	MusicalConstants.MusicKey.E: {
 		"right_hand": e_major_rh_1oct,
 		"left_hand": e_major_lh_1oct
 	},
-	"B": {
+	MusicalConstants.MusicKey.B: {
 		"right_hand": b_major_rh_1oct,
 		"left_hand": b_major_lh_1oct
 	},
-	"F#": {
+	MusicalConstants.MusicKey.F_SHARP: {
 		"right_hand": f_sharp_major_rh_1oct,
 		"left_hand": f_sharp_major_lh_1oct
 	},
-	"C#": {
+	MusicalConstants.MusicKey.C_SHARP: {
 		"right_hand": c_sharp_major_rh_1oct,
 		"left_hand": c_sharp_major_lh_1oct
 	},
-	"F": {
+	MusicalConstants.MusicKey.F: {
 		"right_hand": f_major_rh_1oct,
 		"left_hand": f_major_lh_1oct
 	},
-	"Bb": {
+	MusicalConstants.MusicKey.B_FLAT: {
 		"right_hand": b_flat_major_rh_1oct,
 		"left_hand": b_flat_major_lh_1oct
 	},
-	"Eb": {
+	MusicalConstants.MusicKey.E_FLAT: {
 		"right_hand": e_flat_major_rh_1oct,
 		"left_hand": e_flat_major_lh_1oct
 	},
-	"Ab": {
+	MusicalConstants.MusicKey.A_FLAT: {
 		"right_hand": a_flat_major_rh_1oct,
 		"left_hand": a_flat_major_lh_1oct
 	}
 }
 
-func get_exercise(key: String, hand: String) -> Array:
+func get_exercise(key: MusicalConstants.MusicKey, hand: String) -> Array:
 	return exercises[key][hand]
 
-func has_exercise(key: String, hand: String) -> bool:
+func has_exercise(key: MusicalConstants.MusicKey, hand: String) -> bool:
 	return exercises.has(key) and exercises[key].has(hand)

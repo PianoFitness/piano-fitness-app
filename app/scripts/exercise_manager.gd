@@ -37,9 +37,8 @@ func _initialize_dropdowns():
 
 func _update_key_dropdown():
 	music_key_dropdown.clear()
-	var music_keys = ["C", "G", "D", "A", "E", "B", "F#", "C#", "F", "Bb", "Eb", "Ab"]
-	for music_key in music_keys:
-		music_key_dropdown.add_item(music_key)
+	for key in MusicalConstants.MusicKey.values():
+		music_key_dropdown.add_item(MusicalConstants.MUSIC_KEY_STRINGS[key])
 
 func _on_exercise_type_selected(index):
 	_update_key_dropdown()
@@ -55,11 +54,17 @@ func _update_exercise():
 	emit_signal("clear_highlighted_keys")
 	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
-	var music_key = music_key_dropdown.get_item_text(music_key_dropdown.selected)
+	var music_key_str = music_key_dropdown.get_item_text(music_key_dropdown.selected)
+	var music_key = null
+	for key in MusicalConstants.MusicKey.values():
+		if MusicalConstants.MUSIC_KEY_STRINGS[key] == music_key_str:
+			music_key = key
+			break
+	
 	var hand = MusicalConstants.Hand.RIGHT if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else MusicalConstants.Hand.LEFT
 	var hand_name = "right_hand" if hand == MusicalConstants.Hand.RIGHT else "left_hand"
 	
-	print(exercise_type, music_key, hand_name)
+	print(exercise_type, music_key_str, hand_name)
 	var exercises = {
 		"Scales": "create_scale",
 		"Chords": "create_chord_inversions",
@@ -72,7 +77,7 @@ func _update_exercise():
 		sequence_manager.set_sequence(exercise_sequence)
 
 # Exercise creation methods
-func create_scale(music_key: String, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
+func create_scale(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "scale"
 	
@@ -83,7 +88,7 @@ func create_scale(music_key: String, hand_name: String, hand: MusicalConstants.H
 	
 	return practice_sequence
 
-func create_chord_inversions(music_key: String, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
+func create_chord_inversions(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "chord_inversions"
 	
@@ -97,7 +102,7 @@ func create_chord_inversions(music_key: String, hand_name: String, hand: Musical
 	
 	return practice_sequence
 
-func create_arpeggios(music_key: String, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
+func create_arpeggios(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "arpeggio"
 	
