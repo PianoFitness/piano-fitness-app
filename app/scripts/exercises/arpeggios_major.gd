@@ -1,3 +1,4 @@
+class_name ArpeggioExercises extends Resource
 # Right hand ascending arpeggios with correct fingerings for all major triads
 
 var c_major_rh_arpeggios = [
@@ -169,3 +170,60 @@ var a_flat_major_lh_arpeggios = [
 	["Eb4", 2], # Index
 	["Ab4", 1] # Thumb
 ]
+
+var exercises = {
+	"C": {
+		"right_hand": c_major_rh_arpeggios,
+		"left_hand": c_major_lh_arpeggios
+	},
+	"G": {
+		"right_hand": g_major_rh_arpeggios,
+		"left_hand": g_major_lh_arpeggios
+	},
+	"D": {
+		"right_hand": d_major_rh_arpeggios,
+		"left_hand": d_major_lh_arpeggios
+	},
+	"A": {
+		"right_hand": a_major_rh_arpeggios,
+		"left_hand": a_major_lh_arpeggios
+	},
+	"E": {
+		"right_hand": e_major_rh_arpeggios,
+		"left_hand": e_major_lh_arpeggios
+	},
+	"B": {
+		"right_hand": b_major_rh_arpeggios,
+		"left_hand": b_major_lh_arpeggios
+	},
+	"F#": {
+		"right_hand": f_sharp_major_rh_arpeggios,
+		"left_hand": f_sharp_major_lh_arpeggios
+	},
+	"C#": {
+		"right_hand": c_sharp_major_rh_arpeggios,
+		"left_hand": c_sharp_major_lh_arpeggios
+	},
+	"F": {
+		"right_hand": f_major_rh_arpeggios,
+		"left_hand": f_major_lh_arpeggios
+	},
+	"Bb": {
+		"right_hand": b_flat_major_rh_arpeggios,
+		"left_hand": b_flat_major_lh_arpeggios
+	},
+	"Eb": {
+		"right_hand": e_flat_major_rh_arpeggios,
+		"left_hand": e_flat_major_lh_arpeggios
+	},
+	"Ab": {
+		"right_hand": a_flat_major_rh_arpeggios,
+		"left_hand": a_flat_major_lh_arpeggios
+	}
+}
+
+func get_exercise(key: String, hand: String) -> Array:
+	return exercises[key][hand]
+
+func has_exercise(key: String, hand: String) -> bool:
+	return exercises.has(key) and exercises[key].has(hand)

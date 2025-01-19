@@ -10,54 +10,9 @@ signal clear_highlighted_keys
 @onready var sequence_manager = get_parent().get_node("SequenceManager")
 
 # Load exercises
-@onready var scales = load("res://scripts/exercises/scales_major.gd").new()
-@onready var chords = load("res://scripts/exercises/chords_major.gd").new()
-@onready var arpeggios = load("res://scripts/exercises/arpeggios_major.gd").new()
-
-# Named entity for exercise map
-class ExerciseMap:
-	var scales: Dictionary
-	var chords: Dictionary
-	var arpeggios: Dictionary
-	
-	func _init(_scales: Dictionary, _chords: Dictionary, _arpeggios: Dictionary):
-		scales = _scales
-		chords = _chords
-		arpeggios = _arpeggios
-
-# Helper method to create exercise maps
-func create_exercise_map(key: String) -> ExerciseMap:
-	var key_snake = key.to_snake_case()
-	return ExerciseMap.new(
-		{
-			"R": scales.get(key_snake + "_major_rh_1oct"),
-			"L": scales.get(key_snake + "_major_lh_1oct")
-		},
-		{
-			"R": chords.get(key_snake + "_major_rh_inversions"),
-			"L": chords.get(key_snake + "_major_lh_inversions")
-		},
-		{
-			"R": arpeggios.get(key_snake + "_major_rh_arpeggios"),
-			"L": arpeggios.get(key_snake + "_major_lh_arpeggios")
-		}
-	)
-
-# Key to exercise mapping
-@onready var key_to_exercises = {
-	"C": create_exercise_map("c"),
-	"G": create_exercise_map("g"),
-	"D": create_exercise_map("d"),
-	"A": create_exercise_map("a"),
-	"E": create_exercise_map("e"),
-	"B": create_exercise_map("b"),
-	"F#": create_exercise_map("f_sharp"),
-	"C#": create_exercise_map("c_sharp"),
-	"F": create_exercise_map("f"),
-	"Bb": create_exercise_map("b_flat"),
-	"Eb": create_exercise_map("e_flat"),
-	"Ab": create_exercise_map("a_flat")
-}
+@onready var scales = preload("res://scripts/exercises/scales_major.gd").new()
+@onready var chords = preload("res://scripts/exercises/chords_major.gd").new()
+@onready var arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
 
 func _ready():
 	hand_dropdown.connect("item_selected", _on_hand_selected)
@@ -101,7 +56,7 @@ func _update_exercise():
 	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
 	var music_key = music_key_dropdown.get_item_text(music_key_dropdown.selected)
-	var hand = "R" if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else "L"
+	var hand = "right_hand" if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else "left_hand"
 	print(exercise_type, music_key, hand)
 	var exercises = {
 		"Scales": "create_scale",
@@ -119,7 +74,7 @@ func create_scale(music_key: String, hand: String) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "scale"
 	
-	var scale_notes = key_to_exercises[music_key].scales[hand]
+	var scale_notes = scales.get_exercise(music_key, hand)
 	for note_data in scale_notes:
 		var note = PianoNote.new(note_data[0], hand, note_data[1])
 		practice_sequence.add_position([note])
@@ -130,7 +85,7 @@ func create_chord_inversions(music_key: String, hand: String) -> PracticeSequenc
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "chord_inversions"
 	
-	var chord_notes = key_to_exercises[music_key].chords[hand]
+	var chord_notes = chords.get_exercise(music_key, hand)
 	for chord in chord_notes:
 		var chord_position: Array[PianoNote] = []
 		for note_data in chord:
@@ -144,7 +99,7 @@ func create_arpeggios(music_key: String, hand: String) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "arpeggio"
 	
-	var arpeggio_notes = key_to_exercises[music_key].arpeggios[hand]
+	var arpeggio_notes = arpeggios.get_exercise(music_key, hand)
 	for note_data in arpeggio_notes:
 		var note = PianoNote.new(note_data[0], hand, note_data[1])
 		practice_sequence.add_position([note])
