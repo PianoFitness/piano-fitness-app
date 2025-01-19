@@ -52,6 +52,10 @@ script = ExtResource("6_7h8j9")
 layout_mode = 0
 anchor_right = 1.0
 
+[node name="HandDropdown" type="OptionButton" parent="ExerciseManager/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
 [node name="ExerciseTypeDropdown" type="OptionButton" parent="ExerciseManager/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
