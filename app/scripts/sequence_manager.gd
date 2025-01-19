@@ -5,11 +5,10 @@ extends Node
 signal sequence_updated(current_position: int)
 signal sequence_completed
 signal note_validated(success: bool)
-signal highlight_note_by_name(note_name: String)
+signal highlight_note_by_name(note_name: String, hand: MusicalConstants.Hand)
 signal unhighlight_note_by_name(note_name: String)
 
 # Constants for visual feedback
-const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0) # Green for target notes
 const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0) # Light blue for played notes
 
 # State tracking variables
@@ -129,7 +128,7 @@ func highlight_current_note():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			emit_signal("highlight_note_by_name", note.pitch)
+			emit_signal("highlight_note_by_name", note.pitch, note.hand)
 
 # Remove highlighting from current chord notes
 func unhighlight_current_note():

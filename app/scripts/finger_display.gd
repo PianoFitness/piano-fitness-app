@@ -1,10 +1,6 @@
 class_name FingerDisplay
 extends Node2D
 
-const LEFT_HAND_COLOR = Color(0.8, 0.8, 0.8, 1.0)
-const RIGHT_HAND_COLOR = Color(0.8, 0.8, 0.8, 1.0)
-const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0)
-const BACKGROUND_COLOR = Color(0.1, 0.1, 0.1, 1.0)
 const BACKGROUND_HEIGHT = 40
 
 const KEY_ADJUSTMENTS = {
@@ -30,7 +26,7 @@ func _ready():
 
 func setup_background():
 	background_rect = ColorRect.new()
-	background_rect.color = BACKGROUND_COLOR
+	background_rect.color = Colors.BACKGROUND_COLOR
 	background_rect.z_index = -1
 	add_child(background_rect)
 	update_background_size()
@@ -54,7 +50,7 @@ func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = f
 	label.text = str(note.finger)
 	label.add_theme_font_size_override("font_size", 24)
 	
-	var color = LESSON_COLOR if is_current else (RIGHT_HAND_COLOR if note.hand == "R" else LEFT_HAND_COLOR)
+	var color = Colors.RIGHT_HAND_COLOR if note.hand == MusicalConstants.Hand.RIGHT else Colors.LEFT_HAND_COLOR
 	label.add_theme_color_override("font_color", color)
 	
 	add_child(label)

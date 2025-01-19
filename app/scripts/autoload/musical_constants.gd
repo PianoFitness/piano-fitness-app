@@ -18,3 +18,38 @@ const MIDI_TO_NOTE_PREFERRED = {
 
 const KEYS_PER_OCTAVE = 12
 const STARTING_MIDI_NOTE = 24 # Starting at C1
+
+enum Hand {
+	LEFT,
+	RIGHT
+}
+
+enum MusicKey {
+	C,
+	G,
+	D,
+	A,
+	E,
+	B,
+	F_SHARP,
+	C_SHARP,
+	F,
+	B_FLAT,
+	E_FLAT,
+	A_FLAT
+}
+
+const MUSIC_KEY_STRINGS = {
+	MusicKey.C: "C",
+	MusicKey.G: "G",
+	MusicKey.D: "D",
+	MusicKey.A: "A",
+	MusicKey.E: "E",
+	MusicKey.B: "B",
+	MusicKey.F_SHARP: "F#",
+	MusicKey.C_SHARP: "C#",
+	MusicKey.F: "F",
+	MusicKey.B_FLAT: "Bb",
+	MusicKey.E_FLAT: "Eb",
+	MusicKey.A_FLAT: "Ab"
+}

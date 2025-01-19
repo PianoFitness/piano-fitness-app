@@ -1,3 +1,5 @@
+class_name ScaleExercises extends Resource
+
 # Right hand ascending scales with correct fingerings
 var c_major_rh_1oct = [
 	["C4", 1], # Thumb
@@ -130,3 +132,193 @@ var a_flat_major_rh_1oct = [
 	["G5", 4], # Ring
 	["Ab5", 5] # Pinky
 ]
+
+# Left hand ascending scales with correct fingerings
+var c_major_lh_1oct = [
+	["C3", 5], # Pinky
+	["D3", 4], # Ring
+	["E3", 3], # Middle
+	["F3", 2], # Index
+	["G3", 1], # Thumb (thumb under)
+	["A3", 3], # Middle
+	["B3", 2], # Index
+	["C4", 1] # Thumb
+]
+
+var g_major_lh_1oct = [
+	["G3", 5], # Pinky
+	["A3", 4], # Ring
+	["B3", 3], # Middle
+	["C4", 2], # Index
+	["D4", 1], # Thumb (thumb under)
+	["E4", 3], # Middle
+	["F#4", 2], # Index
+	["G4", 1] # Thumb
+]
+
+var d_major_lh_1oct = [
+	["D3", 5], # Pinky
+	["E3", 4], # Ring
+	["F#3", 3], # Middle
+	["G3", 2], # Index
+	["A3", 1], # Thumb (thumb under)
+	["B3", 3], # Middle
+	["C#4", 2], # Index
+	["D4", 1] # Thumb
+]
+
+var a_major_lh_1oct = [
+	["A3", 5], # Pinky
+	["B3", 4], # Ring
+	["C#4", 3], # Middle
+	["D4", 2], # Index
+	["E4", 1], # Thumb (thumb under)
+	["F#4", 3], # Middle
+	["G#4", 2], # Index
+	["A4", 1] # Thumb
+]
+
+var e_major_lh_1oct = [
+	["E3", 5], # Pinky
+	["F#3", 4], # Ring
+	["G#3", 3], # Middle
+	["A3", 2], # Index
+	["B3", 1], # Thumb (thumb under)
+	["C#4", 3], # Middle
+	["D#4", 2], # Index
+	["E4", 1] # Thumb
+]
+
+var b_major_lh_1oct = [
+	["B2", 5], # Pinky
+	["C#3", 4], # Ring
+	["D#3", 3], # Middle
+	["E3", 2], # Index
+	["F#3", 1], # Thumb (thumb under)
+	["G#3", 3], # Middle
+	["A#3", 2], # Index
+	["B3", 1] # Thumb
+]
+
+var f_sharp_major_lh_1oct = [
+	["F#3", 5], # Pinky
+	["G#3", 4], # Ring
+	["A#3", 3], # Middle
+	["B3", 2], # Index
+	["C#4", 1], # Thumb (thumb under)
+	["D#4", 3], # Middle
+	["E#4", 2], # Index
+	["F#4", 1] # Thumb
+]
+
+var c_sharp_major_lh_1oct = [
+	["C#3", 5], # Pinky
+	["D#3", 4], # Ring
+	["E#3", 3], # Middle
+	["F#3", 2], # Index
+	["G#3", 1], # Thumb (thumb under)
+	["A#3", 3], # Middle
+	["B#3", 2], # Index
+	["C#4", 1] # Thumb
+]
+
+var f_major_lh_1oct = [
+	["F3", 5], # Pinky
+	["G3", 4], # Ring
+	["A3", 3], # Middle
+	["Bb3", 2], # Index
+	["C4", 1], # Thumb (thumb under)
+	["D4", 3], # Middle
+	["E4", 2], # Index
+	["F4", 1] # Thumb
+]
+
+var b_flat_major_lh_1oct = [
+	["Bb2", 5], # Pinky
+	["C3", 4], # Ring
+	["D3", 3], # Middle
+	["Eb3", 2], # Index
+	["F3", 1], # Thumb (thumb under)
+	["G3", 3], # Middle
+	["A3", 2], # Index
+	["Bb3", 1] # Thumb
+]
+
+var e_flat_major_lh_1oct = [
+	["Eb3", 5], # Pinky
+	["F3", 4], # Ring
+	["G3", 3], # Middle
+	["Ab3", 2], # Index
+	["Bb3", 1], # Thumb (thumb under)
+	["C4", 3], # Middle
+	["D4", 2], # Index
+	["Eb4", 1] # Thumb
+]
+
+var a_flat_major_lh_1oct = [
+	["Ab3", 5], # Pinky
+	["Bb3", 4], # Ring
+	["C4", 3], # Middle
+	["Db4", 2], # Index
+	["Eb4", 1], # Thumb (thumb under)
+	["F4", 3], # Middle
+	["G4", 2], # Index
+	["Ab4", 1] # Thumb
+]
+
+var exercises = {
+	MusicalConstants.MusicKey.C: {
+		"right_hand": c_major_rh_1oct,
+		"left_hand": c_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.G: {
+		"right_hand": g_major_rh_1oct,
+		"left_hand": g_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.D: {
+		"right_hand": d_major_rh_1oct,
+		"left_hand": d_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.A: {
+		"right_hand": a_major_rh_1oct,
+		"left_hand": a_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.E: {
+		"right_hand": e_major_rh_1oct,
+		"left_hand": e_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.B: {
+		"right_hand": b_major_rh_1oct,
+		"left_hand": b_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.F_SHARP: {
+		"right_hand": f_sharp_major_rh_1oct,
+		"left_hand": f_sharp_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.C_SHARP: {
+		"right_hand": c_sharp_major_rh_1oct,
+		"left_hand": c_sharp_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.F: {
+		"right_hand": f_major_rh_1oct,
+		"left_hand": f_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.B_FLAT: {
+		"right_hand": b_flat_major_rh_1oct,
+		"left_hand": b_flat_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.E_FLAT: {
+		"right_hand": e_flat_major_rh_1oct,
+		"left_hand": e_flat_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.A_FLAT: {
+		"right_hand": a_flat_major_rh_1oct,
+		"left_hand": a_flat_major_lh_1oct
+	}
+}
+
+func get_exercise(key: MusicalConstants.MusicKey, hand: String) -> Array:
+	return exercises[key][hand]
+
+func has_exercise(key: MusicalConstants.MusicKey, hand: String) -> bool:
+	return exercises.has(key) and exercises[key].has(hand)

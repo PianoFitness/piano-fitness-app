@@ -22,7 +22,6 @@ const OCTAVE_COUNT = 7
 # Color definitions for various key states
 const INACTIVE_WHITE_KEY_COLOR = Color.WHITE
 const INACTIVE_BLACK_KEY_COLOR = Color.BLACK
-const LESSON_COLOR = Color(0.3, 0.8, 0.3, 1.0) # Green for target notes
 
 # State variables
 var white_keys = {} # Dictionary of white key nodes indexed by MIDI note
@@ -78,11 +77,11 @@ func get_key_by_midi(note: int) -> ColorRect:
 func get_inactive_key_color(note: int) -> Color:
 	return INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
 
-func highlight_lesson_note_by_name(note_name: String):
+func highlight_lesson_note_by_name(note_name: String, hand: MusicalConstants.Hand):
 	var midi_note = note_name_to_midi(note_name)
 	var key = get_key_by_midi(midi_note)
 	if key:
-		key.color = LESSON_COLOR
+		key.color = Colors.RIGHT_HAND_COLOR if hand == MusicalConstants.Hand.RIGHT else Colors.LEFT_HAND_COLOR
 
 func get_key_rect_by_name(note_name: String) -> Rect2:
 	var midi_note = note_name_to_midi(note_name)
@@ -112,8 +111,8 @@ func _ready():
 	var exercise_manager = get_parent().get_node("ExerciseManager")
 	exercise_manager.connect("clear_highlighted_keys", _on_clear_highlighted_keys)
 
-func _on_highlight_note_by_name(note_name: String):
-	highlight_lesson_note_by_name(note_name)
+func _on_highlight_note_by_name(note_name: String, hand: MusicalConstants.Hand):
+	highlight_lesson_note_by_name(note_name, hand)
 
 func _on_unhighlight_note_by_name(note_name: String):
 	var midi_note = note_name_to_midi(note_name)

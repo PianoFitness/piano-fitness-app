@@ -4,57 +4,30 @@ extends Control
 signal clear_highlighted_keys
 
 # Node references
+@onready var hand_dropdown = $HBoxContainer/HandDropdown
 @onready var exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
 @onready var music_key_dropdown = $HBoxContainer/KeyDropdown
 @onready var sequence_manager = get_parent().get_node("SequenceManager")
 
 # Load exercises
-@onready var scales = load("res://scripts/exercises/scales_major.gd").new()
-@onready var chords = load("res://scripts/exercises/chords_major.gd").new()
-@onready var arpeggios = load("res://scripts/exercises/arpeggios_major.gd").new()
-
-# Named entity for exercise map
-class ExerciseMap:
-	var scales: Array
-	var chords: Array
-	var arpeggios: Array
-	
-	func _init(_scales: Array, _chords: Array, _arpeggios: Array):
-		scales = _scales
-		chords = _chords
-		arpeggios = _arpeggios
-
-# Helper method to create exercise maps
-func create_exercise_map(key: String) -> ExerciseMap:
-	return ExerciseMap.new(
-		scales.get(key.to_snake_case() + "_major_rh_1oct"),
-		chords.get(key.to_snake_case() + "_major_rh_inversions"),
-		arpeggios.get(key.to_snake_case() + "_major_rh_arpeggios")
-	)
-
-# Key to exercise mapping
-@onready var key_to_exercises = {
-	"C": create_exercise_map("c"),
-	"G": create_exercise_map("g"),
-	"D": create_exercise_map("d"),
-	"A": create_exercise_map("a"),
-	"E": create_exercise_map("e"),
-	"B": create_exercise_map("b"),
-	"F#": create_exercise_map("f_sharp"),
-	"C#": create_exercise_map("c_sharp"),
-	"F": create_exercise_map("f"),
-	"Bb": create_exercise_map("b_flat"),
-	"Eb": create_exercise_map("e_flat"),
-	"Ab": create_exercise_map("a_flat")
-}
+@onready var scales = preload("res://scripts/exercises/scales_major.gd").new()
+@onready var chords = preload("res://scripts/exercises/chords_major.gd").new()
+@onready var arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
 
 func _ready():
+	hand_dropdown.connect("item_selected", _on_hand_selected)
 	exercise_type_dropdown.connect("item_selected", _on_exercise_type_selected)
 	music_key_dropdown.connect("item_selected", _on_key_selected)
 	_initialize_dropdowns()
 	call_deferred("_update_exercise")
 
 func _initialize_dropdowns():
+	# Initialize hand selection
+	hand_dropdown.clear()
+	hand_dropdown.add_item("Right Hand")
+	hand_dropdown.add_item("Left Hand")
+	
+	# Initialize exercise types
 	exercise_type_dropdown.clear()
 	exercise_type_dropdown.add_item("Scales")
 	exercise_type_dropdown.add_item("Chords")
@@ -64,9 +37,8 @@ func _initialize_dropdowns():
 
 func _update_key_dropdown():
 	music_key_dropdown.clear()
-	var music_keys = ["C", "G", "D", "A", "E", "B", "F#", "C#", "F", "Bb", "Eb", "Ab"]
-	for music_key in music_keys:
-		music_key_dropdown.add_item(music_key)
+	for key in MusicalConstants.MusicKey.values():
+		music_key_dropdown.add_item(MusicalConstants.MUSIC_KEY_STRINGS[key])
 
 func _on_exercise_type_selected(index):
 	_update_key_dropdown()
@@ -75,12 +47,24 @@ func _on_exercise_type_selected(index):
 func _on_key_selected(index):
 	_update_exercise()
 
+func _on_hand_selected(index):
+	_update_exercise()
+
 func _update_exercise():
 	emit_signal("clear_highlighted_keys")
 	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
-	var music_key = music_key_dropdown.get_item_text(music_key_dropdown.selected)
-	print(exercise_type, music_key)
+	var music_key_str = music_key_dropdown.get_item_text(music_key_dropdown.selected)
+	var music_key = null
+	for key in MusicalConstants.MusicKey.values():
+		if MusicalConstants.MUSIC_KEY_STRINGS[key] == music_key_str:
+			music_key = key
+			break
+	
+	var hand = MusicalConstants.Hand.RIGHT if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else MusicalConstants.Hand.LEFT
+	var hand_name = "right_hand" if hand == MusicalConstants.Hand.RIGHT else "left_hand"
+	
+	print(exercise_type, music_key_str, hand_name)
 	var exercises = {
 		"Scales": "create_scale",
 		"Chords": "create_chord_inversions",
@@ -89,45 +73,42 @@ func _update_exercise():
 	
 	if exercises.has(exercise_type):
 		var exercise_method = exercises[exercise_type]
-		var exercise_sequence = self.call(exercise_method, music_key)
+		var exercise_sequence = self.call(exercise_method, music_key, hand_name, hand)
 		sequence_manager.set_sequence(exercise_sequence)
 
 # Exercise creation methods
-func create_scale(music_key: String) -> PracticeSequence:
+func create_scale(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "scale"
-
-	var scale_notes = key_to_exercises[music_key].scales
 	
+	var scale_notes = scales.get_exercise(music_key, hand_name)
 	for note_data in scale_notes:
-		var note = PianoNote.new(note_data[0], "R", note_data[1])
+		var note = PianoNote.new(note_data[0], hand, note_data[1])
 		practice_sequence.add_position([note])
 	
 	return practice_sequence
 
-func create_chord_inversions(music_key: String) -> PracticeSequence:
+func create_chord_inversions(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "chord_inversions"
 	
-	var chord_notes = key_to_exercises[music_key].chords
-	
+	var chord_notes = chords.get_exercise(music_key, hand_name)
 	for chord in chord_notes:
 		var chord_position: Array[PianoNote] = []
 		for note_data in chord:
-			var note = PianoNote.new(note_data[0], "R", note_data[1])
+			var note = PianoNote.new(note_data[0], hand, note_data[1])
 			chord_position.append(note)
 		practice_sequence.add_position(chord_position)
 	
 	return practice_sequence
 
-func create_arpeggios(music_key: String) -> PracticeSequence:
+func create_arpeggios(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "arpeggio"
 	
-	var arpeggio_notes = key_to_exercises[music_key].arpeggios
-	
+	var arpeggio_notes = arpeggios.get_exercise(music_key, hand_name)
 	for note_data in arpeggio_notes:
-		var note = PianoNote.new(note_data[0], "R", note_data[1])
+		var note = PianoNote.new(note_data[0], hand, note_data[1])
 		practice_sequence.add_position([note])
 	
 	return practice_sequence

@@ -1,4 +1,4 @@
-# Right hand ascending chord inversions with correct fingerings
+class_name ChordExercises extends Resource
 
 var c_major_rh_inversions = [
 	# Root position: C4(1) - E4(3) - G4(5)
@@ -251,3 +251,312 @@ var a_flat_major_rh_inversions = [
 		["C5", 5] # Third - pinky
 	]
 ]
+
+var c_major_lh_inversions = [
+    # Root position: C3(5) - E3(3) - G3(1)
+    [
+        ["C3", 5], # Root - pinky
+        ["E3", 3], # Third - middle
+        ["G3", 1] # Fifth - thumb
+    ],
+    # First inversion: E3(5) - G3(2) - C4(1)
+    [
+        ["E3", 5], # Third - pinky
+        ["G3", 2], # Fifth - index
+        ["C4", 1] # Root - thumb
+    ],
+    # Second inversion: G3(5) - C4(3) - E4(1)
+    [
+        ["G3", 5], # Fifth - pinky
+        ["C4", 3], # Root - middle
+        ["E4", 1] # Third - thumb
+    ]
+]
+
+var f_major_lh_inversions = [
+    # Root position
+    [
+        ["F3", 5],
+        ["A3", 3],
+        ["C4", 1]
+    ],
+    # First inversion
+    [
+        ["A3", 5],
+        ["C4", 2],
+        ["F4", 1]
+    ],
+    # Second inversion
+    [
+        ["C3", 5],
+        ["F3", 3],
+        ["A3", 1]
+    ]
+]
+
+var b_flat_major_lh_inversions = [
+    # Root position
+    [
+        ["Bb2", 5],
+        ["D3", 3],
+        ["F3", 1]
+    ],
+    # First inversion
+    [
+        ["D3", 5],
+        ["F3", 2],
+        ["Bb3", 1]
+    ],
+    # Second inversion
+    [
+        ["F3", 5],
+        ["Bb3", 3],
+        ["D4", 1]
+    ]
+]
+
+var e_flat_major_lh_inversions = [
+    # Root position
+    [
+        ["Eb3", 5],
+        ["G3", 3],
+        ["Bb3", 1]
+    ],
+    # First inversion
+    [
+        ["G3", 5],
+        ["Bb3", 2],
+        ["Eb4", 1]
+    ],
+    # Second inversion
+    [
+        ["Bb3", 5],
+        ["Eb4", 3],
+        ["G4", 1]
+    ]
+]
+
+var a_flat_major_lh_inversions = [
+    # Root position
+    [
+        ["Ab3", 5],
+        ["C4", 3],
+        ["Eb4", 1]
+    ],
+    # First inversion
+    [
+        ["C4", 5],
+        ["Eb4", 2],
+        ["Ab4", 1]
+    ],
+    # Second inversion
+    [
+        ["Eb3", 5],
+        ["Ab3", 3],
+        ["C4", 1]
+    ]
+]
+
+var g_major_lh_inversions = [
+    # Root position
+    [
+        ["G3", 5],
+        ["B3", 3],
+        ["D4", 1]
+    ],
+    # First inversion
+    [
+        ["B3", 5],
+        ["D4", 2],
+        ["G4", 1]
+    ],
+    # Second inversion
+    [
+        ["D3", 5],
+        ["G3", 3],
+        ["B3", 1]
+    ]
+]
+
+var d_major_lh_inversions = [
+    # Root position
+    [
+        ["D3", 5],
+        ["F#3", 3],
+        ["A3", 1]
+    ],
+    # First inversion
+    [
+        ["F#3", 5],
+        ["A3", 2],
+        ["D4", 1]
+    ],
+    # Second inversion
+    [
+        ["A3", 5],
+        ["D4", 3],
+        ["F#4", 1]
+    ]
+]
+
+var a_major_lh_inversions = [
+    # Root position
+    [
+        ["A3", 5],
+        ["C#4", 3],
+        ["E4", 1]
+    ],
+    # First inversion
+    [
+        ["C#4", 5],
+        ["E4", 2],
+        ["A4", 1]
+    ],
+    # Second inversion
+    [
+        ["E3", 5],
+        ["A3", 3],
+        ["C#4", 1]
+    ]
+]
+
+var e_major_lh_inversions = [
+    # Root position
+    [
+        ["E3", 5],
+        ["G#3", 3],
+        ["B3", 1]
+    ],
+    # First inversion
+    [
+        ["G#3", 5],
+        ["B3", 2],
+        ["E4", 1]
+    ],
+    # Second inversion
+    [
+        ["B3", 5],
+        ["E4", 3],
+        ["G#4", 1]
+    ]
+]
+
+var b_major_lh_inversions = [
+    # Root position
+    [
+        ["B2", 5],
+        ["D#3", 3],
+        ["F#3", 1]
+    ],
+    # First inversion
+    [
+        ["D#3", 5],
+        ["F#3", 2],
+        ["B3", 1]
+    ],
+    # Second inversion
+    [
+        ["F#3", 5],
+        ["B3", 3],
+        ["D#4", 1]
+    ]
+]
+
+var f_sharp_major_lh_inversions = [
+    # Root position
+    [
+        ["F#3", 5],
+        ["A#3", 3],
+        ["C#4", 1]
+    ],
+    # First inversion
+    [
+        ["A#3", 5],
+        ["C#4", 2],
+        ["F#4", 1]
+    ],
+    # Second inversion
+    [
+        ["C#3", 5],
+        ["F#3", 3],
+        ["A#3", 1]
+    ]
+]
+
+var c_sharp_major_lh_inversions = [
+    # Root position
+    [
+        ["C#3", 5],
+        ["E#3", 3],
+        ["G#3", 1]
+    ],
+    # First inversion
+    [
+        ["E#3", 5],
+        ["G#3", 2],
+        ["C#4", 1]
+    ],
+    # Second inversion
+    [
+        ["G#3", 5],
+        ["C#4", 3],
+        ["E#4", 1]
+    ]
+]
+
+var exercises = {
+	MusicalConstants.MusicKey.C: {
+		"right_hand": c_major_rh_inversions,
+		"left_hand": c_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.G: {
+		"right_hand": g_major_rh_inversions,
+		"left_hand": g_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.D: {
+		"right_hand": d_major_rh_inversions,
+		"left_hand": d_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.A: {
+		"right_hand": a_major_rh_inversions,
+		"left_hand": a_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.E: {
+		"right_hand": e_major_rh_inversions,
+		"left_hand": e_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.B: {
+		"right_hand": b_major_rh_inversions,
+		"left_hand": b_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.F_SHARP: {
+		"right_hand": f_sharp_major_rh_inversions,
+		"left_hand": f_sharp_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.C_SHARP: {
+		"right_hand": c_sharp_major_rh_inversions,
+		"left_hand": c_sharp_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.F: {
+		"right_hand": f_major_rh_inversions,
+		"left_hand": f_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.B_FLAT: {
+		"right_hand": b_flat_major_rh_inversions,
+		"left_hand": b_flat_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.E_FLAT: {
+		"right_hand": e_flat_major_rh_inversions,
+		"left_hand": e_flat_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.A_FLAT: {
+		"right_hand": a_flat_major_rh_inversions,
+		"left_hand": a_flat_major_lh_inversions
+	}
+}
+
+func get_exercise(key: MusicalConstants.MusicKey, hand: String) -> Array:
+	return exercises[key][hand]
+
+func has_exercise(key: MusicalConstants.MusicKey, hand: String) -> bool:
+	return exercises.has(key) and exercises[key].has(hand)
