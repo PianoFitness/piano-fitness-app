@@ -18,3 +18,8 @@ const MIDI_TO_NOTE_PREFERRED = {
 
 const KEYS_PER_OCTAVE = 12
 const STARTING_MIDI_NOTE = 24 # Starting at C1
+
+enum Hand {
+	LEFT,
+	RIGHT
+}

@@ -77,11 +77,11 @@ func get_key_by_midi(note: int) -> ColorRect:
 func get_inactive_key_color(note: int) -> Color:
 	return INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
 
-func highlight_lesson_note_by_name(note_name: String, hand: String):
+func highlight_lesson_note_by_name(note_name: String, hand: MusicalConstants.Hand):
 	var midi_note = note_name_to_midi(note_name)
 	var key = get_key_by_midi(midi_note)
 	if key:
-		key.color = Colors.RIGHT_HAND_COLOR if hand == "R" else Colors.LEFT_HAND_COLOR
+		key.color = Colors.RIGHT_HAND_COLOR if hand == MusicalConstants.Hand.RIGHT else Colors.LEFT_HAND_COLOR
 
 func get_key_rect_by_name(note_name: String) -> Rect2:
 	var midi_note = note_name_to_midi(note_name)
@@ -111,7 +111,7 @@ func _ready():
 	var exercise_manager = get_parent().get_node("ExerciseManager")
 	exercise_manager.connect("clear_highlighted_keys", _on_clear_highlighted_keys)
 
-func _on_highlight_note_by_name(note_name: String, hand: String):
+func _on_highlight_note_by_name(note_name: String, hand: MusicalConstants.Hand):
 	highlight_lesson_note_by_name(note_name, hand)
 
 func _on_unhighlight_note_by_name(note_name: String):

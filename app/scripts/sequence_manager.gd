@@ -5,7 +5,7 @@ extends Node
 signal sequence_updated(current_position: int)
 signal sequence_completed
 signal note_validated(success: bool)
-signal highlight_note_by_name(note_name: String, hand: String)
+signal highlight_note_by_name(note_name: String, hand: MusicalConstants.Hand)
 signal unhighlight_note_by_name(note_name: String)
 
 # Constants for visual feedback

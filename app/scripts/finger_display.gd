@@ -50,7 +50,7 @@ func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = f
 	label.text = str(note.finger)
 	label.add_theme_font_size_override("font_size", 24)
 	
-	var color = Colors.RIGHT_HAND_COLOR if note.hand == "R" else Colors.LEFT_HAND_COLOR
+	var color = Colors.RIGHT_HAND_COLOR if note.hand == MusicalConstants.Hand.RIGHT else Colors.LEFT_HAND_COLOR
 	label.add_theme_color_override("font_color", color)
 	
 	add_child(label)
