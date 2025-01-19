@@ -17,20 +17,24 @@ signal clear_highlighted_keys
 # Named entity for exercise map
 class ExerciseMap:
 	var scales: Array
-	var chords: Array
+	var chords: Dictionary
 	var arpeggios: Array
 	
-	func _init(_scales: Array, _chords: Array, _arpeggios: Array):
+	func _init(_scales: Array, _chords: Dictionary, _arpeggios: Array):
 		scales = _scales
 		chords = _chords
 		arpeggios = _arpeggios
 
 # Helper method to create exercise maps
 func create_exercise_map(key: String) -> ExerciseMap:
+	var key_snake = key.to_snake_case()
 	return ExerciseMap.new(
-		scales.get(key.to_snake_case() + "_major_rh_1oct"),
-		chords.get(key.to_snake_case() + "_major_rh_inversions"),
-		arpeggios.get(key.to_snake_case() + "_major_rh_arpeggios")
+		scales.get(key_snake + "_major_rh_1oct"),
+		{
+			"R": chords.get(key_snake + "_major_rh_inversions"),
+			"L": chords.get(key_snake + "_major_lh_inversions")
+		},
+		arpeggios.get(key_snake + "_major_rh_arpeggios")
 	)
 
 # Key to exercise mapping
@@ -60,6 +64,7 @@ func _initialize_dropdowns():
 	# Initialize hand selection
 	hand_dropdown.clear()
 	hand_dropdown.add_item("Right Hand")
+	hand_dropdown.add_item("Left Hand")
 	
 	# Initialize exercise types
 	exercise_type_dropdown.clear()
@@ -118,9 +123,9 @@ func create_scale(music_key: String) -> PracticeSequence:
 func create_chord_inversions(music_key: String) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = "chord_inversions"
-	var hand = "R" # For now, only right hand is supported
+	var hand = "R" if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else "L"
 	
-	var chord_notes = key_to_exercises[music_key].chords
+	var chord_notes = key_to_exercises[music_key].chords[hand]
 	for chord in chord_notes:
 		var chord_position: Array[PianoNote] = []
 		for note_data in chord:
