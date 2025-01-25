@@ -2,29 +2,19 @@ extends Control
 
 # Signals
 signal clear_highlighted_keys
+signal exercise_sequence_created(sequence: PracticeSequence)
 
 # Node references
-var hand_dropdown
-var exercise_type_dropdown
-var music_key_dropdown
-var sequence_manager
+@onready var hand_dropdown = $HBoxContainer/HandDropdown
+@onready var exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
+@onready var music_key_dropdown = $HBoxContainer/KeyDropdown
 
 # Load exercises
-var scales
-var chords
-var arpeggios
-
-func _init():
-	scales = preload("res://scripts/exercises/scales_major.gd").new()
-	chords = preload("res://scripts/exercises/chords_major.gd").new()
-	arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
+@onready var scales = preload("res://scripts/exercises/scales_major.gd").new()
+@onready var chords = preload("res://scripts/exercises/chords_major.gd").new()
+@onready var arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
 
 func _ready():
-	hand_dropdown = $HBoxContainer/HandDropdown
-	exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
-	music_key_dropdown = $HBoxContainer/KeyDropdown
-	sequence_manager = get_parent().get_node("SequenceManager")
-
 	hand_dropdown.connect("item_selected", _on_hand_selected)
 	exercise_type_dropdown.connect("item_selected", _on_exercise_type_selected)
 	music_key_dropdown.connect("item_selected", _on_key_selected)
@@ -61,6 +51,7 @@ func _on_hand_selected(index):
 	_update_exercise()
 
 func _update_exercise():
+	print("Updating exercise")
 	emit_signal("clear_highlighted_keys")
 	
 	var exercise_type = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)
@@ -83,7 +74,7 @@ func _update_exercise():
 	if exercises.has(exercise_type):
 		var exercise_method = exercises[exercise_type]
 		var exercise_sequence = self.call(exercise_method, music_key, hand_name, hand)
-		sequence_manager.set_sequence(exercise_sequence)
+		emit_signal("exercise_sequence_created", exercise_sequence)
 
 # Exercise creation methods
 func create_scale(music_key: MusicalConstants.MusicKey, hand_name: String, hand: MusicalConstants.Hand) -> PracticeSequence:

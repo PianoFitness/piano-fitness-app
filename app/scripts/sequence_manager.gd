@@ -18,6 +18,9 @@ var current_sequence: PracticeSequence # The current exercise sequence
 var current_position: int = 0 # Current position in the sequence
 var played_notes: Dictionary = {} # Tracks which notes have been played in current chord
 
+func _ready():
+	var exercise_manager = get_parent().get_node("ExerciseManager")
+	exercise_manager.connect("exercise_sequence_created", _on_exercise_sequence_created)
 
 # Set a new sequence and reset state
 func set_sequence(sequence: PracticeSequence):
@@ -29,19 +32,19 @@ func set_sequence(sequence: PracticeSequence):
 	current_position = 0
 	played_notes.clear() # Reset played notes tracking
 	
-	print("Setting new sequence: ", sequence.exercise_type)
 	update_display()
 	highlight_current_note()
+
+# Handle the exercise_sequence_created signal
+func _on_exercise_sequence_created(sequence: PracticeSequence):
+	set_sequence(sequence)
 
 # Validate an array of MIDI notes against current chord
 func validate_input(midi_notes: Array[int]) -> bool:
 	if not current_sequence or current_position >= current_sequence.sequence.size():
-		print("Invalid sequence state")
 		return false
 	
 	var current_notes = current_sequence.sequence[current_position]
-	print("\nValidating chord input: ", midi_notes)
-	
 	# First validate that all played notes are part of the expected chord
 	for midi_note in midi_notes:
 		var note_valid = false
@@ -50,11 +53,9 @@ func validate_input(midi_notes: Array[int]) -> bool:
 			if expected_midi == midi_note and not played_notes.has(expected_midi):
 				note_valid = true
 				played_notes[expected_midi] = true
-				print("Valid note played: ", midi_to_note_name(midi_note))
 				break
 		
 		if not note_valid:
-			print("Invalid note in chord: ", midi_to_note_name(midi_note))
 			return false
 	
 	# Then check if all required notes for the chord have been played
@@ -67,11 +68,9 @@ func validate_input(midi_notes: Array[int]) -> bool:
 			missing_notes.append(chord_note.pitch)
 	
 	if all_notes_played:
-		print("Complete chord played correctly!")
 		emit_signal("note_validated", true)
 		return true
 	else:
-		print("Valid notes, but chord incomplete. Missing: ", missing_notes)
 		return false
 
 # Advance to next position in sequence
@@ -85,18 +84,15 @@ func advance_sequence():
 	
 	if current_position < current_sequence.sequence.size() - 1:
 		current_position += 1
-		print("\nAdvanced to position: ", current_position)
 		var current_notes = current_sequence.sequence[current_position]
 		var note_names = []
 		for note in current_notes:
 			note_names.append(note.pitch)
-		print("Current notes: ", note_names)
 		
 		update_display()
 		highlight_current_note()
 		emit_signal("sequence_updated", current_position)
 	else:
-		print("\nSequence completed, resetting")
 		emit_signal("sequence_completed")
 		current_position = 0
 		update_display()
