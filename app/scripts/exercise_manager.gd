@@ -4,17 +4,27 @@ extends Control
 signal clear_highlighted_keys
 
 # Node references
-@onready var hand_dropdown = $HBoxContainer/HandDropdown
-@onready var exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
-@onready var music_key_dropdown = $HBoxContainer/KeyDropdown
-@onready var sequence_manager = get_parent().get_node("SequenceManager")
+var hand_dropdown
+var exercise_type_dropdown
+var music_key_dropdown
+var sequence_manager
 
 # Load exercises
-@onready var scales = preload("res://scripts/exercises/scales_major.gd").new()
-@onready var chords = preload("res://scripts/exercises/chords_major.gd").new()
-@onready var arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
+var scales
+var chords
+var arpeggios
+
+func _init():
+	scales = preload("res://scripts/exercises/scales_major.gd").new()
+	chords = preload("res://scripts/exercises/chords_major.gd").new()
+	arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
 
 func _ready():
+	hand_dropdown = $HBoxContainer/HandDropdown
+	exercise_type_dropdown = $HBoxContainer/ExerciseTypeDropdown
+	music_key_dropdown = $HBoxContainer/KeyDropdown
+	sequence_manager = get_parent().get_node("SequenceManager")
+
 	hand_dropdown.connect("item_selected", _on_hand_selected)
 	exercise_type_dropdown.connect("item_selected", _on_exercise_type_selected)
 	music_key_dropdown.connect("item_selected", _on_key_selected)
@@ -63,8 +73,7 @@ func _update_exercise():
 	
 	var hand = MusicalConstants.Hand.RIGHT if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else MusicalConstants.Hand.LEFT
 	var hand_name = "right_hand" if hand == MusicalConstants.Hand.RIGHT else "left_hand"
-	
-	print(exercise_type, music_key_str, hand_name)
+
 	var exercises = {
 		"Scales": "create_scale",
 		"Chords": "create_chord_inversions",
