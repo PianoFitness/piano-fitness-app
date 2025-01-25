@@ -30,7 +30,6 @@ func _ready():
 	var viewport_size = get_viewport_rect().size
 	piano_keys.position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
 	piano_keys.create_piano_keys(viewport_size)
-	setup_fingering_system()
 	OS.open_midi_inputs()
 
 func _process(delta: float):
@@ -42,20 +41,6 @@ func _process(delta: float):
 				if sequence_manager.validate_input(current_chord_notes):
 					sequence_manager.advance_sequence()
 			current_chord_notes.clear()
-
-func setup_fingering_system():
-	# Initialize finger display and sequence manager
-	finger_display = $PianoKeys/FingerDisplay
-	if not finger_display:
-		push_error("FingerDisplay node not found in scene (should be at PianoKeys/FingerDisplay)")
-		return
-	
-	sequence_manager = $SequenceManager
-	if not sequence_manager:
-		push_error("SequenceManager node not found in scene")
-		return
-	piano_keys = $PianoKeys
-	sequence_manager.initialize(piano_keys, finger_display)
 
 func _input(event):
 	if event is InputEventMIDI:
