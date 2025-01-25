@@ -20,19 +20,14 @@ var current_chord_notes: Array[int] = [] # Collects notes played within time win
 var chord_collection_timer: float = 0.0 # Timer for chord note collection
 
 # Node references
-var sequence_manager: SequenceManager
-
-# Preload the ExerciseManager script
-var ExerciseManager = preload("res://scripts/exercise_manager.gd")
-
 @onready var note_display = $NoteDisplay
 @onready var piano_keys = $PianoKeys
+@onready var exercise_manager = $ExerciseManager
 
 func _ready():
 	var viewport_size = get_viewport_rect().size
 	piano_keys.position = Vector2(0, viewport_size.y - viewport_size.y * WHITE_KEY_HEIGHT_RATIO)
 	piano_keys.create_piano_keys(viewport_size)
-	setup_fingering_system()
 	OS.open_midi_inputs()
 
 func _process(delta: float):
@@ -42,28 +37,14 @@ func _process(delta: float):
 		if chord_collection_timer <= 0:
 			var current_notes_size = current_chord_notes.size()
 			print("Chord collection window expired, notes collected: ", current_notes_size)
-			print("Sequence manager: ", sequence_manager)
-			if sequence_manager and current_notes_size > 0:
+			print("Exercise manager: ", exercise_manager)
+			if exercise_manager and current_notes_size > 0:
 				print("Validating chord: ", current_chord_notes)
-				if sequence_manager.validate_input(current_chord_notes):
+				if exercise_manager.validate_input(current_chord_notes):
 					print("Chord validated")
-					sequence_manager.advance_sequence()
+					exercise_manager.advance_sequence()
 			print("Clearing current chord notes")
 			current_chord_notes.clear()
-
-func setup_fingering_system():
-	# Initialize sequence manager
-	sequence_manager = $SequenceManager
-	if not sequence_manager:
-		push_error("SequenceManager node not found in scene")
-		return
-	piano_keys = $PianoKeys
-
-	# Inject the SequenceManager dependency into the ExerciseManager
-	var exercise_manager = ExerciseManager.new()
-	if not exercise_manager:
-		push_error("ExerciseManager node not found in scene")
-		return
 
 func _input(event):
 	if event is InputEventMIDI:
@@ -95,8 +76,8 @@ func reset_key_color(key: ColorRect, note: int):
 
 func get_current_lesson_notes() -> Array[int]:
 	var notes: Array[int] = []
-	if sequence_manager and sequence_manager.current_sequence:
-		var current_chord = sequence_manager.current_sequence.sequence[sequence_manager.current_position]
+	if exercise_manager and exercise_manager.current_sequence:
+		var current_chord = exercise_manager.current_sequence.sequence[exercise_manager.current_position]
 		for note in current_chord:
 			notes.append(note_name_to_midi(note.pitch))
 	return notes

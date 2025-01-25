@@ -124,14 +124,16 @@ func midi_to_note_name(midi_note: int) -> String:
 
 func _ready():
 	setup_background()
-	var sequence_manager = get_parent().get_node("SequenceManager")
-	sequence_manager.connect("highlight_note_by_name", _on_highlight_note_by_name)
-	sequence_manager.connect("unhighlight_note_by_name", _on_unhighlight_note_by_name)
-	sequence_manager.connect("clear_finger_indicators", _on_clear_finger_indicators)
-	sequence_manager.connect("add_finger_indicator", _on_add_finger_indicator)
-	
+	call_deferred("_connect_signals")
+
+func _connect_signals():
 	var exercise_manager = get_parent().get_node("ExerciseManager")
-	exercise_manager.connect("clear_highlighted_keys", _on_clear_highlighted_keys)
+	if exercise_manager:
+		exercise_manager.connect("highlight_note_by_name", _on_highlight_note_by_name)
+		exercise_manager.connect("unhighlight_note_by_name", _on_unhighlight_note_by_name)
+		exercise_manager.connect("clear_finger_indicators", _on_clear_finger_indicators)
+		exercise_manager.connect("add_finger_indicator", _on_add_finger_indicator)
+		exercise_manager.connect("clear_highlighted_keys", _on_clear_highlighted_keys)
 
 func setup_background():
 	background_rect = ColorRect.new()
