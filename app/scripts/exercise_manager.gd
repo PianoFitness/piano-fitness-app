@@ -73,8 +73,7 @@ func _update_exercise():
 	
 	var hand = MusicalConstants.Hand.RIGHT if hand_dropdown.get_item_text(hand_dropdown.selected).begins_with("Right") else MusicalConstants.Hand.LEFT
 	var hand_name = "right_hand" if hand == MusicalConstants.Hand.RIGHT else "left_hand"
-	
-	print(exercise_type, music_key_str, hand_name)
+
 	var exercises = {
 		"Scales": "create_scale",
 		"Chords": "create_chord_inversions",
