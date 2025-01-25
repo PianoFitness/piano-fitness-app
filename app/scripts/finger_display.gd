@@ -23,6 +23,9 @@ var finger_labels: Array[Label] = []
 
 func _ready():
 	setup_background()
+	var sequence_manager = get_parent().get_node("SequenceManager")
+	sequence_manager.connect("clear_finger_indicators", _on_clear_finger_indicators)
+	sequence_manager.connect("add_finger_indicator", _on_add_finger_indicator)
 
 func setup_background():
 	background_rect = ColorRect.new()
@@ -45,7 +48,10 @@ func clear_indicators():
 		label.queue_free()
 	finger_labels.clear()
 
-func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = false):
+func add_finger_indicator(note: PianoNote, is_current: bool = false):
+	var piano_keys = get_parent().get_node("PianoKeys")
+	var key_rect = piano_keys.get_key_rect_by_name(note.pitch)
+	
 	var label = Label.new()
 	label.text = str(note.finger)
 	label.add_theme_font_size_override("font_size", 24)
@@ -64,3 +70,9 @@ func add_finger_indicator(note: PianoNote, key_rect: Rect2, is_current: bool = f
 		key_rect.position.x + (key_rect.size.x / 2) - (label.size.x / 2) + x_adjustment,
 		-BACKGROUND_HEIGHT/2 - label.size.y/2
 	)
+
+func _on_clear_finger_indicators():
+	clear_indicators()
+
+func _on_add_finger_indicator(note: PianoNote, is_current: bool):
+	add_finger_indicator(note, is_current)

@@ -7,6 +7,8 @@ signal sequence_completed
 signal note_validated(success: bool)
 signal highlight_note_by_name(note_name: String, hand: MusicalConstants.Hand)
 signal unhighlight_note_by_name(note_name: String)
+signal clear_finger_indicators
+signal add_finger_indicator(note: PianoNote, is_current: bool)
 
 # Constants for visual feedback
 const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0) # Light blue for played notes
@@ -15,13 +17,7 @@ const STUDENT_COLOR = Color(0.8, 0.8, 1.0, 1.0) # Light blue for played notes
 var current_sequence: PracticeSequence # The current exercise sequence
 var current_position: int = 0 # Current position in the sequence
 var played_notes: Dictionary = {} # Tracks which notes have been played in current chord
-var finger_display: FingerDisplay # Reference to finger number display
-var piano_node: Node # Reference to main piano node
 
-# Initialize manager with required node references
-func initialize(piano_keys: Node, display: FingerDisplay):
-	piano_node = piano_keys
-	finger_display = display
 
 # Set a new sequence and reset state
 func set_sequence(sequence: PracticeSequence):
@@ -50,22 +46,22 @@ func validate_input(midi_notes: Array[int]) -> bool:
 	for midi_note in midi_notes:
 		var note_valid = false
 		for expected_note in current_notes:
-			var expected_midi = piano_node.note_name_to_midi(expected_note.pitch)
+			var expected_midi = note_name_to_midi(expected_note.pitch)
 			if expected_midi == midi_note and not played_notes.has(expected_midi):
 				note_valid = true
 				played_notes[expected_midi] = true
-				print("Valid note played: ", piano_node.midi_to_note_name(midi_note))
+				print("Valid note played: ", midi_to_note_name(midi_note))
 				break
 		
 		if not note_valid:
-			print("Invalid note in chord: ", piano_node.midi_to_note_name(midi_note))
+			print("Invalid note in chord: ", midi_to_note_name(midi_note))
 			return false
 	
 	# Then check if all required notes for the chord have been played
 	var all_notes_played = true
 	var missing_notes = []
 	for chord_note in current_notes:
-		var chord_midi = piano_node.note_name_to_midi(chord_note.pitch)
+		var chord_midi = note_name_to_midi(chord_note.pitch)
 		if not played_notes.has(chord_midi):
 			all_notes_played = false
 			missing_notes.append(chord_note.pitch)
@@ -109,19 +105,12 @@ func advance_sequence():
 
 # Update the finger number display
 func update_display():
-	if not finger_display:
-		push_error("FingerDisplay reference not set")
-		return
-		
-	# Clear existing finger indicators (you'll need to implement this in FingerDisplay)
-	if finger_display.has_method("clear_indicators"):
-		finger_display.clear_indicators()
+	emit_signal("clear_finger_indicators")
 	
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position]
 		for note in current_notes:
-			var key_rect = piano_node.get_key_rect_by_name(note.pitch)
-			finger_display.add_finger_indicator(note, key_rect, true)
+			emit_signal("add_finger_indicator", note, true)
 
 # Highlight current chord notes
 func highlight_current_note():
@@ -144,3 +133,17 @@ func get_current_position() -> int:
 # Check if a sequence is currently active
 func has_active_sequence() -> bool:
 	return current_sequence != null
+
+# Utility functions for note name to MIDI conversion
+func note_name_to_midi(note_name: String) -> int:
+	var note = note_name.left(len(note_name) - 1)
+	var octave = int(note_name.right(1))
+	if note in MusicalConstants.NOTE_TO_MIDI_OFFSET:
+		var note_offset = MusicalConstants.NOTE_TO_MIDI_OFFSET[note]
+		return MusicalConstants.STARTING_MIDI_NOTE + (octave * MusicalConstants.KEYS_PER_OCTAVE) + note_offset
+	return -1
+
+func midi_to_note_name(midi_note: int) -> String:
+	var octave = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) / MusicalConstants.KEYS_PER_OCTAVE
+	var note_index = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) % MusicalConstants.KEYS_PER_OCTAVE
+	return MusicalConstants.MIDI_TO_NOTE_PREFERRED[note_index] + str(octave)
