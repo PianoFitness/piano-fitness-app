@@ -13,8 +13,7 @@ enum ExerciseType {
 var sequence: Array[NotePosition] = []
 var exercise_type: ExerciseType = ExerciseType.SCALES
 
-func add_position(notes: Array[FingeredNote]):
-	var position = NotePosition.new(notes)
+func add_position(position: NotePosition):
 	sequence.append(position)
 
 func clear():

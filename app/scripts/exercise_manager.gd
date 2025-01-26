@@ -216,9 +216,9 @@ func create_scale(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeS
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.SCALES
 	
-	var scale_notes = scales.get_exercise(music_key, hand)
-	for position in scale_notes:
-		practice_sequence.add_position([position])
+	var exercise = scales.get_exercise(music_key, hand)
+	for position in exercise:
+		practice_sequence.add_position(position)
 	
 	return practice_sequence
 
@@ -226,9 +226,9 @@ func create_chord_inversions(music_key: MusicalConstants.MusicKey, hand: Hand) -
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.CHORDS
 	
-	var chord_notes = chords.get_exercise(music_key, hand)
-	for chord in chord_notes:
-		practice_sequence.add_position([chord])
+	var exercise = chords.get_exercise(music_key, hand)
+	for position in exercise:
+		practice_sequence.add_position(position)
 	
 	return practice_sequence
 
@@ -236,8 +236,8 @@ func create_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand) -> Pract
 	var practice_sequence = PracticeSequence.new()
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.ARPEGGIOS
 	
-	var arpeggio_notes = arpeggios.get_exercise(music_key, hand)
-	for note in arpeggio_notes:
-		practice_sequence.add_position([note])
+	var exercise = arpeggios.get_exercise(music_key, hand)
+	for position in exercise:
+		practice_sequence.add_position(position)
 	
 	return practice_sequence

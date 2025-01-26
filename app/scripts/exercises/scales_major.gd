@@ -3,6 +3,7 @@ class_name ScaleExercises extends Resource
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 # Right hand ascending scales with correct fingerings
 var c_major_rh_1oct = [
@@ -321,8 +322,15 @@ var exercises = {
 	}
 }
 
-func get_exercise(key: MusicalConstants.MusicKey, hand: Hand) -> Array:
-	return exercises[key][hand]
+func get_exercise(key: MusicalConstants.MusicKey, hand: Hand) -> Array[NotePosition]:
+	var exercise = exercises[key][hand]
+
+	var note_positions: Array[NotePosition] = []
+	for fingered_note in exercise:
+		var note_position = NotePosition.new([fingered_note])
+		note_positions.append(note_position)
+
+	return note_positions
 
 func has_exercise(key: MusicalConstants.MusicKey, hand: Hand) -> bool:
 	return exercises.has(key) and exercises[key].has(hand)
