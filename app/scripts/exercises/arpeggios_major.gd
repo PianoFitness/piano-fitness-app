@@ -2,175 +2,177 @@ class_name ArpeggioExercises extends Resource
 # Right hand ascending arpeggios with correct fingerings for all major triads
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
+const Finger = preload("res://scripts/constants/finger.gd").Finger
+const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 
 var c_major_rh_arpeggios = [
-	["C4", 1], # Thumb
-	["E4", 2], # Index
-	["G4", 3], # Middle
-	["C5", 5] # Pinky
+	FingeredNote.new("C4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("E4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("G4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("C5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var g_major_rh_arpeggios = [
-	["G4", 1], # Thumb
-	["B4", 2], # Index
-	["D5", 3], # Middle
-	["G5", 5] # Pinky
+	FingeredNote.new("G4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("B4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("D5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("G5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var d_major_rh_arpeggios = [
-	["D4", 1], # Thumb
-	["F#4", 2], # Index
-	["A4", 3], # Middle
-	["D5", 5] # Pinky
+	FingeredNote.new("D4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("F#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("A4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("D5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var a_major_rh_arpeggios = [
-	["A4", 1], # Thumb
-	["C#5", 2], # Index
-	["E5", 3], # Middle
-	["A5", 5] # Pinky
+	FingeredNote.new("A4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("C#5", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("E5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("A5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var e_major_rh_arpeggios = [
-	["E4", 1], # Thumb
-	["G#4", 2], # Index
-	["B4", 3], # Middle
-	["E5", 5] # Pinky
+	FingeredNote.new("E4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("G#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("B4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("E5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var b_major_rh_arpeggios = [
-	["B4", 1], # Thumb
-	["D#5", 2], # Index
-	["F#5", 3], # Middle
-	["B5", 5] # Pinky
+	FingeredNote.new("B4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("D#5", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("F#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("B5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var f_sharp_major_rh_arpeggios = [
-	["F#4", 1], # Thumb
-	["A#4", 2], # Index
-	["C#5", 3], # Middle
-	["F#5", 5] # Pinky
+	FingeredNote.new("F#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("A#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("C#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("F#5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var c_sharp_major_rh_arpeggios = [
-	["C#4", 1], # Thumb
-	["E#4", 2], # Index
-	["G#4", 3], # Middle
-	["C#5", 5] # Pinky
+	FingeredNote.new("C#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("E#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("G#4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("C#5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var f_major_rh_arpeggios = [
-	["F4", 1], # Thumb
-	["A4", 2], # Index
-	["C5", 3], # Middle
-	["F5", 5] # Pinky
+	FingeredNote.new("F4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("A4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("C5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("F5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var b_flat_major_rh_arpeggios = [
-	["Bb4", 1], # Thumb
-	["D5", 2], # Index
-	["F5", 3], # Middle
-	["Bb5", 5] # Pinky
+	FingeredNote.new("Bb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("D5", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("F5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Bb5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var e_flat_major_rh_arpeggios = [
-	["Eb4", 1], # Thumb
-	["G4", 2], # Index
-	["Bb4", 3], # Middle
-	["Eb5", 5] # Pinky
+	FingeredNote.new("Eb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("G4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Bb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Eb5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 var a_flat_major_rh_arpeggios = [
-	["Ab4", 1], # Thumb
-	["C5", 2], # Index
-	["Eb5", 3], # Middle
-	["Ab5", 5] # Pinky
+	FingeredNote.new("Ab4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("C5", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Eb5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
 # Left hand ascending arpeggios with correct fingerings for all major triads
 
 var c_major_lh_arpeggios = [
-	["C3", 5], # Pinky
-	["E3", 3], # Middle
-	["G3", 2], # Index
-	["C4", 1] # Thumb
+	FingeredNote.new("C3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("E3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("G3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("C4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var g_major_lh_arpeggios = [
-	["G3", 5], # Pinky
-	["B3", 3], # Middle
-	["D4", 2], # Index
-	["G4", 1] # Thumb
+	FingeredNote.new("G3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("D4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("G4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var d_major_lh_arpeggios = [
-	["D3", 5], # Pinky
-	["F#3", 3], # Middle
-	["A3", 2], # Index
-	["D4", 1] # Thumb
+	FingeredNote.new("D3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("F#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("A3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("D4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var a_major_lh_arpeggios = [
-	["A3", 5], # Pinky
-	["C#4", 3], # Middle
-	["E4", 2], # Index
-	["A4", 1] # Thumb
+	FingeredNote.new("A3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("E4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("A4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var e_major_lh_arpeggios = [
-	["E3", 5], # Pinky
-	["G#3", 3], # Middle
-	["B3", 2], # Index
-	["E4", 1] # Thumb
+	FingeredNote.new("E3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("G#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("E4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var b_major_lh_arpeggios = [
-	["B2", 5], # Pinky
-	["D#3", 3], # Middle
-	["F#3", 2], # Index
-	["B3", 1] # Thumb
+	FingeredNote.new("B2", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("D#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("F#3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var f_sharp_major_lh_arpeggios = [
-	["F#3", 5], # Pinky
-	["A#3", 3], # Middle
-	["C#4", 2], # Index
-	["F#4", 1] # Thumb
+	FingeredNote.new("F#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("A#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("F#4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var c_sharp_major_lh_arpeggios = [
-	["C#3", 5], # Pinky
-	["E#3", 3], # Middle
-	["G#3", 2], # Index
-	["C#4", 1] # Thumb
+	FingeredNote.new("C#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("E#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("G#3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var f_major_lh_arpeggios = [
-	["F3", 5], # Pinky
-	["A3", 3], # Middle
-	["C4", 2], # Index
-	["F4", 1] # Thumb
+	FingeredNote.new("F3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("A3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("C4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("F4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var b_flat_major_lh_arpeggios = [
-	["Bb2", 5], # Pinky
-	["D3", 3], # Middle
-	["F3", 2], # Index
-	["Bb3", 1] # Thumb
+	FingeredNote.new("Bb2", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("D3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("F3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Bb3", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var e_flat_major_lh_arpeggios = [
-	["Eb3", 5], # Pinky
-	["G3", 3], # Middle
-	["Bb3", 2], # Index
-	["Eb4", 1] # Thumb
+	FingeredNote.new("Eb3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("G3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("Bb3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Eb4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var a_flat_major_lh_arpeggios = [
-	["Ab3", 5], # Pinky
-	["C4", 3], # Middle
-	["Eb4", 2], # Index
-	["Ab4", 1] # Thumb
+	FingeredNote.new("Ab3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("C4", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("Eb4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Ab4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
 var exercises = {
