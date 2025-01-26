@@ -1,5 +1,7 @@
 extends Node2D
 
+const Hand = preload("res://scripts/constants/hand.gd").Hand
+
 # Piano physical layout constants - These define the visual arrangement of piano keys
 const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys
 const BLACK_KEY_POSITIONS = [
@@ -96,11 +98,11 @@ func get_key_by_midi(note: int) -> ColorRect:
 func get_inactive_key_color(note: int) -> Color:
 	return INACTIVE_WHITE_KEY_COLOR if note in white_keys else INACTIVE_BLACK_KEY_COLOR
 
-func highlight_lesson_note_by_name(note_name: String, hand: MusicalConstants.Hand):
+func highlight_lesson_note_by_name(note_name: String, hand: Hand):
 	var midi_note = note_name_to_midi(note_name)
 	var key = get_key_by_midi(midi_note)
 	if key:
-		key.color = Colors.RIGHT_HAND_COLOR if hand == MusicalConstants.Hand.RIGHT else Colors.LEFT_HAND_COLOR
+		key.color = Colors.RIGHT_HAND_COLOR if hand == Hand.RIGHT_HAND else Colors.LEFT_HAND_COLOR
 
 func get_key_rect_by_name(note_name: String) -> Rect2:
 	var midi_note = note_name_to_midi(note_name)
@@ -165,7 +167,7 @@ func add_finger_indicator(note: PianoNote, is_current: bool = false):
 	label.text = str(note.finger)
 	label.add_theme_font_size_override("font_size", 24)
 	
-	var color = Colors.RIGHT_HAND_COLOR if note.hand == MusicalConstants.Hand.RIGHT else Colors.LEFT_HAND_COLOR
+	var color = Colors.RIGHT_HAND_COLOR if note.hand == Hand.RIGHT_HAND else Colors.LEFT_HAND_COLOR
 	label.add_theme_color_override("font_color", color)
 	
 	add_child(label)
@@ -180,7 +182,7 @@ func add_finger_indicator(note: PianoNote, is_current: bool = false):
 		-BACKGROUND_HEIGHT/2 - label.size.y/2
 	)
 
-func _on_highlight_note_by_name(note_name: String, hand: MusicalConstants.Hand):
+func _on_highlight_note_by_name(note_name: String, hand: Hand):
 	print("Highlightingnote: ", note_name)
 	highlight_lesson_note_by_name(note_name, hand)
 

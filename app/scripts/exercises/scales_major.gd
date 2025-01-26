@@ -1,5 +1,7 @@
 class_name ScaleExercises extends Resource
 
+const Hand = preload("res://scripts/constants/hand.gd").Hand
+
 # Right hand ascending scales with correct fingerings
 var c_major_rh_1oct = [
 	["C4", 1], # Thumb
@@ -268,57 +270,57 @@ var a_flat_major_lh_1oct = [
 
 var exercises = {
 	MusicalConstants.MusicKey.C: {
-		"right_hand": c_major_rh_1oct,
-		"left_hand": c_major_lh_1oct
+		Hand.RIGHT_HAND: c_major_rh_1oct,
+		Hand.LEFT_HAND: c_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.G: {
-		"right_hand": g_major_rh_1oct,
-		"left_hand": g_major_lh_1oct
+		Hand.RIGHT_HAND: g_major_rh_1oct,
+		Hand.LEFT_HAND: g_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.D: {
-		"right_hand": d_major_rh_1oct,
-		"left_hand": d_major_lh_1oct
+		Hand.RIGHT_HAND: d_major_rh_1oct,
+		Hand.LEFT_HAND: d_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.A: {
-		"right_hand": a_major_rh_1oct,
-		"left_hand": a_major_lh_1oct
+		Hand.RIGHT_HAND: a_major_rh_1oct,
+		Hand.LEFT_HAND: a_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.E: {
-		"right_hand": e_major_rh_1oct,
-		"left_hand": e_major_lh_1oct
+		Hand.RIGHT_HAND: e_major_rh_1oct,
+		Hand.LEFT_HAND: e_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.B: {
-		"right_hand": b_major_rh_1oct,
-		"left_hand": b_major_lh_1oct
+		Hand.RIGHT_HAND: b_major_rh_1oct,
+		Hand.LEFT_HAND: b_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.F_SHARP: {
-		"right_hand": f_sharp_major_rh_1oct,
-		"left_hand": f_sharp_major_lh_1oct
+		Hand.RIGHT_HAND: f_sharp_major_rh_1oct,
+		Hand.LEFT_HAND: f_sharp_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.C_SHARP: {
-		"right_hand": c_sharp_major_rh_1oct,
-		"left_hand": c_sharp_major_lh_1oct
+		Hand.RIGHT_HAND: c_sharp_major_rh_1oct,
+		Hand.LEFT_HAND: c_sharp_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.F: {
-		"right_hand": f_major_rh_1oct,
-		"left_hand": f_major_lh_1oct
+		Hand.RIGHT_HAND: f_major_rh_1oct,
+		Hand.LEFT_HAND: f_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.B_FLAT: {
-		"right_hand": b_flat_major_rh_1oct,
-		"left_hand": b_flat_major_lh_1oct
+		Hand.RIGHT_HAND: b_flat_major_rh_1oct,
+		Hand.LEFT_HAND: b_flat_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.E_FLAT: {
-		"right_hand": e_flat_major_rh_1oct,
-		"left_hand": e_flat_major_lh_1oct
+		Hand.RIGHT_HAND: e_flat_major_rh_1oct,
+		Hand.LEFT_HAND: e_flat_major_lh_1oct
 	},
 	MusicalConstants.MusicKey.A_FLAT: {
-		"right_hand": a_flat_major_rh_1oct,
-		"left_hand": a_flat_major_lh_1oct
+		Hand.RIGHT_HAND: a_flat_major_rh_1oct,
+		Hand.LEFT_HAND: a_flat_major_lh_1oct
 	}
 }
 
-func get_exercise(key: MusicalConstants.MusicKey, hand: String) -> Array:
+func get_exercise(key: MusicalConstants.MusicKey, hand: Hand) -> Array:
 	return exercises[key][hand]
 
-func has_exercise(key: MusicalConstants.MusicKey, hand: String) -> bool:
+func has_exercise(key: MusicalConstants.MusicKey, hand: Hand) -> bool:
 	return exercises.has(key) and exercises[key].has(hand)
