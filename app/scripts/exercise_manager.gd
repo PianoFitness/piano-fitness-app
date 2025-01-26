@@ -1,6 +1,8 @@
 extends Control
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
+const FingeredNote = preload("res://scripts/models/fingered_note.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 # Signals
 signal clear_highlighted_keys
@@ -11,7 +13,7 @@ signal note_validated(success: bool)
 signal highlight_note_by_name(note_name: String, hand: Hand)
 signal unhighlight_note_by_name(note_name: String)
 signal clear_finger_indicators
-signal add_finger_indicator(note: PianoNote, is_current: bool)
+signal add_finger_indicator(note: FingeredNote, is_current: bool)
 
 # Node references
 @onready var hand_dropdown = $HBoxContainer/HandDropdown
@@ -117,7 +119,7 @@ func validate_input(midi_notes: Array[int]) -> bool:
 	if not current_sequence or current_position >= current_sequence.sequence.size():
 		return false
 	
-	var current_notes = current_sequence.sequence[current_position]
+	var current_notes = current_sequence.sequence[current_position].notes
 	# First validate that all played notes are part of the expected chord
 	for midi_note in midi_notes:
 		var note_valid = false
@@ -157,7 +159,7 @@ func advance_sequence():
 	
 	if current_position < current_sequence.sequence.size() - 1:
 		current_position += 1
-		var current_notes = current_sequence.sequence[current_position]
+		var current_notes = current_sequence.sequence[current_position].notes
 		var note_names = []
 		for note in current_notes:
 			note_names.append(note.pitch)
@@ -177,21 +179,21 @@ func update_display():
 	emit_signal("clear_finger_indicators")
 	
 	if current_position < current_sequence.sequence.size():
-		var current_notes = current_sequence.sequence[current_position]
+		var current_notes = current_sequence.sequence[current_position].notes
 		for note in current_notes:
 			emit_signal("add_finger_indicator", note, true)
 
 # Highlight current chord notes
 func highlight_current_note():
 	if current_position < current_sequence.sequence.size():
-		var current_notes = current_sequence.sequence[current_position]
+		var current_notes = current_sequence.sequence[current_position].notes
 		for note in current_notes:
 			emit_signal("highlight_note_by_name", note.pitch, note.hand)
 
 # Remove highlighting from current chord notes
 func unhighlight_current_note():
 	if current_position < current_sequence.sequence.size():
-		var current_notes = current_sequence.sequence[current_position]
+		var current_notes = current_sequence.sequence[current_position].notes
 		for note in current_notes:
 			emit_signal("unhighlight_note_by_name", note.pitch)
 
@@ -215,9 +217,8 @@ func create_scale(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeS
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.SCALES
 	
 	var scale_notes = scales.get_exercise(music_key, hand)
-	for note_data in scale_notes:
-		var note = PianoNote.new(note_data[0], hand, note_data[1])
-		practice_sequence.add_position([note])
+	for position in scale_notes:
+		practice_sequence.add_position([position])
 	
 	return practice_sequence
 
@@ -227,11 +228,7 @@ func create_chord_inversions(music_key: MusicalConstants.MusicKey, hand: Hand) -
 	
 	var chord_notes = chords.get_exercise(music_key, hand)
 	for chord in chord_notes:
-		var chord_position: Array[PianoNote] = []
-		for note_data in chord:
-			var note = PianoNote.new(note_data[0], hand, note_data[1])
-			chord_position.append(note)
-		practice_sequence.add_position(chord_position)
+		practice_sequence.add_position([chord])
 	
 	return practice_sequence
 
@@ -240,8 +237,7 @@ func create_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand) -> Pract
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.ARPEGGIOS
 	
 	var arpeggio_notes = arpeggios.get_exercise(music_key, hand)
-	for note_data in arpeggio_notes:
-		var note = PianoNote.new(note_data[0], hand, note_data[1])
+	for note in arpeggio_notes:
 		practice_sequence.add_position([note])
 	
 	return practice_sequence

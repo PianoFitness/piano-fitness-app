@@ -72,8 +72,8 @@ func reset_key_color(key: ColorRect, note: int):
 func get_current_lesson_notes() -> Array[int]:
 	var notes: Array[int] = []
 	if exercise_manager and exercise_manager.current_sequence:
-		var current_chord = exercise_manager.current_sequence.sequence[exercise_manager.current_position]
-		for note in current_chord:
+		var note_position = exercise_manager.current_sequence.sequence[exercise_manager.current_position]
+		for note in note_position.notes:
 			notes.append(note_name_to_midi(note.pitch))
 	return notes
 

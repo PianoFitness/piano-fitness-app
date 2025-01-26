@@ -1,6 +1,7 @@
 extends Node2D
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
+const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 
 # Piano physical layout constants - These define the visual arrangement of piano keys
 const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys
@@ -158,7 +159,7 @@ func clear_indicators():
 		label.queue_free()
 	finger_labels.clear()
 
-func add_finger_indicator(note: PianoNote, is_current: bool = false):
+func add_finger_indicator(note: FingeredNote, is_current: bool = false):
 	var key_rect = get_key_rect_by_name(note.pitch)
 	
 	var label = Label.new()
@@ -198,5 +199,5 @@ func _on_clear_highlighted_keys():
 func _on_clear_finger_indicators():
 	clear_indicators()
 
-func _on_add_finger_indicator(note: PianoNote, is_current: bool):
+func _on_add_finger_indicator(note: FingeredNote, is_current: bool):
 	add_finger_indicator(note, is_current)
