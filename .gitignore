@@ -13,3 +13,9 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+.DS_Store
+
+# Ignore all files in app/export but keep the directory
+app/export/*
+!app/export/.gitignore
