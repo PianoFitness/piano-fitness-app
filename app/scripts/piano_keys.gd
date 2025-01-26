@@ -154,13 +154,11 @@ func update_background_size():
 		background_rect.position = Vector2(0, -BACKGROUND_HEIGHT)
 
 func clear_indicators():
-	print("Clearingfingerindicators")
 	for label in finger_labels:
 		label.queue_free()
 	finger_labels.clear()
 
 func add_finger_indicator(note: PianoNote, is_current: bool = false):
-	print("Addingfingerindicator for note: ", note.pitch)
 	var key_rect = get_key_rect_by_name(note.pitch)
 	
 	var label = Label.new()
@@ -183,18 +181,15 @@ func add_finger_indicator(note: PianoNote, is_current: bool = false):
 	)
 
 func _on_highlight_note_by_name(note_name: String, hand: Hand):
-	print("Highlightingnote: ", note_name)
 	highlight_lesson_note_by_name(note_name, hand)
 
 func _on_unhighlight_note_by_name(note_name: String):
-	print("Unhighlightingnote: ", note_name)
 	var midi_note = note_name_to_midi(note_name)
 	var key = get_key_by_midi(midi_note)
 	if key:
 		key.color = get_inactive_key_color(midi_note)
 
 func _on_clear_highlighted_keys():
-	print("Clearinghighlightedkeys")
 	for key in white_keys.values():
 		key.color = INACTIVE_WHITE_KEY_COLOR
 	for key in black_keys.values():

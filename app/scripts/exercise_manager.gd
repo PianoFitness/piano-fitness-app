@@ -65,7 +65,6 @@ func _on_hand_selected(index):
 	_update_exercise()
 
 func _update_exercise():
-	print("Updating exercise")
 	emit_signal("clear_highlighted_keys")
 	
 	var exercise_type_str = exercise_type_dropdown.get_item_text(exercise_type_dropdown.selected)

@@ -36,14 +36,9 @@ func _process(delta: float):
 		chord_collection_timer -= delta
 		if chord_collection_timer <= 0:
 			var current_notes_size = current_chord_notes.size()
-			print("Chord collection window expired, notes collected: ", current_notes_size)
-			print("Exercise manager: ", exercise_manager)
 			if exercise_manager and current_notes_size > 0:
-				print("Validating chord: ", current_chord_notes)
 				if exercise_manager.validate_input(current_chord_notes):
-					print("Chord validated")
 					exercise_manager.advance_sequence()
-			print("Clearing current chord notes")
 			current_chord_notes.clear()
 
 func _input(event):
