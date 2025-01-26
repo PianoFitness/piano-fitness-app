@@ -1,5 +1,7 @@
 extends RichTextLabel
 
+const Hand = preload("res://scripts/constants/hand.gd").Hand
+
 # We'll store both the display name and the MIDI note number for proper sorting
 class NoteInfo:
 	var display_name: String

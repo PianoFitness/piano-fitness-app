@@ -1,13 +1,21 @@
 class_name PracticeSequence
 extends Resource
 
-# Define a custom Array property that will store arrays of PianoNote arrays
-@export var sequence: Array[Array] = []
-@export var exercise_type: String = ""
+const FingeredNote = preload("res://scripts/models/fingered_note.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
-func add_position(notes: Array[PianoNote]):
-	sequence.append(notes)
+enum ExerciseType {
+	SCALES,
+	CHORDS,
+	ARPEGGIOS
+}
+
+var sequence: Array[NotePosition] = []
+var exercise_type: ExerciseType = ExerciseType.SCALES
+
+func add_position(position: NotePosition):
+	sequence.append(position)
 
 func clear():
 	sequence.clear()
-	exercise_type = ""
+	exercise_type = ExerciseType.SCALES
