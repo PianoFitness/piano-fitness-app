@@ -6,6 +6,7 @@ enum ExerciseType {
 	CHORDS,
 	MAJOR_ARPEGGIOS,
 	MINOR_ARPEGGIOS,
+	DIMINISHED_ARPEGGIOS,
 }
 
 var sequence: Array[NotePosition] = []
