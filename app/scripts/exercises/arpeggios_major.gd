@@ -1,7 +1,8 @@
-class_name ArpeggioExercises extends Resource
-
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
+
+var MajorArpeggiosLH = preload("res://scripts/exercises/arpeggios_major_lh.gd").new()
+var MajorArpeggiosRH = preload("res://scripts/exercises/arpeggios_major_rh.gd").new()
 
 var exercises = {
 	MusicalConstants.MusicKey.C: {

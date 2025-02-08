@@ -1,6 +1,4 @@
 # Right hand ascending arpeggios with correct fingerings for all minor triads
-class_name MinorArpeggiosRH extends Resource
-
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 

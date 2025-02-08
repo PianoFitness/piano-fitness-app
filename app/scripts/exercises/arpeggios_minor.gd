@@ -1,7 +1,8 @@
-class_name MinorArpeggioExercises extends Resource
-
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
+
+var MinorArpeggiosRH = preload("res://scripts/exercises/arpeggios_minor_rh.gd").new()
+var MinorArpeggiosLH = preload("res://scripts/exercises/arpeggios_minor_lh.gd").new()
 
 var exercises = {
 	MusicalConstants.MusicKey.C: {

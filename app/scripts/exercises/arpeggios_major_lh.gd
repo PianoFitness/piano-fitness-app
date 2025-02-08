@@ -1,5 +1,5 @@
 # Left hand ascending arpeggios with correct fingerings for all major triads
-class_name MajorArpeggiosLH extends Resource
+
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 
