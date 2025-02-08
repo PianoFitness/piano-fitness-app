@@ -23,7 +23,8 @@ signal add_finger_indicator(note: FingeredNote, is_current: bool)
 # Load exercises
 @onready var scales = preload("res://scripts/exercises/scales_major.gd").new()
 @onready var chords = preload("res://scripts/exercises/chords_major.gd").new()
-@onready var arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
+@onready var major_arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
+@onready var minor_arpeggios = preload("res://scripts/exercises/arpeggios_minor.gd").new()
 
 # State tracking variables
 var current_sequence: PracticeSequence # The current exercise sequence
@@ -47,7 +48,8 @@ func _initialize_dropdowns():
 	exercise_type_dropdown.clear()
 	exercise_type_dropdown.add_item("Scales")
 	exercise_type_dropdown.add_item("Chords")
-	exercise_type_dropdown.add_item("Arpeggios")
+	exercise_type_dropdown.add_item("Major Arpeggios")
+	exercise_type_dropdown.add_item("Minor Arpeggios")
 	
 	_update_key_dropdown()
 
@@ -76,8 +78,10 @@ func _update_exercise():
 		exercise_type = PracticeSequence.ExerciseType.SCALES
 	elif exercise_type_str == "Chords":
 		exercise_type = PracticeSequence.ExerciseType.CHORDS
-	elif exercise_type_str == "Arpeggios":
-		exercise_type = PracticeSequence.ExerciseType.ARPEGGIOS
+	elif exercise_type_str == "Major Arpeggios":
+		exercise_type = PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS
+	elif exercise_type_str == "Minor Arpeggios":
+		exercise_type = PracticeSequence.ExerciseType.MINOR_ARPEGGIOS
 	else:
 		exercise_type = PracticeSequence.ExerciseType.SCALES
 	
@@ -93,7 +97,8 @@ func _update_exercise():
 	var exercises = {
 		PracticeSequence.ExerciseType.SCALES: "create_scale",
 		PracticeSequence.ExerciseType.CHORDS: "create_chord_inversions",
-		PracticeSequence.ExerciseType.ARPEGGIOS: "create_arpeggios"
+		PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS: "create_major_arpeggios",
+		PracticeSequence.ExerciseType.MINOR_ARPEGGIOS: "create_minor_arpeggios"
 	}
 	
 	if exercises.has(exercise_type):
@@ -217,8 +222,8 @@ func create_scale(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeS
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.SCALES
 	
 	var exercise = scales.get_exercise(music_key, hand)
-	for position in exercise:
-		practice_sequence.add_position(position)
+	for exercise_position in exercise:
+		practice_sequence.add_position(exercise_position)
 	
 	return practice_sequence
 
@@ -227,17 +232,27 @@ func create_chord_inversions(music_key: MusicalConstants.MusicKey, hand: Hand) -
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.CHORDS
 	
 	var exercise = chords.get_exercise(music_key, hand)
-	for position in exercise:
-		practice_sequence.add_position(position)
+	for exercise_position in exercise:
+		practice_sequence.add_position(exercise_position)
 	
 	return practice_sequence
 
-func create_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeSequence:
+func create_major_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeSequence:
 	var practice_sequence = PracticeSequence.new()
-	practice_sequence.exercise_type = PracticeSequence.ExerciseType.ARPEGGIOS
+	practice_sequence.exercise_type = PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS
 	
-	var exercise = arpeggios.get_exercise(music_key, hand)
-	for position in exercise:
-		practice_sequence.add_position(position)
+	var exercise = major_arpeggios.get_exercise(music_key, hand)
+	for exercise_position in exercise:
+		practice_sequence.add_position(exercise_position)
+	
+	return practice_sequence
+
+func create_minor_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeSequence:
+	var practice_sequence = PracticeSequence.new()
+	practice_sequence.exercise_type = PracticeSequence.ExerciseType.MINOR_ARPEGGIOS
+	
+	var exercise = minor_arpeggios.get_exercise(music_key, hand)
+	for exercise_position in exercise:
+		practice_sequence.add_position(exercise_position)
 	
 	return practice_sequence
