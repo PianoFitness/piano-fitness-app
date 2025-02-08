@@ -26,6 +26,7 @@ signal add_finger_indicator(note: FingeredNote, is_current: bool)
 @onready var major_arpeggios = preload("res://scripts/exercises/arpeggios_major.gd").new()
 @onready var minor_arpeggios = preload("res://scripts/exercises/arpeggios_minor.gd").new()
 @onready var diminished_arpeggios = preload("res://scripts/exercises/arpeggios_diminished.gd").new()
+@onready var diatonic_arpeggios = preload("res://scripts/exercises/arpeggios_diatonic.gd").new()
 
 # State tracking variables
 var current_sequence: PracticeSequence # The current exercise sequence
@@ -52,6 +53,7 @@ func _initialize_dropdowns():
 	exercise_type_dropdown.add_item("Major Arpeggios")
 	exercise_type_dropdown.add_item("Minor Arpeggios")
 	exercise_type_dropdown.add_item("Diminished Arpeggios")
+	exercise_type_dropdown.add_item("Diatonic Arpeggios")
 	
 	_update_key_dropdown()
 
@@ -86,6 +88,8 @@ func _update_exercise():
 		exercise_type = PracticeSequence.ExerciseType.MINOR_ARPEGGIOS
 	elif exercise_type_str == "Diminished Arpeggios":
 		exercise_type = PracticeSequence.ExerciseType.DIMINISHED_ARPEGGIOS
+	elif exercise_type_str == "Diatonic Arpeggios":
+		exercise_type = PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS
 	else:
 		exercise_type = PracticeSequence.ExerciseType.SCALES
 	
@@ -103,7 +107,8 @@ func _update_exercise():
 		PracticeSequence.ExerciseType.CHORDS: "create_chord_inversions",
 		PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS: "create_major_arpeggios",
 		PracticeSequence.ExerciseType.MINOR_ARPEGGIOS: "create_minor_arpeggios",
-		PracticeSequence.ExerciseType.DIMINISHED_ARPEGGIOS: "create_diminished_arpeggios"
+		PracticeSequence.ExerciseType.DIMINISHED_ARPEGGIOS: "create_diminished_arpeggios",
+		PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS: "create_diatonic_arpeggios"
 	}
 	
 	if exercises.has(exercise_type):
@@ -267,6 +272,16 @@ func create_diminished_arpeggios(music_key: MusicalConstants.MusicKey, hand: Han
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.DIMINISHED_ARPEGGIOS
 	
 	var exercise = diminished_arpeggios.get_exercise(music_key, hand)
+	for exercise_position in exercise:
+		practice_sequence.add_position(exercise_position)
+	
+	return practice_sequence
+
+func create_diatonic_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeSequence:
+	var practice_sequence = PracticeSequence.new()
+	practice_sequence.exercise_type = PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS
+	
+	var exercise = diatonic_arpeggios.get_exercise(music_key, hand)
 	for exercise_position in exercise:
 		practice_sequence.add_position(exercise_position)
 	

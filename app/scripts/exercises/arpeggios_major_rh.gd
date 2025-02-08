@@ -1,4 +1,5 @@
 # Right hand ascending arpeggios with correct fingerings for all major triads
+class_name MajorArpeggiosRH extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
@@ -109,4 +110,22 @@ static var a_flat_major_rh_arpeggio = [
 	FingeredNote.new("Ab5", Finger.PINKY, Hand.RIGHT_HAND),
 	FingeredNote.new("Eb5", Finger.MIDDLE, Hand.RIGHT_HAND),
 	FingeredNote.new("C5", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var g_sharp_major_rh_arpeggio = [
+	FingeredNote.new("G#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("B#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("D#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("G#5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("D#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("B#4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var d_flat_major_rh_arpeggio = [
+	FingeredNote.new("Db4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("F4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Db5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("F4", Finger.INDEX, Hand.RIGHT_HAND)
 ]

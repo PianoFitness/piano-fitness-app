@@ -1,4 +1,6 @@
 # Left hand ascending arpeggios with correct fingerings for all minor triads
+class_name MinorArpeggiosLH extends Resource
+
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 
@@ -108,4 +110,40 @@ static var a_flat_minor_lh_arpeggio = [
 	FingeredNote.new("Ab4", Finger.THUMB, Hand.LEFT_HAND),
 	FingeredNote.new("Eb4", Finger.INDEX, Hand.LEFT_HAND),
 	FingeredNote.new("Cb4", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var g_sharp_minor_lh_arpeggio = [
+	FingeredNote.new("G#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("G#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var d_sharp_minor_lh_arpeggio = [
+	FingeredNote.new("D#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("F#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("A#3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("A#3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("F#3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var a_sharp_minor_lh_arpeggio = [
+	FingeredNote.new("A#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("E#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("A#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("E#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var e_sharp_minor_lh_arpeggio = [
+	FingeredNote.new("E#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("G#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("B#3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("E#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("B#3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("G#3", Finger.MIDDLE, Hand.LEFT_HAND)
 ]

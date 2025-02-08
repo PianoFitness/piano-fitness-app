@@ -1,4 +1,6 @@
 # Right hand ascending arpeggios with correct fingerings for all minor triads
+class_name MinorArpeggiosRH extends Resource
+
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 
@@ -108,4 +110,40 @@ static var a_flat_minor_rh_arpeggio = [
 	FingeredNote.new("Ab5", Finger.PINKY, Hand.RIGHT_HAND),
 	FingeredNote.new("Eb5", Finger.MIDDLE, Hand.RIGHT_HAND),
 	FingeredNote.new("Cb5", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var g_sharp_minor_rh_arpeggio = [
+	FingeredNote.new("G#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("B4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("D#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("G#5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("D#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("B4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var d_sharp_minor_rh_arpeggio = [
+	FingeredNote.new("D#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("F#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("A#4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("D#5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("A#4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("F#4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var a_sharp_minor_rh_arpeggio = [
+	FingeredNote.new("A#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("C#5", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("E#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("A#5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("E#5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("C#5", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var e_sharp_minor_rh_arpeggio = [
+	FingeredNote.new("E#4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("G#4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("B#4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("E#5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("B#4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("G#4", Finger.INDEX, Hand.RIGHT_HAND)
 ]

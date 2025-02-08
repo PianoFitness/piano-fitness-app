@@ -111,3 +111,48 @@ static var a_flat_diminished_lh_arpeggio = [
 	FingeredNote.new("E4", Finger.INDEX, Hand.LEFT_HAND),
 	FingeredNote.new("Cb4", Finger.MIDDLE, Hand.LEFT_HAND)
 ]
+
+static var g_sharp_diminished_lh_arpeggio = [
+	FingeredNote.new("G#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("D4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("G#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("D4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var d_sharp_diminished_lh_arpeggio = [
+	FingeredNote.new("D#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("F#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("A3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("A3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("F#3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var e_sharp_diminished_lh_arpeggio = [
+	FingeredNote.new("E#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("G#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("E#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("B3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("G#3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var a_sharp_diminished_lh_arpeggio = [
+	FingeredNote.new("A#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("E4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("A#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("E4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("C#4", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var b_sharp_diminished_lh_arpeggio = [
+	FingeredNote.new("B#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("F#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("B#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("F#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.MIDDLE, Hand.LEFT_HAND)
+]
