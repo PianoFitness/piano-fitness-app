@@ -1,13 +1,13 @@
 class_name PracticeSequence
 extends Resource
 
-const FingeredNote = preload("res://scripts/models/fingered_note.gd")
-const NotePosition = preload("res://scripts/models/note_position.gd")
-
 enum ExerciseType {
 	SCALES,
 	CHORDS,
-	ARPEGGIOS
+	MAJOR_ARPEGGIOS,
+	MINOR_ARPEGGIOS,
+	DIMINISHED_ARPEGGIOS,
+	DIATONIC_ARPEGGIOS,
 }
 
 var sequence: Array[NotePosition] = []
