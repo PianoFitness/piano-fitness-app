@@ -20,18 +20,22 @@ const KEYS_PER_OCTAVE = 12
 const STARTING_MIDI_NOTE = 24 # Starting at C1
 
 enum MusicKey {
-	C,
-	G,
-	D,
-	A,
-	E,
-	B,
-	F_SHARP,
-	C_SHARP,
-	F,
-	B_FLAT,
-	E_FLAT,
-	A_FLAT
+	C, # No accidentals
+	G, # 1 sharp
+	D, # 2 sharps
+	A, # 3 sharps
+	E, # 4 sharps
+	B, # 5 sharps
+	F_SHARP, # 6 sharps
+	C_SHARP, # 7 sharps
+	G_SHARP, # 8 sharps
+	F, # 1 flat
+	B_FLAT, # 2 flats
+	E_FLAT, # 3 flats
+	A_FLAT, # 4 flats
+	D_FLAT, # 5 flats
+	G_FLAT, # 6 flats
+	C_FLAT, # 7 flats
 }
 
 const MUSIC_KEY_STRINGS = {
@@ -43,8 +47,12 @@ const MUSIC_KEY_STRINGS = {
 	MusicKey.B: "B",
 	MusicKey.F_SHARP: "F#",
 	MusicKey.C_SHARP: "C#",
+	MusicKey.G_SHARP: "G#",
 	MusicKey.F: "F",
 	MusicKey.B_FLAT: "Bb",
 	MusicKey.E_FLAT: "Eb",
-	MusicKey.A_FLAT: "Ab"
+	MusicKey.A_FLAT: "Ab",
+	MusicKey.D_FLAT: "Db",
+	MusicKey.G_FLAT: "Gb",
+	MusicKey.C_FLAT: "Cb"
 }

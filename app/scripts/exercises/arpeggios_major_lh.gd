@@ -112,15 +112,6 @@ static var a_flat_major_lh_arpeggio = [
 	FingeredNote.new("C4", Finger.MIDDLE, Hand.LEFT_HAND)
 ]
 
-static var g_sharp_major_lh_arpeggio = [
-	FingeredNote.new("G#3", Finger.PINKY, Hand.LEFT_HAND),
-	FingeredNote.new("B#3", Finger.MIDDLE, Hand.LEFT_HAND),
-	FingeredNote.new("D#4", Finger.INDEX, Hand.LEFT_HAND),
-	FingeredNote.new("G#4", Finger.THUMB, Hand.LEFT_HAND),
-	FingeredNote.new("D#4", Finger.INDEX, Hand.LEFT_HAND),
-	FingeredNote.new("B#3", Finger.MIDDLE, Hand.LEFT_HAND)
-]
-
 static var d_flat_major_lh_arpeggio = [
 	FingeredNote.new("Db3", Finger.PINKY, Hand.LEFT_HAND),
 	FingeredNote.new("F3", Finger.MIDDLE, Hand.LEFT_HAND),
@@ -128,4 +119,31 @@ static var d_flat_major_lh_arpeggio = [
 	FingeredNote.new("Db4", Finger.THUMB, Hand.LEFT_HAND),
 	FingeredNote.new("Ab3", Finger.INDEX, Hand.LEFT_HAND),
 	FingeredNote.new("F3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var g_flat_major_lh_arpeggio = [
+	FingeredNote.new("Gb3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("Bb3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("Db4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Gb4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("Db4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Bb3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var c_flat_major_lh_arpeggio = [
+	FingeredNote.new("Cb3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("Eb3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("Gb3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Cb4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("Gb3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Eb3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
+static var g_sharp_major_lh_arpeggio = [
+	FingeredNote.new("G#3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("B#3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("G#4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("D#4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("B#3", Finger.MIDDLE, Hand.LEFT_HAND)
 ]
