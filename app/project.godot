@@ -29,6 +29,10 @@ window/size/viewport_height=1080
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
+[gui]
+
+theme/custom="res://default_theme.tres"
+
 [rendering]
 
 renderer/rendering_method="mobile"
