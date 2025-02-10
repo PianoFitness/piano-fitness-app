@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dgm2q5f18stbv"]
+
+[ext_resource type="FontFile" uid="uid://brqoxuewbltuk" path="res://assets/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf" id="1_5xlyc"]
+
+[resource]
+default_font = ExtResource("1_5xlyc")
+default_font_size = 20
