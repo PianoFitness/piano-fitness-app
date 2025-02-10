@@ -314,21 +314,10 @@ func create_major_arpeggios_2_octave(music_key: MusicalConstants.MusicKey, hand:
 ## Returns:
 ##   Array[int]: An array of MusicKey enum values representing the practice keys
 func get_practice_keys():
-	var practice_keys = [
-		MusicalConstants.MusicKey.C, # 0 accidentals
-		MusicalConstants.MusicKey.G, # 1 sharp
-		MusicalConstants.MusicKey.D, # 2 sharps
-		MusicalConstants.MusicKey.A, # 3 sharps
-		MusicalConstants.MusicKey.E, # 4 sharps
-		MusicalConstants.MusicKey.B, # 5 sharps
-		MusicalConstants.MusicKey.F_SHARP, # 6 sharps
-		MusicalConstants.MusicKey.C_SHARP, # 7 sharps
-		MusicalConstants.MusicKey.F, # 1 flat
-		MusicalConstants.MusicKey.B_FLAT, # 2 flats
-		MusicalConstants.MusicKey.E_FLAT, # 3 flats
-		MusicalConstants.MusicKey.A_FLAT, # 4 flats
-		MusicalConstants.MusicKey.D_FLAT, # 5 flats
-		MusicalConstants.MusicKey.G_FLAT, # 6 flats
-		MusicalConstants.MusicKey.C_FLAT # 7 flats
-	]
-	return practice_keys
+	var keys = []
+
+	for key_value in range(MusicalConstants.MusicKey.size()):
+		if key_value == MusicalConstants.MusicKey.G_SHARP:
+			continue # Skip G# as it requires double accidentals
+		keys.append(key_value)
+	return keys
