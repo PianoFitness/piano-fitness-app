@@ -10,7 +10,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s2q7l"]
 shader = ExtResource("6_v0a7s")
 shader_parameter/top_color = Color(0.241298, 0.45667, 0.596276, 1)
-shader_parameter/bottom_color = Color(0.428372, 0.418785, 0.605246, 1)
+shader_parameter/bottom_color = Color(0.607843, 0.419608, 0.603922, 1)
 
 [node name="Piano" type="Control"]
 layout_mode = 3

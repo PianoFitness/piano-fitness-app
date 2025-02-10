@@ -56,3 +56,16 @@ const MUSIC_KEY_STRINGS = {
 	MusicKey.G_FLAT: "Gb",
 	MusicKey.C_FLAT: "Cb"
 }
+
+## Returns an array of musical keys for practice, excluding keys that require double accidentals.
+## Practice keys are those with 7 or fewer accidentals in their key signatures.
+## Returns:
+##   Array[int]: An array of MusicKey enum values representing the practice keys
+static func get_practice_keys():
+	var keys = []
+
+	for key_value in range(MusicKey.size()):
+		if key_value == MusicKey.G_SHARP:
+			continue # Skip G# as it requires double accidentals
+		keys.append(key_value)
+	return keys

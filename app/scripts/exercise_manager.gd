@@ -61,7 +61,7 @@ func _initialize_dropdowns():
 
 func _update_key_dropdown():
 	music_key_dropdown.clear()
-	var practice_keys = get_practice_keys()
+	var practice_keys = MusicalConstants.get_practice_keys()
 	for practice_key in practice_keys:
 		var key_value = int(practice_key)
 		if MusicalConstants.MUSIC_KEY_STRINGS.has(key_value):
