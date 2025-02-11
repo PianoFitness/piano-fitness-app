@@ -13,6 +13,15 @@ static var c_major_lh_arpeggio = [
 	FingeredNote.new("E3", Finger.MIDDLE, Hand.LEFT_HAND)
 ]
 
+static var f_flat_major_lh_arpeggio = [
+	FingeredNote.new("Fb3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("Ab3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("Cb4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Fb4", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("Cb4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Ab3", Finger.MIDDLE, Hand.LEFT_HAND)
+]
+
 static var g_major_lh_arpeggio = [
 	FingeredNote.new("G3", Finger.PINKY, Hand.LEFT_HAND),
 	FingeredNote.new("B3", Finger.MIDDLE, Hand.LEFT_HAND),
