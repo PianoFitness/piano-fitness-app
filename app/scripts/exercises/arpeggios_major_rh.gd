@@ -112,6 +112,33 @@ static var a_flat_major_rh_arpeggio = [
 	FingeredNote.new("C5", Finger.INDEX, Hand.RIGHT_HAND)
 ]
 
+static var d_flat_major_rh_arpeggio = [
+	FingeredNote.new("Db4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("F4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Db5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("F4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var g_flat_major_rh_arpeggio = [
+	FingeredNote.new("Gb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Bb4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Db5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Gb5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Db5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Bb4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var c_flat_major_rh_arpeggio = [
+	FingeredNote.new("Cb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Eb4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Gb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Cb5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Gb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Eb4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
 static var g_sharp_major_rh_arpeggio = [
 	FingeredNote.new("G#4", Finger.THUMB, Hand.RIGHT_HAND),
 	FingeredNote.new("B#4", Finger.INDEX, Hand.RIGHT_HAND),
@@ -121,11 +148,11 @@ static var g_sharp_major_rh_arpeggio = [
 	FingeredNote.new("B#4", Finger.INDEX, Hand.RIGHT_HAND)
 ]
 
-static var d_flat_major_rh_arpeggio = [
-	FingeredNote.new("Db4", Finger.THUMB, Hand.RIGHT_HAND),
-	FingeredNote.new("F4", Finger.INDEX, Hand.RIGHT_HAND),
-	FingeredNote.new("Ab4", Finger.MIDDLE, Hand.RIGHT_HAND),
-	FingeredNote.new("Db5", Finger.PINKY, Hand.RIGHT_HAND),
-	FingeredNote.new("Ab4", Finger.MIDDLE, Hand.RIGHT_HAND),
-	FingeredNote.new("F4", Finger.INDEX, Hand.RIGHT_HAND)
+static var f_flat_major_rh_arpeggio = [
+	FingeredNote.new("Fb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Cb5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Fb5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Cb5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.INDEX, Hand.RIGHT_HAND)
 ]

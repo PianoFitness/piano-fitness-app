@@ -1,3 +1,5 @@
+class_name ArpeggiosMajor
+
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 
@@ -52,6 +54,18 @@ var exercises = {
 	MusicalConstants.MusicKey.A_FLAT: {
 		Hand.RIGHT_HAND: MajorArpeggiosRH.a_flat_major_rh_arpeggio,
 		Hand.LEFT_HAND: MajorArpeggiosLH.a_flat_major_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		Hand.RIGHT_HAND: MajorArpeggiosRH.d_flat_major_rh_arpeggio,
+		Hand.LEFT_HAND: MajorArpeggiosLH.d_flat_major_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.G_FLAT: {
+		Hand.RIGHT_HAND: MajorArpeggiosRH.g_flat_major_rh_arpeggio,
+		Hand.LEFT_HAND: MajorArpeggiosLH.g_flat_major_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.C_FLAT: {
+		Hand.RIGHT_HAND: MajorArpeggiosRH.c_flat_major_rh_arpeggio,
+		Hand.LEFT_HAND: MajorArpeggiosLH.c_flat_major_lh_arpeggio
 	}
 }
 

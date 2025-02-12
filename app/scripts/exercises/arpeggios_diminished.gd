@@ -55,6 +55,14 @@ var exercises = {
 	MusicalConstants.MusicKey.A_FLAT: {
 		Hand.RIGHT_HAND: RH_Arpeggios.a_flat_diminished_rh_arpeggio,
 		Hand.LEFT_HAND: LH_Arpeggios.a_flat_diminished_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.C_FLAT: {
+		Hand.RIGHT_HAND: RH_Arpeggios.c_flat_diminished_rh_arpeggio,
+		Hand.LEFT_HAND: LH_Arpeggios.c_flat_diminished_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		Hand.RIGHT_HAND: RH_Arpeggios.d_flat_diminished_rh_arpeggio,
+		Hand.LEFT_HAND: LH_Arpeggios.d_flat_diminished_lh_arpeggio
 	}
 }
 

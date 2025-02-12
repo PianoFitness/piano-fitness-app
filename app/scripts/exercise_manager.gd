@@ -27,6 +27,7 @@ signal add_finger_indicator(note: FingeredNote, is_current: bool)
 @onready var minor_arpeggios = preload("res://scripts/exercises/arpeggios_minor.gd").new()
 @onready var diminished_arpeggios = preload("res://scripts/exercises/arpeggios_diminished.gd").new()
 @onready var diatonic_arpeggios = preload("res://scripts/exercises/arpeggios_diatonic.gd").new()
+@onready var major_arpeggios_2_octave = preload("res://scripts/exercises/arpeggios_major_2_octave.gd").new()
 
 # State tracking variables
 var current_sequence: PracticeSequence # The current exercise sequence
@@ -54,14 +55,22 @@ func _initialize_dropdowns():
 	exercise_type_dropdown.add_item("Minor Arpeggios")
 	exercise_type_dropdown.add_item("Diminished Arpeggios")
 	exercise_type_dropdown.add_item("Diatonic Arpeggios")
+	exercise_type_dropdown.add_item("Major Arpeggios 2 Octave")
 	
 	_update_key_dropdown()
 
 func _update_key_dropdown():
 	music_key_dropdown.clear()
-	for key in MusicalConstants.MusicKey.values():
-		music_key_dropdown.add_item(MusicalConstants.MUSIC_KEY_STRINGS[key])
-
+	var practice_keys = MusicalConstants.get_practice_keys()
+	for practice_key in practice_keys:
+		var key_value = int(practice_key)
+		if MusicalConstants.MUSIC_KEY_STRINGS.has(key_value):
+			var key_string = MusicalConstants.MUSIC_KEY_STRINGS[key_value]
+			print("Adding key: ", key_string, " (enum value: ", key_value, ")")
+			music_key_dropdown.add_item(key_string)
+		else:
+			push_warning("Missing string representation for key value: " + str(key_value))
+			
 func _on_exercise_type_selected(_index):
 	_update_key_dropdown()
 	_update_exercise()
@@ -90,6 +99,8 @@ func _update_exercise():
 		exercise_type = PracticeSequence.ExerciseType.DIMINISHED_ARPEGGIOS
 	elif exercise_type_str == "Diatonic Arpeggios":
 		exercise_type = PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS
+	elif exercise_type_str == "Major Arpeggios 2 Octave":
+		exercise_type = PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS_2_OCTAVE
 	else:
 		exercise_type = PracticeSequence.ExerciseType.SCALES
 	
@@ -108,7 +119,8 @@ func _update_exercise():
 		PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS: "create_major_arpeggios",
 		PracticeSequence.ExerciseType.MINOR_ARPEGGIOS: "create_minor_arpeggios",
 		PracticeSequence.ExerciseType.DIMINISHED_ARPEGGIOS: "create_diminished_arpeggios",
-		PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS: "create_diatonic_arpeggios"
+		PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS: "create_diatonic_arpeggios",
+		PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS_2_OCTAVE: "create_major_arpeggios_2_octave"
 	}
 	
 	if exercises.has(exercise_type):
@@ -282,6 +294,16 @@ func create_diatonic_arpeggios(music_key: MusicalConstants.MusicKey, hand: Hand)
 	practice_sequence.exercise_type = PracticeSequence.ExerciseType.DIATONIC_ARPEGGIOS
 	
 	var exercise = diatonic_arpeggios.get_exercise(music_key, hand)
+	for exercise_position in exercise:
+		practice_sequence.add_position(exercise_position)
+	
+	return practice_sequence
+
+func create_major_arpeggios_2_octave(music_key: MusicalConstants.MusicKey, hand: Hand) -> PracticeSequence:
+	var practice_sequence = PracticeSequence.new()
+	practice_sequence.exercise_type = PracticeSequence.ExerciseType.MAJOR_ARPEGGIOS_2_OCTAVE
+	
+	var exercise = major_arpeggios_2_octave.get_exercise(music_key, hand)
 	for exercise_position in exercise:
 		practice_sequence.add_position(exercise_position)
 	

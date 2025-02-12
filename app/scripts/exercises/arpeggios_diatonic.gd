@@ -120,6 +120,33 @@ var exercises_rh = {
 		"V": MajorArpeggiosRH.e_flat_major_rh_arpeggio,
 		"vi": MinorArpeggiosRH.f_minor_rh_arpeggio,
 		"vii°": DiminishedArpeggiosRH.g_diminished_rh_arpeggio
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		"I": MajorArpeggiosRH.d_flat_major_rh_arpeggio,
+		"ii": MinorArpeggiosRH.e_flat_minor_rh_arpeggio,
+		"iii": MinorArpeggiosRH.f_minor_rh_arpeggio,
+		"IV": MajorArpeggiosRH.g_flat_major_rh_arpeggio,
+		"V": MajorArpeggiosRH.a_flat_major_rh_arpeggio,
+		"vi": MinorArpeggiosRH.b_flat_minor_rh_arpeggio,
+		"vii°": DiminishedArpeggiosRH.c_diminished_rh_arpeggio
+	},
+	MusicalConstants.MusicKey.G_FLAT: {
+		"I": MajorArpeggiosRH.g_flat_major_rh_arpeggio,
+		"ii": MinorArpeggiosRH.a_flat_minor_rh_arpeggio,
+		"iii": MinorArpeggiosRH.b_flat_minor_rh_arpeggio,
+		"IV": MajorArpeggiosRH.c_flat_major_rh_arpeggio,
+		"V": MajorArpeggiosRH.d_flat_major_rh_arpeggio,
+		"vi": MinorArpeggiosRH.e_flat_minor_rh_arpeggio,
+		"vii°": DiminishedArpeggiosRH.f_diminished_rh_arpeggio
+	},
+	MusicalConstants.MusicKey.C_FLAT: {
+		"I": MajorArpeggiosRH.c_flat_major_rh_arpeggio,
+		"ii": MinorArpeggiosRH.d_flat_minor_rh_arpeggio,
+		"iii": MinorArpeggiosRH.e_flat_minor_rh_arpeggio,
+		"IV": MajorArpeggiosRH.f_flat_major_rh_arpeggio,
+		"V": MajorArpeggiosRH.g_flat_major_rh_arpeggio,
+		"vi": MinorArpeggiosRH.a_flat_minor_rh_arpeggio,
+		"vii°": DiminishedArpeggiosRH.b_flat_diminished_rh_arpeggio
 	}
 }
 
@@ -231,6 +258,33 @@ var exercises_lh = {
 		"V": MajorArpeggiosLH.e_flat_major_lh_arpeggio,
 		"vi": MinorArpeggiosLH.f_minor_lh_arpeggio,
 		"vii°": DiminishedArpeggiosLH.g_diminished_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		"I": MajorArpeggiosLH.d_flat_major_lh_arpeggio,
+		"ii": MinorArpeggiosLH.e_flat_minor_lh_arpeggio,
+		"iii": MinorArpeggiosLH.f_minor_lh_arpeggio,
+		"IV": MajorArpeggiosLH.g_flat_major_lh_arpeggio,
+		"V": MajorArpeggiosLH.a_flat_major_lh_arpeggio,
+		"vi": MinorArpeggiosLH.b_flat_minor_lh_arpeggio,
+		"vii°": DiminishedArpeggiosLH.c_diminished_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.G_FLAT: {
+		"I": MajorArpeggiosLH.g_flat_major_lh_arpeggio,
+		"ii": MinorArpeggiosLH.a_flat_minor_lh_arpeggio,
+		"iii": MinorArpeggiosLH.b_flat_minor_lh_arpeggio,
+		"IV": MajorArpeggiosLH.c_flat_major_lh_arpeggio,
+		"V": MajorArpeggiosLH.d_flat_major_lh_arpeggio,
+		"vi": MinorArpeggiosLH.e_flat_minor_lh_arpeggio,
+		"vii°": DiminishedArpeggiosLH.f_diminished_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.C_FLAT: {
+		"I": MajorArpeggiosLH.c_flat_major_lh_arpeggio,
+		"ii": MinorArpeggiosLH.d_flat_minor_lh_arpeggio,
+		"iii": MinorArpeggiosLH.e_flat_minor_lh_arpeggio,
+		"IV": MajorArpeggiosLH.f_flat_major_lh_arpeggio,
+		"V": MajorArpeggiosLH.g_flat_major_lh_arpeggio,
+		"vi": MinorArpeggiosLH.a_flat_minor_lh_arpeggio,
+		"vii°": DiminishedArpeggiosLH.b_flat_diminished_lh_arpeggio
 	}
 }
 

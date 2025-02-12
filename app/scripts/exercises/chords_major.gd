@@ -509,6 +509,48 @@ var c_sharp_major_lh_inversions: Array[NotePosition] = [
 	])
 ]
 
+var d_flat_major_rh_inversions: Array[NotePosition] = [
+	# Root position: Db4(1) - F4(3) - Ab4(5)
+	NotePosition.new([
+		FingeredNote.new("Db4", Finger.THUMB, Hand.RIGHT_HAND),
+		FingeredNote.new("F4", Finger.MIDDLE, Hand.RIGHT_HAND),
+		FingeredNote.new("Ab4", Finger.PINKY, Hand.RIGHT_HAND)
+	]),
+	# First inversion: F4(1) - Ab4(2) - Db5(5)
+	NotePosition.new([
+		FingeredNote.new("F4", Finger.THUMB, Hand.RIGHT_HAND),
+		FingeredNote.new("Ab4", Finger.INDEX, Hand.RIGHT_HAND),
+		FingeredNote.new("Db5", Finger.PINKY, Hand.RIGHT_HAND)
+	]),
+	# Second inversion: Ab4(1) - Db5(3) - F5(5)
+	NotePosition.new([
+		FingeredNote.new("Ab4", Finger.THUMB, Hand.RIGHT_HAND),
+		FingeredNote.new("Db5", Finger.MIDDLE, Hand.RIGHT_HAND),
+		FingeredNote.new("F5", Finger.PINKY, Hand.RIGHT_HAND)
+	])
+]
+
+var d_flat_major_lh_inversions: Array[NotePosition] = [
+	# Root position: Db3(5) - F3(3) - Ab3(1)
+	NotePosition.new([
+		FingeredNote.new("Db3", Finger.PINKY, Hand.LEFT_HAND),
+		FingeredNote.new("F3", Finger.MIDDLE, Hand.LEFT_HAND),
+		FingeredNote.new("Ab3", Finger.THUMB, Hand.LEFT_HAND)
+	]),
+	# First inversion: F3(5) - Ab3(2) - Db4(1)
+	NotePosition.new([
+		FingeredNote.new("F3", Finger.PINKY, Hand.LEFT_HAND),
+		FingeredNote.new("Ab3", Finger.INDEX, Hand.LEFT_HAND),
+		FingeredNote.new("Db4", Finger.THUMB, Hand.LEFT_HAND)
+	]),
+	# Second inversion: Ab3(5) - Db4(3) - F4(1)
+	NotePosition.new([
+		FingeredNote.new("Ab3", Finger.PINKY, Hand.LEFT_HAND),
+		FingeredNote.new("Db4", Finger.MIDDLE, Hand.LEFT_HAND),
+		FingeredNote.new("F4", Finger.THUMB, Hand.LEFT_HAND)
+	])
+]
+
 var exercises: Dictionary = {
 	MusicalConstants.MusicKey.C: {
 		Hand.RIGHT_HAND: c_major_rh_inversions,
@@ -557,6 +599,10 @@ var exercises: Dictionary = {
 	MusicalConstants.MusicKey.A_FLAT: {
 		Hand.RIGHT_HAND: a_flat_major_rh_inversions,
 		Hand.LEFT_HAND: a_flat_major_lh_inversions
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		Hand.RIGHT_HAND: d_flat_major_rh_inversions,
+		Hand.LEFT_HAND: d_flat_major_lh_inversions
 	}
 }
 
