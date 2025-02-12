@@ -308,16 +308,3 @@ func create_major_arpeggios_2_octave(music_key: MusicalConstants.MusicKey, hand:
 		practice_sequence.add_position(exercise_position)
 	
 	return practice_sequence
-
-## Returns an array of musical keys for practice, excluding keys that require double accidentals.
-## Practice keys are those with 7 or fewer accidentals in their key signatures.
-## Returns:
-##   Array[int]: An array of MusicKey enum values representing the practice keys
-func get_practice_keys():
-	var keys = []
-
-	for key_value in range(MusicalConstants.MusicKey.size()):
-		if key_value == MusicalConstants.MusicKey.G_SHARP:
-			continue # Skip G# as it requires double accidentals
-		keys.append(key_value)
-	return keys
