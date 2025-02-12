@@ -13,6 +13,33 @@ static var c_diminished_rh_arpeggio = [
 	FingeredNote.new("Eb4", Finger.INDEX, Hand.RIGHT_HAND)
 ]
 
+static var c_flat_diminished_rh_arpeggio = [
+	FingeredNote.new("Cb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Ebb4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Gbb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Cb5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Gbb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Ebb4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var d_flat_diminished_rh_arpeggio = [
+	FingeredNote.new("Db4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Fb4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Abb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Db5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Abb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Fb4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
+static var g_flat_diminished_rh_arpeggio = [
+	FingeredNote.new("Gb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Bbb4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Dbb5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Gb5", Finger.PINKY, Hand.RIGHT_HAND),
+	FingeredNote.new("Dbb5", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Bbb4", Finger.INDEX, Hand.RIGHT_HAND)
+]
+
 static var g_diminished_rh_arpeggio = [
 	FingeredNote.new("G4", Finger.THUMB, Hand.RIGHT_HAND),
 	FingeredNote.new("Bb4", Finger.INDEX, Hand.RIGHT_HAND),

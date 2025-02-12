@@ -138,6 +138,17 @@ var a_flat_major_rh_1oct = [
 	FingeredNote.new("Ab5", Finger.PINKY, Hand.RIGHT_HAND)
 ]
 
+var d_flat_major_rh_1oct = [
+	FingeredNote.new("Db4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Eb4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("F4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("Gb4", Finger.THUMB, Hand.RIGHT_HAND),
+	FingeredNote.new("Ab4", Finger.INDEX, Hand.RIGHT_HAND),
+	FingeredNote.new("Bb4", Finger.MIDDLE, Hand.RIGHT_HAND),
+	FingeredNote.new("C5", Finger.RING, Hand.RIGHT_HAND),
+	FingeredNote.new("Db5", Finger.PINKY, Hand.RIGHT_HAND)
+]
+
 # Left hand ascending scales with correct fingerings
 var c_major_lh_1oct = [
 	FingeredNote.new("C3", Finger.PINKY, Hand.LEFT_HAND),
@@ -271,6 +282,17 @@ var a_flat_major_lh_1oct = [
 	FingeredNote.new("Ab4", Finger.THUMB, Hand.LEFT_HAND)
 ]
 
+var d_flat_major_lh_1oct = [
+	FingeredNote.new("Db3", Finger.PINKY, Hand.LEFT_HAND),
+	FingeredNote.new("Eb3", Finger.RING, Hand.LEFT_HAND),
+	FingeredNote.new("F3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("Gb3", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Ab3", Finger.THUMB, Hand.LEFT_HAND),
+	FingeredNote.new("Bb3", Finger.MIDDLE, Hand.LEFT_HAND),
+	FingeredNote.new("C4", Finger.INDEX, Hand.LEFT_HAND),
+	FingeredNote.new("Db4", Finger.THUMB, Hand.LEFT_HAND)
+]
+
 var exercises = {
 	MusicalConstants.MusicKey.C: {
 		Hand.RIGHT_HAND: c_major_rh_1oct,
@@ -319,6 +341,10 @@ var exercises = {
 	MusicalConstants.MusicKey.A_FLAT: {
 		Hand.RIGHT_HAND: a_flat_major_rh_1oct,
 		Hand.LEFT_HAND: a_flat_major_lh_1oct
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		Hand.RIGHT_HAND: d_flat_major_rh_1oct,
+		Hand.LEFT_HAND: d_flat_major_lh_1oct
 	}
 }
 

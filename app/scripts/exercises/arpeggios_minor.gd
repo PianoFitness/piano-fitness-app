@@ -52,6 +52,10 @@ var exercises = {
 	MusicalConstants.MusicKey.A_FLAT: {
 		Hand.RIGHT_HAND: MinorArpeggiosRH.a_flat_minor_rh_arpeggio,
 		Hand.LEFT_HAND: MinorArpeggiosLH.a_flat_minor_lh_arpeggio
+	},
+	MusicalConstants.MusicKey.D_FLAT: {
+		Hand.RIGHT_HAND: MinorArpeggiosRH.d_flat_minor_rh_arpeggio,
+		Hand.LEFT_HAND: MinorArpeggiosLH.d_flat_minor_lh_arpeggio
 	}
 }
 

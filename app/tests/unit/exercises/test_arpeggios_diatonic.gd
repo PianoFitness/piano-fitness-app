@@ -11,7 +11,7 @@ class TestArpeggiosDiatonic:
 	func before_each():
 		_diatonic_arpeggios = DiatonicArpeggios.new()
 
-	func test_arpeggios_diatonic_exercises_rh_contains_practice_keys():
+	func test_arpeggios_diatonic_exercises_contains_practice_keys():
 		var practice_keys = MusicalConstants.get_practice_keys()
 		for key in practice_keys:
 			var key_str = MusicalConstants.MUSIC_KEY_STRINGS[key]

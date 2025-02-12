@@ -29,6 +29,10 @@ enum MusicKey {
 	F_SHARP, # 6 sharps
 	C_SHARP, # 7 sharps
 	G_SHARP, # 8 sharps
+	D_SHARP, # 9 sharps
+	A_SHARP, # 10 sharps
+	E_SHARP, # 11 sharps
+	B_SHARP, # 12 sharps
 	F, # 1 flat
 	B_FLAT, # 2 flats
 	E_FLAT, # 3 flats
@@ -36,6 +40,7 @@ enum MusicKey {
 	D_FLAT, # 5 flats
 	G_FLAT, # 6 flats
 	C_FLAT, # 7 flats
+	F_FLAT # 8 flats
 }
 
 const MUSIC_KEY_STRINGS = {
@@ -48,24 +53,47 @@ const MUSIC_KEY_STRINGS = {
 	MusicKey.F_SHARP: "F#",
 	MusicKey.C_SHARP: "C#",
 	MusicKey.G_SHARP: "G#",
+	MusicKey.D_SHARP: "D#",
+	MusicKey.A_SHARP: "A#",
+	MusicKey.E_SHARP: "E#",
+	MusicKey.B_SHARP: "B#",
 	MusicKey.F: "F",
 	MusicKey.B_FLAT: "Bb",
 	MusicKey.E_FLAT: "Eb",
 	MusicKey.A_FLAT: "Ab",
 	MusicKey.D_FLAT: "Db",
 	MusicKey.G_FLAT: "Gb",
-	MusicKey.C_FLAT: "Cb"
+	MusicKey.C_FLAT: "Cb",
+	MusicKey.F_FLAT: "Fb",
 }
 
-## Returns an array of musical keys for practice, excluding keys that require double accidentals.
-## Practice keys are those with 7 or fewer accidentals in their key signatures.
-## Returns:
-##   Array[int]: An array of MusicKey enum values representing the practice keys
-static func get_practice_keys():
-	var keys = []
+const EXCLUDED_PRACTICE_KEYS = [
+    MusicKey.G_SHARP, # 8 sharps (theoretical key, enharmonic with A♭)
+    MusicKey.D_SHARP, # 9 sharps (theoretical key, enharmonic with E♭)
+    MusicKey.A_SHARP, # 10 sharps (theoretical key, enharmonic with B♭)
+    MusicKey.E_SHARP, # 11 sharps (theoretical key, enharmonic with F)
+    MusicKey.B_SHARP, # 12 sharps (theoretical key, enharmonic with C)
+	MusicKey.G_FLAT, # 6 flats (enharmonic with F♯, prefer F♯ in practice)
+    MusicKey.C_FLAT, # 7 flats (theoretical key, enharmonic with B)
+	MusicKey.F_FLAT # 8 flats (theoretical key, enharmonic with E)
+]
 
-	for key_value in range(MusicKey.size()):
-		if key_value == MusicKey.G_SHARP:
-			continue # Skip G# as it requires double accidentals
-		keys.append(key_value)
-	return keys
+## Returns an array of musical keys suitable for practice and teaching.
+## Excludes impractical keys that:
+## - Require double accidentals (more than 7 sharps)
+## - Have enharmonic equivalents that are more commonly used
+## - Would be confusing for students learning music theory
+## Returns:
+##   Array[MusicKey]: Practical keys ordered by complexity (following circle of fifths)
+static func get_practice_keys() -> Array[MusicKey]:
+    # Create a list of all possible key values
+    var all_keys: Array[MusicKey] = []
+    for key_value in range(MusicKey.size()):
+        all_keys.append(key_value)
+    
+    # Filter out excluded keys using the predefined constant
+    var practice_keys: Array[MusicKey] = all_keys.filter(
+        func(key): return not (key in EXCLUDED_PRACTICE_KEYS)
+    )
+    
+    return practice_keys

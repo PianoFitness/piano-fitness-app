@@ -1,3 +1,5 @@
+class_name ArpeggiosMajor
+
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 
