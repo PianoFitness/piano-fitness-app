@@ -2,6 +2,7 @@ class_name ArpeggiosMajor
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
+const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 
 var MajorArpeggiosLH = preload("res://scripts/exercises/arpeggios_major_lh.gd").new()
 var MajorArpeggiosRH = preload("res://scripts/exercises/arpeggios_major_rh.gd").new()

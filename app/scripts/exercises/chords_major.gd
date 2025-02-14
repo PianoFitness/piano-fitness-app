@@ -4,6 +4,7 @@ const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 const NotePosition = preload("res://scripts/models/note_position.gd")
+const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 
 var c_major_rh_inversions: Array[NotePosition] = [
 	# Root position: C4(1) - E4(3) - G4(5)

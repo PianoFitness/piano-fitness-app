@@ -4,7 +4,7 @@ extends GutTest
 class TestArpeggiosDiatonic:
 	extends GutTest
 	var DiatonicArpeggios = load("res://scripts/exercises/arpeggios_diatonic.gd")
-	var MusicalConstants = load("res://scripts/autoload/musical_constants.gd")
+	var MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 	var Hand = load("res://scripts/constants/hand.gd").Hand
 	var _diatonic_arpeggios = null
 

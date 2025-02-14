@@ -1,7 +1,8 @@
 extends Node2D
 
-const Hand = preload("res://scripts/constants/hand.gd").Hand
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
+const Hand = preload("res://scripts/constants/hand.gd").Hand
+const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 
 # Piano physical layout constants - These define the visual arrangement of piano keys
 const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys

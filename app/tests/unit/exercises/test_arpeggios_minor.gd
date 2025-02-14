@@ -3,7 +3,7 @@ extends GutTest
 class TestArpeggiosMinor:
 	extends GutTest
 	var MinorArpeggios = load("res://scripts/exercises/arpeggios_minor.gd")
-	var MusicalConstants = load("res://scripts/autoload/musical_constants.gd")
+	var MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 	var _minor_arpeggios = null
 
 	func before_each():

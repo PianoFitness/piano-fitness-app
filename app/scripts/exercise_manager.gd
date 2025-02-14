@@ -1,5 +1,6 @@
 extends Control
 
+const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 const NotePosition = preload("res://scripts/models/note_position.gd")
