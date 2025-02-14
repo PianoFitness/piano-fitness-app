@@ -15,10 +15,6 @@ run/main_scene="res://scenes/piano.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Colors="res://scripts/autoload/colors.gd"
-
 [display]
 
 window/size/viewport_width=1920
