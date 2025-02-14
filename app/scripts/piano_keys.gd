@@ -1,7 +1,9 @@
 extends Node2D
 
-const Hand = preload("res://scripts/constants/hand.gd").Hand
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
+const Hand = preload("res://scripts/constants/hand.gd").Hand
+const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
+const Colors = preload("res://scripts/constants/colors.gd")
 
 # Piano physical layout constants - These define the visual arrangement of piano keys
 const WHITE_KEY_OFFSETS = [0, 2, 4, 5, 7, 9, 11] # Semitone offsets for white keys
@@ -48,6 +50,7 @@ var white_keys = {} # Dictionary of white key nodes indexed by MIDI note
 var black_keys = {} # Dictionary of black key nodes indexed by MIDI note
 var background_rect: ColorRect
 var finger_labels: Array[Label] = []
+var red_line: ColorRect
 
 func create_piano_keys(viewport_size: Vector2):
 	var total_white_keys = WHITE_KEYS_PER_OCTAVE * OCTAVE_COUNT
@@ -140,10 +143,19 @@ func _connect_signals():
 
 func setup_background():
 	background_rect = ColorRect.new()
-	background_rect.color = Colors.BACKGROUND_COLOR
-	background_rect.z_index = -1
+	background_rect.color = Colors.FINGER_DISPLAY_BACKGROUND_COLOR
+	background_rect.z_index = 0
 	add_child(background_rect)
+	create_red_line()
 	update_background_size()
+
+func create_red_line():
+	red_line = ColorRect.new()
+	red_line.color = Colors.MAROON_COLOR  # Use the maroon color constant
+	red_line.size = Vector2(get_viewport_rect().size.x, 2)  # Thin line
+	red_line.position = Vector2(0, 0)  # Position at the bottom of the finger display
+	red_line.z_index = 1
+	add_child(red_line)
 
 func _process(delta):
 	update_background_size()
@@ -153,6 +165,9 @@ func update_background_size():
 		var viewport_size = get_viewport_rect().size
 		background_rect.size = Vector2(viewport_size.x, BACKGROUND_HEIGHT)
 		background_rect.position = Vector2(0, -BACKGROUND_HEIGHT)
+		if red_line:
+			red_line.size = Vector2(viewport_size.x, 2)
+			red_line.position = Vector2(0, 0)  # Position at the bottom of the finger display
 
 func clear_indicators():
 	for label in finger_labels:

@@ -3,7 +3,7 @@ extends GutTest
 class TestScalesMajor:
 	extends GutTest
 	var ScalesMajor = load("res://scripts/exercises/scales_major.gd")
-	var MusicalConstants = load("res://scripts/autoload/musical_constants.gd")
+	var MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 	var _scales_major = null
 
 	func before_each():

@@ -17,8 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-MusicalConstants="*res://scripts/autoload/musical_constants.gd"
-Colors="*res://scripts/autoload/colors.gd"
+Colors="res://scripts/autoload/colors.gd"
 
 [display]
 

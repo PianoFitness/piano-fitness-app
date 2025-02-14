@@ -3,7 +3,7 @@ extends GutTest
 class TestExerciseManager:
 	extends GutTest
 	var Hand = load("res://scripts/constants/hand.gd").Hand
-	var MusicalConstants = load("res://scripts/autoload/musical_constants.gd")
+	var MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 
 
 	func test_get_practice_keys_excludes_expected_keys():
