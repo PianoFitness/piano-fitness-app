@@ -141,8 +141,8 @@ func _connect_signals():
 
 func setup_background():
 	background_rect = ColorRect.new()
-	background_rect.color = Colors.BACKGROUND_COLOR
-	background_rect.z_index = -1
+	background_rect.color = Colors.FINGER_DISPLAY_BACKGROUND_COLOR
+	background_rect.z_index = 0
 	add_child(background_rect)
 	update_background_size()
 
