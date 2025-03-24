@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qnn08ykran7h"]
 
-[ext_resource type="Script" path="res://scripts/metronome.gd" id="1_m4k2l"]
+[ext_resource type="Script" uid="uid://cjfuw0a4fol80" path="res://scripts/metronome.gd" id="1_m4k2l"]
 [ext_resource type="Texture2D" uid="uid://dfe64iy37i1al" path="res://assets/images/metronome.svg" id="2_y7314"]
 
 [node name="Metronome" type="Control"]
