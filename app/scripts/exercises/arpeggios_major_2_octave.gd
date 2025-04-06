@@ -1,6 +1,9 @@
+extends Resource
+
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 var MajorArpeggiosRH2Octave = preload("res://scripts/exercises/arpeggios_major_rh_2_octave.gd").new()
 var MajorArpeggiosLH2Octave = preload("res://scripts/exercises/arpeggios_major_lh_2_octave.gd").new()

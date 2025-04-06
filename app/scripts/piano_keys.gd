@@ -151,9 +151,9 @@ func setup_background():
 
 func create_red_line():
 	red_line = ColorRect.new()
-	red_line.color = Colors.MAROON_COLOR  # Use the maroon color constant
-	red_line.size = Vector2(get_viewport_rect().size.x, 2)  # Thin line
-	red_line.position = Vector2(0, 0)  # Position at the bottom of the finger display
+	red_line.color = Colors.MAROON_COLOR # Use the maroon color constant
+	red_line.size = Vector2(get_viewport_rect().size.x, 2) # Thin line
+	red_line.position = Vector2(0, 0) # Position at the bottom of the finger display
 	red_line.z_index = 1
 	add_child(red_line)
 
@@ -167,14 +167,14 @@ func update_background_size():
 		background_rect.position = Vector2(0, -BACKGROUND_HEIGHT)
 		if red_line:
 			red_line.size = Vector2(viewport_size.x, 2)
-			red_line.position = Vector2(0, 0)  # Position at the bottom of the finger display
+			red_line.position = Vector2(0, 0) # Position at the bottom of the finger display
 
 func clear_indicators():
 	for label in finger_labels:
 		label.queue_free()
 	finger_labels.clear()
 
-func add_finger_indicator(note: FingeredNote, is_current: bool = false):
+func add_finger_indicator(note: FingeredNote):
 	var key_rect = get_key_rect_by_name(note.pitch)
 	
 	var label = Label.new()
@@ -193,7 +193,7 @@ func add_finger_indicator(note: FingeredNote, is_current: bool = false):
 	
 	label.position = Vector2(
 		key_rect.position.x + (key_rect.size.x / 2) - (label.size.x / 2) + x_adjustment,
-		-BACKGROUND_HEIGHT/2 - label.size.y/2
+		- BACKGROUND_HEIGHT / 2 - label.size.y / 2
 	)
 
 func _on_highlight_note_by_name(note_name: String, hand: Hand):
@@ -214,5 +214,5 @@ func _on_clear_highlighted_keys():
 func _on_clear_finger_indicators():
 	clear_indicators()
 
-func _on_add_finger_indicator(note: FingeredNote, is_current: bool):
-	add_finger_indicator(note, is_current)
+func _on_add_finger_indicator(note: FingeredNote):
+	add_finger_indicator(note)

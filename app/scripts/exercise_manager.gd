@@ -4,6 +4,7 @@ const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 const NotePosition = preload("res://scripts/models/note_position.gd")
+const PracticeSequence = preload("res://scripts/practice_sequence.gd")
 
 # Signals
 signal clear_highlighted_keys
@@ -14,7 +15,7 @@ signal note_validated(success: bool)
 signal highlight_note_by_name(note_name: String, hand: Hand)
 signal unhighlight_note_by_name(note_name: String)
 signal clear_finger_indicators
-signal add_finger_indicator(note: FingeredNote, is_current: bool)
+signal add_finger_indicator(note: FingeredNote)
 
 # Node references
 @onready var hand_dropdown = $HBoxContainer/HandDropdown
@@ -209,7 +210,7 @@ func update_display():
 	if current_position < current_sequence.sequence.size():
 		var current_notes = current_sequence.sequence[current_position].notes
 		for note in current_notes:
-			emit_signal("add_finger_indicator", note, true)
+			emit_signal("add_finger_indicator", note)
 
 # Highlight current chord notes
 func highlight_current_note():

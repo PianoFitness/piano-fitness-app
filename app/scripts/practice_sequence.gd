@@ -1,5 +1,6 @@
-class_name PracticeSequence
 extends Resource
+
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 enum ExerciseType {
 	SCALES,

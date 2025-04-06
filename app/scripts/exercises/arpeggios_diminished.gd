@@ -1,8 +1,9 @@
-class_name DiminishedArpeggioExercises extends Resource
+extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 # Import right-hand and left-hand diminished arpeggios
 const RH_Arpeggios = preload("res://scripts/exercises/arpeggios_diminished_rh.gd")
