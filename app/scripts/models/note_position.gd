@@ -1,4 +1,4 @@
-class_name NotePosition
+extends Resource
 
 const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 

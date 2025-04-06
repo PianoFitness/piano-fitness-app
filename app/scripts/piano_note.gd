@@ -1,4 +1,3 @@
-class_name PianoNote
 extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand

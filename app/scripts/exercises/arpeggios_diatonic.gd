@@ -1,9 +1,10 @@
 # Diatonic arpeggios for all keys
-class_name DiatonicArpeggios extends Resource
+extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 # Import major, minor, and diminished arpeggios
 const MajorArpeggiosRH = preload("res://scripts/exercises/arpeggios_major_rh.gd")

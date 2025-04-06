@@ -1,8 +1,9 @@
-class_name ArpeggiosMajor
+extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
 const MusicalConstants = preload("res://scripts/constants/musical_constants.gd")
+const NotePosition = preload("res://scripts/models/note_position.gd")
 
 var MajorArpeggiosLH = preload("res://scripts/exercises/arpeggios_major_lh.gd").new()
 var MajorArpeggiosRH = preload("res://scripts/exercises/arpeggios_major_rh.gd").new()

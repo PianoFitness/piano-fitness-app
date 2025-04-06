@@ -1,4 +1,4 @@
-class_name ScaleExercises extends Resource
+extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger

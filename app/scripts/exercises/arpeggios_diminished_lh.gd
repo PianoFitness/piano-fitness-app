@@ -1,8 +1,9 @@
 # Left hand ascending arpeggios with correct fingerings for all diminished triads
-class_name DiminishedArpeggiosLH extends Resource
+extends Resource
 
 const Hand = preload("res://scripts/constants/hand.gd").Hand
 const Finger = preload("res://scripts/constants/finger.gd").Finger
+const FingeredNote = preload("res://scripts/models/fingered_note.gd")
 
 static var c_diminished_lh_arpeggio = [
 	FingeredNote.new("C3", Finger.PINKY, Hand.LEFT_HAND),
