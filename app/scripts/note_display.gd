@@ -22,6 +22,7 @@ func _ready():
 	text = "No keys pressed"
 
 func get_note_name(midi_note: int) -> String:
+	@warning_ignore("integer_division")
 	var octave = (midi_note - 12) / MusicalConstants.KEYS_PER_OCTAVE
 	var note = (midi_note - 12) % MusicalConstants.KEYS_PER_OCTAVE
 	var note_name = MusicalConstants.MIDI_TO_NOTE_PREFERRED[note]

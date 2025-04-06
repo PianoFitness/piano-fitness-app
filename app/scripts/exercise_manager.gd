@@ -8,6 +8,7 @@ const PracticeSequence = preload("res://scripts/practice_sequence.gd")
 
 # Signals
 signal clear_highlighted_keys
+@warning_ignore("unused_signal")
 signal exercise_sequence_created(sequence: PracticeSequence)
 signal sequence_updated(current_position: int)
 signal sequence_completed
@@ -68,7 +69,7 @@ func _update_key_dropdown():
 		var key_value = int(practice_key)
 		if MusicalConstants.MUSIC_KEY_STRINGS.has(key_value):
 			var key_string = MusicalConstants.MUSIC_KEY_STRINGS[key_value]
-			print("Adding key: ", key_string, " (enum value: ", key_value, ")")
+
 			music_key_dropdown.add_item(key_string)
 		else:
 			push_warning("Missing string representation for key value: " + str(key_value))
@@ -236,6 +237,7 @@ func note_name_to_midi(note_name: String) -> int:
 	return -1
 
 func midi_to_note_name(midi_note: int) -> String:
+	@warning_ignore("integer_division")
 	var octave = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) / MusicalConstants.KEYS_PER_OCTAVE
 	var note_index = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) % MusicalConstants.KEYS_PER_OCTAVE
 	return MusicalConstants.MIDI_TO_NOTE_PREFERRED[note_index] + str(octave)

@@ -86,6 +86,7 @@ func note_name_to_midi(note_name: String) -> int:
 	return -1
 
 func midi_to_note_name(midi_note: int) -> String:
+	@warning_ignore("integer_division")
 	var octave = (midi_note - STARTING_MIDI_NOTE) / KEYS_PER_OCTAVE
 	var note_index = (midi_note - STARTING_MIDI_NOTE) % KEYS_PER_OCTAVE
 	return NOTE_NAMES[note_index] + str(octave)

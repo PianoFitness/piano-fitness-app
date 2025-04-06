@@ -124,6 +124,7 @@ func note_name_to_midi(note_name: String) -> int:
 	return -1
 
 func midi_to_note_name(midi_note: int) -> String:
+	@warning_ignore("integer_division")
 	var octave = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) / MusicalConstants.KEYS_PER_OCTAVE
 	var note_index = (midi_note - MusicalConstants.STARTING_MIDI_NOTE) % MusicalConstants.KEYS_PER_OCTAVE
 	return MusicalConstants.MIDI_TO_NOTE_PREFERRED[note_index] + str(octave)
@@ -157,7 +158,7 @@ func create_red_line():
 	red_line.z_index = 1
 	add_child(red_line)
 
-func _process(delta):
+func _process(_delta):
 	update_background_size()
 
 func update_background_size():
@@ -190,7 +191,7 @@ func add_finger_indicator(note: FingeredNote):
 	
 	var note_name = note.pitch.left(len(note.pitch) - 1)
 	var x_adjustment = KEY_ADJUSTMENTS.get(note_name, 0)
-	
+	@warning_ignore("integer_division")
 	label.position = Vector2(
 		key_rect.position.x + (key_rect.size.x / 2) - (label.size.x / 2) + x_adjustment,
 		- BACKGROUND_HEIGHT / 2 - label.size.y / 2
